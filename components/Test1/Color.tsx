@@ -91,39 +91,41 @@ const ColorBox = () => {
     };
 
     return (
-        <>
+        <div style={{backgroundImage: 'linear-gradient(105.07deg, #55D3D3 -64.38%, #2B3ABA 138.29%)', width: '100%', position: 'absolute', height: '95vh'}}>
             <div
                 id="progress-bar"
                 style={{
                     width: `${progressBarWidth}%`,
                     backgroundColor: 'red',
                     height: '20px',
+                    width: '0px',
                     transition: 'width 0.5s ease-in-out',
+                    position: 'relative',
                 }}></div>
             <div
                 id="color-box"
-                style={{ backgroundColor: color, height: '20px' }}></div>
+                style={{ backgroundColor: color, height: '500px', width: '50%', position: 'relative', left: '25%' }}></div>
             <div id="button-container">
                 <button
                     id="red-button"
                     onClick={() => checkAnswer('red')}
-                    style={{ backgroundColor: 'red', color: 'white' }}>
+                    style={{ backgroundColor: 'red', color: 'white', marginRight: '5%', marginLeft: '25%', marginTop: '5%', height: '50px', width: '200px' }}>
                     Red
                 </button>
                 <button
                     id="green-button"
                     onClick={() => checkAnswer('green')}
-                    style={{ backgroundColor: 'green', color: 'white' }}>
+                    style={{ backgroundColor: 'green', color: 'white', marginRight: '5%', height: '50px', width: '200px' }}>
                     Green
                 </button>
                 <button
                     id="blue-button"
                     onClick={() => checkAnswer('blue')}
-                    style={{ backgroundColor: 'blue', color: 'white' }}>
+                    style={{ backgroundColor: 'blue', color: 'white' , height: '50px', width: '200px' }}>
                     Blue
                 </button>
             </div>
-        </>
+        </div>
     );
 };
 

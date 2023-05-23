@@ -11,7 +11,7 @@ type Props = {}
 const AppLogoTitle = (props: Props) => {
     return (
         <Container href="/">
-            <AppTitle> OV Travels </AppTitle>
+            <AppTitle> ITMO University</AppTitle>
             <LogoImage 
                 src={LogoImgSrc}
                 alt="logo"

@@ -7,12 +7,16 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f9f9f9;
+
 
     @media (max-width: 768px) {
         background-color: #fff;
     }
+
+    background: linear-gradient(105.07deg, #55D3D3 -64.38%, #2B3ABA 138.29%);
 `
+
+    // background-color: #f9f9f9;
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
@@ -41,6 +45,7 @@ export const FormTitle = styled.h2`
     color: rgba(0, 0, 0, 0.5);
     text-align: center;
     padding: 1rem;
+    font-size: 30px;
 `
 
 export const Link = styled(NextLink)`

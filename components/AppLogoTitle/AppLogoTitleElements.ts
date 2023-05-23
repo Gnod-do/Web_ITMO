@@ -9,6 +9,10 @@ export const Container = styled(Link)`
     margin: 1rem 0;
     text-decoration: none;
     color: #23C687;
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px;
+    width: 25%;
 `
 
 export const AppTitle = styled.h2`

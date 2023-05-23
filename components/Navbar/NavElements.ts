@@ -9,8 +9,11 @@ export const Nav = styled.nav`
     justify-content: space-between;
     align-items: center;
     box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
+    height: 5vh;
+
 `;
 
+// background: #1E1E1E;
 export const LogoContainer = styled.div`
     padding-left: 1rem;
 `;

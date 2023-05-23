@@ -65,7 +65,7 @@ const Navbar = () => {
                 {size.width > 768 ? (
                     <>
                         <NavLink route="/">Home</NavLink>
-                        <NavLink route="/products">Products</NavLink>
+                        <NavLink route="/products">Grade</NavLink>
 
                         {session ? (
                             <NavLink route="/profile">
