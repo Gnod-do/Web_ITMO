@@ -49,12 +49,48 @@ const Navbar = () => {
                 <DropdownMenu
                     options={[
                         {
-                            label: 'test1',
-                            value: 'test1',
+                            label: 'colorTest',
+                            value: 'colorTest',
                         },
                         {
-                            label: 'test2',
-                            value: 'test2',
+                            label: 'lightTest',
+                            value: 'lightTest',
+                        },
+                        {
+                            label: 'analogStalking',
+                            value: 'analogStalking',
+                        },
+                        {
+                            label: 'analogTracking',
+                            value: 'analogTracking',
+                        },
+                        {
+                            label: 'attention',
+                            value: 'attention',
+                        },
+                        {
+                            label: 'thinking',
+                            value: 'thinking',
+                        },
+                        {
+                            label: 'memory',
+                            value: 'memory',
+                        },
+                        {
+                            label: 'thePursuit',
+                            value: 'thePursuit',
+                        },
+                        {
+                            label: 'tracking',
+                            value: 'tracking',
+                        },
+                        {
+                            label: 'additionInTheMind',
+                            value: 'additionInTheMind',
+                        },
+                        {
+                            label: 'AdditionInTheMindSound',
+                            value: 'AdditionInTheMindSound',
                         },
                     ]}
                     onSelect={onSelect}

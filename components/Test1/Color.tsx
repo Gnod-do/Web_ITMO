@@ -81,7 +81,7 @@ const ColorBox = () => {
         document.body.appendChild(congratulation);
     };
 
-    const checkAnswer = (cl: string) => {
+    const checkAnswer = (cl:any) => {
         if (color === cl) {
             setCorrectCount(correctCount + 1);
             showAlert();
@@ -98,7 +98,7 @@ const ColorBox = () => {
                     width: `${progressBarWidth}%`,
                     backgroundColor: 'red',
                     height: '20px',
-                    width: '0px',
+                    // width: '0px',
                     transition: 'width 0.5s ease-in-out',
                     position: 'relative',
                 }}></div>

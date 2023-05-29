@@ -1,4 +1,6 @@
 import '../styles/globals.css'
+import '../styles/progressBar.css'
+import '../styles/squareTest.css'
 import type { AppProps } from 'next/app'
 import Navbar from '../components/Navbar'
 import { useRouter } from 'next/router'
