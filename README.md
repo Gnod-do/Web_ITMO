@@ -34,3 +34,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Bổ sung làm các bài test
+- Đối với mỗi bài test tạo 1 thư mục riêng trong components 
+- Trong thư mục đó chứa các file tsx - file convert từ js (đã có code sẵn) 
+- Convert code từ js -> tsx (thêm các kiểu dữ liệu, thêm các kiểm tra undifine, ...) 
+- Sau khi hoàn thành các bước trên, đi tới các file test.tsx tương ứng trong thư mục pages
+- Ở các file này thì cần thêm các function (hoặc tag) đã tạo ở trong thư mục trên và return trả về 1 trang html (Xem file lightTest.tsx và compenents/lightTest để biết thêm) 
+- Sau đó thêm file css vào thư mục styles và import chúng vào file test.tsx để sử dụng.
+
