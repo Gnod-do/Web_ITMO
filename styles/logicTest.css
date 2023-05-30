@@ -1,0 +1,133 @@
+.back-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 30px;
+    border-radius: 20px;
+    background-color: rgb(220, 125, 36);
+    color: white;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+#start-button {
+    position: fixed;
+    top: 250px;
+    left: 1200px;
+}
+
+button#submit,button#start-button,button#end-test ,button.button,button#next,button#check,
+button.instructions-button{
+    background-color: rgb(220, 125, 36);
+    color: white;
+    border: none;
+    padding: 20px 40px;
+    cursor: pointer;
+    font-size: 16px;
+    outline: none;
+    border-radius: 40px;
+}
+
+button#check:hover,button#next:hover,button.button:hover, button#end-test :hover,button#submit:hover,button#start-button:hover,button#red:hover,button#green:hover,button#blue:hover,button#orange:hover,button#yellow:hover,button#pink:hover,
+button.instructions-button:hover, button.back-button:hover{
+    background-color: rgba(217, 145, 84, 0.84);
+}
+body {
+    font-family: sans-serif;
+    background: rgba(35, 35, 101, 0.45);
+    color: white;
+    text-align: center;
+    margin: 0;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(35, 35, 101, 0.45);
+}
+
+.modal-content {
+    background-color: rgba(35, 35, 101, 0.64);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #ffffff;
+    width: 80%;
+}
+
+.close {
+    color: rgba(255, 105, 51, 0.73);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #ff6933;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+progress {
+    width: 200px;
+    height: 20px;
+    background-color: rgba(26, 188, 156, 0.25);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 30px;
+
+}
+
+progress::-webkit-progress-value {
+    background-color: #1abc9c;
+    border-radius: 10px;
+}
+#boundary {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 500px;
+    height: 300px;
+    border: 2px solid black;
+}
+#answer {
+    padding: 10px;
+    border: 2px solid #707070;
+    background-color: #e1dbf5;
+    border-radius: 5px;
+    font-size: 18px;
+    outline: none;
+    width: 100px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  #answer:focus {
+    border-color: #f19b6d;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .test-text{
+    font-size: 26px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .answer-string{
+    margin: 30px;
+  }
+button#end-test{
+    margin-top: 20px;
+}

@@ -43,7 +43,7 @@ const lightTest = () => {
       <button
         className="back-button"
         onClick={() => {
-          location.href = "testPage.html";
+          location.href = "http://localhost:3000/";
         }}
       >
         Назад

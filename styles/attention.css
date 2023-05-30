@@ -1,0 +1,135 @@
+.back-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 30px;
+    border-radius: 20px;
+    background-color: rgb(220, 125, 36);
+    color: white;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+#word {
+    font-size: 45px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+#start{
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 30px;
+    
+}
+button#red,button#green,button#blue,button#orange,button#yellow,button#pink,button#start,
+button.instructions-button{
+    background-color: rgb(220, 125, 36);
+    color: white;
+    border: none;
+    padding: 20px 40px;
+    cursor: pointer;
+    font-size: 18px;
+    outline: none;
+    padding: 20px;
+    border-radius: 40px;
+}
+
+button#start:hover,button#red:hover,button#green:hover,button#blue:hover,button#orange:hover,button#yellow:hover,button#pink:hover,
+button.instructions-button:hover, button.back-button:hover{
+    background-color: rgba(217, 145, 84, 0.84);
+}
+body {
+    font-family: sans-serif;
+    background: rgba(35, 35, 101, 0.45);
+    color: white;
+    text-align: center;
+    margin: 0;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(35, 35, 101, 0.45);
+}
+
+.modal-content {
+    background-color: rgba(35, 35, 101, 0.64);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #ffffff;
+    width: 80%;
+}
+
+.close {
+    color: rgba(255, 105, 51, 0.73);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #ff6933;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+progress {
+    width: 200px;
+    height: 20px;
+    background-color: rgba(26, 188, 156, 0.25);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 30px;
+
+}
+
+progress::-webkit-progress-value {
+    background-color: #1abc9c;
+    border-radius: 10px;
+}
+#boundary {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 500px;
+    height: 300px;
+    border: 2px solid black;
+}
+button#red,button#green,button#blue,button#orange,button#yellow,button#pink{
+    width: 170px;
+    margin: 10px 5px;
+    height: 70px;
+    font-size: 20px;
+    
+}
+button#red:hover{
+    background-color: rgba(193, 59, 47, 0.683);
+}
+button#green:hover{
+    background-color: rgba(120, 151, 48, 0.655);
+}
+button#blue:hover{
+    background-color: rgba(71, 90, 188, 0.574);
+}
+button#orange:hover{
+    background-color: rgba(230, 137, 56, 0.751);
+}
+button#yellow:hover{
+    background-color: rgba(230, 204, 56, 0.751);
+}
+button#pink:hover{
+    background-color: rgba(189, 96, 160, 0.719);
+}
+
