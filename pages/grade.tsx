@@ -2,7 +2,7 @@ import React from 'react'
 
 type Props = {}
 
-const products = (props: Props) => {
+const grade = (props: Props) => {
     return (
         <>
             <p style={{textAlign: 'center' , margin: '10px 0', fontSize: '28px', fontWeight: '600'}}>РЕЗУЛЬТАТЫ</p>
@@ -78,4 +78,4 @@ const products = (props: Props) => {
     )
 }
 
-export default products
+export default grade
