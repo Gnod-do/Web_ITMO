@@ -13,8 +13,10 @@ const AdditionInTheMindSound = () => {
 
   const min = 10;
   const max = 99;
-  const average = document.getElementById("average");
-  let resultDiv = document.getElementById("result");
+  let average: HTMLInputElement;
+  let resultDiv: HTMLInputElement;
+  // let average = document.getElementById("average");
+  // let resultDiv = document.getElementById("result");
   let startTime: number;
   let a: number;
   let b: number;
@@ -44,7 +46,7 @@ const AdditionInTheMindSound = () => {
       return;
     }
     const [a, b] = generateNumbers();
-    let audio = new SpeechSynthesisUtterance(`${a} плюс ${b}`);
+    let audio = new SpeechSynthesisUtterance(`${a} plus ${b}`);
     audio.lang = "en-EN";
     audio.onboundary = function (event) {
       if (event.charIndex === 0) {
@@ -53,6 +55,7 @@ const AdditionInTheMindSound = () => {
         timeToSpeakDigits = performance.now() - startTimeFirstDigit;
       }
     };
+    resultDiv = document.getElementById("result") as HTMLInputElement;
     if ("speechSynthesis" in window) {
       window.speechSynthesis.speak(audio);
       startTime = performance.now();
@@ -66,6 +69,7 @@ const AdditionInTheMindSound = () => {
 
   function checkAnswer(answer: any) {
     const time = performance.now() - startTime - timeToSpeakDigits;
+    resultDiv = document.getElementById("result") as HTMLInputElement;
     if (
       (answer === "четное" && (a + b) % 2 === 0) ||
       (answer === "нечетное" && (a + b) % 2 !== 0)
@@ -89,25 +93,25 @@ const AdditionInTheMindSound = () => {
     }
     averageReactionTime = totalReactionTime / (attempts - wrong);
     percentage = (averageReactionTime / totalReactionTime) * 100;
-
+    average = document.getElementById("average") as HTMLInputElement;
     if (attempts === maxAttempts) {
       if (average)
         average.innerText += ` Среднее время реакции: ${averageReactionTime.toFixed(
           2
         )} миллисекунд.`;
-        let start = document.querySelector(".start") as HTMLInputElement;
-        start.style.display = "block";
+      let start = document.querySelector(".start") as HTMLInputElement;
+      start.style.display = "block";
 
       //sendForm
-    //   document.getElementById("avg_time").value =
-    //     averageReactionTime.toFixed(2);
-    //   document.getElementById("total_time").value =
-    //     totalReactionTime.toFixed(2);
-    //   document.getElementById("correct").value = maxAttempts - wrong;
-    //   document.getElementById("misses").value = wrong;
-    //   document.getElementById("score").value = percentage;
+      //   document.getElementById("avg_time").value =
+      //     averageReactionTime.toFixed(2);
+      //   document.getElementById("total_time").value =
+      //     totalReactionTime.toFixed(2);
+      //   document.getElementById("correct").value = maxAttempts - wrong;
+      //   document.getElementById("misses").value = wrong;
+      //   document.getElementById("score").value = percentage;
 
-    //   document.getElementById("submit-button").click();
+      //   document.getElementById("submit-button").click();
       //sendForm
     } else {
       setTimeout(startTest, 2000);
