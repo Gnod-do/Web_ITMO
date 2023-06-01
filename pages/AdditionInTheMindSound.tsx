@@ -172,10 +172,10 @@ const AdditionInTheMindSound = () => {
       </button>
       <p></p>
       <div id="question" />
-      <button className="even" onClick={() => checkAnswer("четное")}>
+      <button className="even" onClick={() => checkAnswer("четное")} style={{ margin: 5 }}>
         Четное
       </button>
-      <button className="odd" onClick={() => checkAnswer("нечетное")}>
+      <button className="odd" onClick={() => checkAnswer("нечетное")} style={{ margin: 5 }}>
         Нечетное
       </button>
       <p></p>
