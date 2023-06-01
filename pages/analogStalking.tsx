@@ -199,11 +199,11 @@ const analogStracking = () => {
       </div>
       <p>Управляйте синим шариком с помощью клавиш "влево" и "вправо". </p>
       <progress id="progress" value={0} max={30} />
-      <div id="container">
+      <div id="container" style={{ maxHeight: 52, borderRadius: 25, border: "1px #606086 solid" }}>
         <div id="ball1" />
         <div id="ball2" />
       </div>
-      <button id="startButton">Начать</button>
+      <button id="startButton" style={{ marginTop: 20 }}>Начать</button>
       <p></p>
       <div id="reaction" />
       <div id="scoreMy" />
@@ -228,6 +228,7 @@ const analogStracking = () => {
       </form>
     </div>
   );
+
 };
 
 export default analogStracking;
