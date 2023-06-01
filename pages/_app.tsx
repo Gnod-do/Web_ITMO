@@ -8,6 +8,8 @@ import '../styles/logicTest.css'
 import '../styles/evenOddTest.css'
 import '../styles/soundTest.css'
 import '../styles/memories.css'
+import '../styles/motion.css'
+import '../styles/motionHard.css'
 
 import type { AppProps } from 'next/app'
 import Navbar from '../components/Navbar'

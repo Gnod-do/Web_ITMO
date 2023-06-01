@@ -45,7 +45,7 @@ const AdditionInTheMindSound = () => {
     }
     const [a, b] = generateNumbers();
     let audio = new SpeechSynthesisUtterance(`${a} плюс ${b}`);
-    audio.lang = "ru-RU";
+    audio.lang = "en-EN";
     audio.onboundary = function (event) {
       if (event.charIndex === 0) {
         startTimeFirstDigit = performance.now();
