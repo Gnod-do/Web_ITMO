@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { getTestResult, setTestResult } from "../utils/globals";
 
 const tracking = () => {
   function openModalW() {
@@ -100,18 +101,26 @@ const tracking = () => {
             2
           )}%`;
         result = result + matchPercent;
+
       } else {
         if (resultDiv)
           resultDiv.innerText = `Ваш процент попадания: ${matchPercent.toFixed(
             2
           )}%`;
         result = result + matchPercent;
+
       }
       let answer;
       if (count === 10) {
         answer = (result / 10).toFixed(0);
-        if (resultDiv)
+        if (resultDiv) {
           resultDiv.innerText = `Ваш средний процент попадания: ${answer}%`;
+          // save score to global object
+          const testId = 'tracking';
+          setTestResult(testId, answer);
+          // for test only
+          getTestResult('tracking');
+        }
         if (startButton) {
           startButton.style.display = "block";
           startButton.disabled = false;

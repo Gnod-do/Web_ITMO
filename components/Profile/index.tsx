@@ -7,11 +7,13 @@ import {
     Wrapper
 } from './UserProfileElements'
 import { useSession, signOut } from "next-auth/react";
+import { testResults } from '../../utils/globals';
 
 
 const UserProfile = () => {
     const { data: session }: any = useSession();
-
+    const result = testResults;
+    console.log(result);
     return (
         <Container>
             <Wrapper>

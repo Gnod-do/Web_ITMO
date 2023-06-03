@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { getTestResult, setTestResult } from "../utils/globals";
 
 const AdditionInTheMindSound = () => {
   function openModalW() {
@@ -95,24 +96,18 @@ const AdditionInTheMindSound = () => {
     percentage = (averageReactionTime / totalReactionTime) * 100;
     average = document.getElementById("average") as HTMLInputElement;
     if (attempts === maxAttempts) {
-      if (average)
-        average.innerText += ` Среднее время реакции: ${averageReactionTime.toFixed(
-          2
-        )} миллисекунд.`;
+      if (average) {
+        average.innerText += ` Среднее время реакции: ${averageReactionTime.toFixed(2)} миллисекунд.`;
+      }
+      // save score to global object
+      const testId = 'additionInTheMindSound';
+      setTestResult(testId, averageReactionTime.toFixed(2).toString());
+      // for test only
+      getTestResult('additionInTheMindSound');
+
       let start = document.querySelector(".start") as HTMLInputElement;
       start.style.display = "block";
 
-      //sendForm
-      //   document.getElementById("avg_time").value =
-      //     averageReactionTime.toFixed(2);
-      //   document.getElementById("total_time").value =
-      //     totalReactionTime.toFixed(2);
-      //   document.getElementById("correct").value = maxAttempts - wrong;
-      //   document.getElementById("misses").value = wrong;
-      //   document.getElementById("score").value = percentage;
-
-      //   document.getElementById("submit-button").click();
-      //sendForm
     } else {
       setTimeout(startTest, 2000);
     }

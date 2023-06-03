@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { getTestResult, setTestResult } from "../utils/globals";
 
 const analogTracking = () => {
 
@@ -156,6 +157,13 @@ const analogTracking = () => {
         scoreMy.innerText = `Среднее отклонение от средней границы: ${deviationAverage.toFixed(
           2
         )}%`;
+        // save score to global object
+        const testId = 'analogTracking';
+        const result = (100 - deviationAverage).toFixed(2).toString();
+        setTestResult(testId, result);
+        // for test only
+        getTestResult('analogStalking');
+
         //sendForm
         const avg_time = document.getElementById("avg_time") as HTMLInputElement;
         if (avg_time) avg_time.value = reactionAverage.toFixed(2);
