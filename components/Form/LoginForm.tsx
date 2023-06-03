@@ -15,6 +15,8 @@ import {
 } from './FormElements'
 import InputFeild from './InputFeild'
 import { ErrorText } from './InputFeildElements'
+import lightTest2 from '../../pages/lightTest2'
+
 
 const LoginForm = () => {
     const [email, setEmail] = useState("")
@@ -22,6 +24,7 @@ const LoginForm = () => {
     const [loading, setLoading] = useState(false)
     const [submitError, setSubmitError] = useState("")
     const router = useRouter()
+    
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value)
@@ -44,6 +47,7 @@ const LoginForm = () => {
             }
             else {
                 router.push("/")
+                // <lightTest2 email={email}/>
             }
         } catch (error) {
             if (error instanceof AxiosError) {

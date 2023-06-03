@@ -34,12 +34,13 @@
 
 .back-button {
     position: fixed;
+    margin-top: 2%;
     top: 20px;
     right: 20px;
     width: 60px;
     height: 30px;
     border-radius: 20px;
-    background-color: rgb(220, 125, 36);
+    background-color: #990000;
     color: white;
     font-size: 16px;
     border: none;
@@ -54,6 +55,7 @@
   body {
     font-family: sans-serif;
     background: rgba(35, 35, 101, 0.45);
+    
     color: white;
     text-align: center;
   }
@@ -108,7 +110,8 @@
   
   h1 {
     text-align: center;
-    margin-top: 50px;
+    padding-top: 10vh;
+    
   }
   
   p {

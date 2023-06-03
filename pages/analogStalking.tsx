@@ -86,10 +86,13 @@ const analogStracking = () => {
       const ball1MoveInterval = setInterval(() => {
         if (ball1Direction === "right") {
           ball1Position += 10;
-          let container = document.getElementById("container") as HTMLInputElement;
-          if (ball1Position >= container.clientWidth - 50) {
-            ball1Direction = "left";
-          }
+          let container = document.getElementById(
+            "container"
+          ) as HTMLInputElement;
+          if (container)
+            if (ball1Position >= container.clientWidth - 50) {
+              ball1Direction = "left";
+            }
         } else {
           ball1Position -= 10;
           if (ball1Position <= 0) {
@@ -164,13 +167,19 @@ const analogStracking = () => {
   });
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage:
+          "linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)",
+      }}
+    >
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/analogPurs.css" />
       <button
         className="back-button"
+        style={{ display: "none" }}
         onClick={() => {
           location.href = "http://localhost:3000/";
         }}
@@ -178,8 +187,12 @@ const analogStracking = () => {
         Назад
       </button>
       <title>Document</title>
-      <h1>Аналоговое преследование</h1>
-      <button className="instructions-button" onClick={openModalW}>
+      <h1 style={{ marginTop: "0" }}>Аналоговое преследование</h1>
+      <button
+        className="instructions-button"
+        style={{ display: "none" }}
+        onClick={openModalW}
+      >
         Инструкция
       </button>
       <p />
@@ -199,11 +212,25 @@ const analogStracking = () => {
       </div>
       <p>Управляйте синим шариком с помощью клавиш "влево" и "вправо". </p>
       <progress id="progress" value={0} max={30} />
-      <div id="container" style={{ maxHeight: 52, borderRadius: 25, border: "1px #606086 solid" }}>
+      <div
+        id="container"
+        style={{ maxHeight: 52, borderRadius: 25, border: "1px #606086 solid" }}
+      >
         <div id="ball1" />
         <div id="ball2" />
       </div>
-      <button id="startButton" style={{ marginTop: 20 }}>Начать</button>
+      <button
+        id="startButton"
+        style={{
+          padding: "10px 20px",
+          marginTop: "3%",
+          borderRadius: "0",
+          backgroundColor: "#00FF00",
+          color: "black",
+        }}
+      >
+        Начать
+      </button>
       <p></p>
       <div id="reaction" />
       <div id="scoreMy" />
@@ -228,7 +255,6 @@ const analogStracking = () => {
       </form>
     </div>
   );
-
 };
 
 export default analogStracking;

@@ -28,7 +28,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             User.create({
                 fullName,
                 email,
-                password: hashedPassword
+                password: hashedPassword,
+                result : "",
             }, (error: unknown, data: IUser) => {
                 if (error && error instanceof mongoose.Error.ValidationError) {
                     //mongo db will return array

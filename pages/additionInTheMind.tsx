@@ -134,12 +134,12 @@ const additionInTheMind = () => {
     };
   });
   return (
-    <div>
+    <div style={{backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)'}}>
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/evenOddTest.css" />
-      <button
+      <button style={{display:'none'}}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
@@ -150,8 +150,8 @@ const additionInTheMind = () => {
       <title>Document</title>
       <title>Звук чет/нечет</title>
       <meta charSet="UTF-8" />
-      <h1>Оценка скорости реакции на сложение в уме(текст)</h1>
-      <button className="instructions-button" onClick={openModalW}>
+      <h1 style={{marginTop: '0'}}>Оценка скорости реакции на сложение в уме(текст)</h1>
+      <button className="instructions-button" onClick={openModalW} style={{display:'none'}}>
         Инструкция
       </button>
       <p></p>
@@ -173,16 +173,16 @@ const additionInTheMind = () => {
       <p>Сложите числа и выберите результат. </p>
       <progress id="progress" value={0} max={100} />
       <p>
-        <button className="start" onClick={startTest}>
+        <button className="start" onClick={startTest} style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black', marginBottom: '2%'}}>
           Начать
         </button>
       </p>
       <p></p>
       <div id="question" />
-      <button className="even" onClick={() => checkAnswer("четное")}>
+      <button style={{borderRadius: '0', backgroundColor:'#FFCC00', color:'black'}} className="even" onClick={() => checkAnswer("четное")}>
         Четное
       </button>
-      <button className="odd" onClick={() => checkAnswer("нечетное")}>
+      <button style={{borderRadius: '0', backgroundColor:'#CC3300', color:'black',textAlign:'center', padding:'20px 30px', marginLeft:'20px'}} className="odd" onClick={() => checkAnswer("нечетное")}>
         Нечетное
       </button>
       <p></p>

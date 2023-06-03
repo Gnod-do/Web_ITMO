@@ -104,24 +104,24 @@ const ColorBox = () => {
                 }}></div>
             <div
                 id="color-box"
-                style={{ backgroundColor: color, height: '500px', width: '50%', position: 'relative', left: '25%' }}></div>
-            <div id="button-container">
+                style={{ backgroundColor: color, height: '70%', width: '50%', position: 'relative', left: '25%', marginTop:'2%' }}></div>
+            <div id="button-container" style={{display:'flex', justifyContent: 'center', margin: '40px 10px 0 10px'}}>
                 <button
                     id="red-button"
                     onClick={() => checkAnswer('red')}
-                    style={{ backgroundColor: 'red', color: 'white', marginRight: '5%', marginLeft: '25%', marginTop: '5%', height: '50px', width: '200px' }}>
+                    style={{ backgroundColor: 'red', color: 'white', width:'15%', height: '8vh', fontSize:'20px', borderRadius:'5px'}}>
                     Red
                 </button>
                 <button
                     id="green-button"
                     onClick={() => checkAnswer('green')}
-                    style={{ backgroundColor: 'green', color: 'white', marginRight: '5%', height: '50px', width: '200px' }}>
+                    style={{ backgroundColor: 'green', color: 'white', width:'15%', height: '8vh', fontSize:'20px', borderRadius:'5px', margin:'0 5%'}}>
                     Green
                 </button>
                 <button
                     id="blue-button"
                     onClick={() => checkAnswer('blue')}
-                    style={{ backgroundColor: 'blue', color: 'white' , height: '50px', width: '200px' }}>
+                    style={{ backgroundColor: 'blue', color: 'white', width:'15%', height: '8vh', fontSize:'20px', borderRadius:'5px'}}>
                     Blue
                 </button>
             </div>

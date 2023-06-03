@@ -13,7 +13,7 @@
     cursor: pointer;
 }
 #start-button {
-    position: fixed;
+    /* position: fixed; */
     top: 250px;
     left: 1200px;
 }
@@ -119,6 +119,7 @@ progress::-webkit-progress-value {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%);
     
   }
   .test-text{

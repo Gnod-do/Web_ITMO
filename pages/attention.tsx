@@ -211,22 +211,22 @@ const attention = () => {
   });
 
   return (
-    <div>
+    <div style={{backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)'}}>
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/attention.css" />
       <title>Document</title>
-      <h1>Тест на внимание</h1>
+      <h1 style={{marginTop: '0'}}>Тест на внимание</h1>
       <button
-        className="back-button"
+        className="back-button" style={{display:'none'}}
         onClick={() => {
           location.href = "http://localhost:3000/";
         }}
       >
         Назад
       </button>
-      <button className="instructions-button" onClick={openModalW}>
+      <button style={{display:'none'}} className="instructions-button" onClick={openModalW}>
         Инструкция
       </button>
       <p />
@@ -253,30 +253,30 @@ const attention = () => {
       </div>
       <p>Нажимайте кнопку, обозначающую тот цвет, которым написано слово</p>
       <p>
-        <progress id="progress" value={0} max={100} />
+        <progress id="progress" style={{marginBottom:'0'}} value={0} max={100} />
       </p>
       <p>
-        <button id="start">Начать</button>
+        <button id="start" style={{padding:'20px 60px', marginTop:'3%',borderRadius: '0', backgroundColor:'#00FF00', color:'black'}}>Начать</button>
       </p>
       <p id="word" />
       <div className="answ-bottons">
-        <button id="red" className="colorb" disabled>
+        <button style={{backgroundColor:'blue', color:'black', borderRadius: '0'}} id="red" className="colorb" disabled>
           Красный
         </button>
-        <button id="green" className="colorb" disabled>
-          Зеленый
+        <button style={{backgroundColor:'red', color:'black', borderRadius: '0'}} id="green" className="colorb" disabled>
+          Зеленый 
         </button>
-        <button id="blue" className="colorb" disabled>
+        <button style={{backgroundColor:'yellow', color:'black', borderRadius: '0'}} id="blue" className="colorb" disabled>
           Синий
         </button>
         <br />
-        <button id="orange" className="colorb" disabled>
+        <button style={{backgroundColor:'pink', color:'black', borderRadius: '0'}} id="orange" className="colorb" disabled>
           Оранжевый
         </button>
-        <button id="yellow" className="colorb" disabled>
+        <button style={{backgroundColor:'green', color:'black', borderRadius: '0'}} id="yellow" className="colorb" disabled>
           Желтый
         </button>
-        <button id="pink" className="colorb" disabled>
+        <button style={{backgroundColor:'orange', color:'black', borderRadius: '0'}} id="pink" className="colorb" disabled>
           Розовый
         </button>
       </div>

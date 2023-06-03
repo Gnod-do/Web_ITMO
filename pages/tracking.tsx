@@ -164,12 +164,12 @@ const tracking = () => {
     });
   });
   return (
-    <div>
+    <div style={{backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)'}}>
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/motionTest.css" />
-      <button
+      <button style={{display:'none'}}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
@@ -179,8 +179,8 @@ const tracking = () => {
       </button>
       <title>Document</title>
       <meta charSet="UTF-8" />
-      <h1>Оценка точности реакции(простая)</h1>
-      <button className="instructions-button" onClick={openModalW}>
+      <h1 style={{marginTop: '0'}}>Оценка точности реакции(простая)</h1>
+      <button className="instructions-button" onClick={openModalW} style={{display:'none'}}>
         Инструкция
       </button>
       <p></p>
@@ -201,7 +201,7 @@ const tracking = () => {
       <p>Нажимайте на пробел, когда точка будет находиться внутри круга. </p>
       <progress id="progress" value={0} max={100} />
       <p>
-        <button id="startButton">Начать</button>
+        <button id="startButton" style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black'}}>Начать</button>
       </p>
       <p>
         <canvas id="canvas" width={380} height={380} />

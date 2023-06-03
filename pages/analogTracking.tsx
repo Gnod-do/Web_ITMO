@@ -173,12 +173,12 @@ const analogTracking = () => {
   });
 
   return (
-    <div>
+    <div style={{backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)'}}>
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/analogSum.css" />
-      <button
+      <button style={{display:'none'}}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
@@ -187,8 +187,8 @@ const analogTracking = () => {
         Назад
       </button>
       <title>Document</title>
-      <h1>Аналоговое слежение</h1>
-      <button className="instructions-button" onClick={openModalW}>
+      <h1 style={{marginTop: '0'}}>Аналоговое слежение</h1>
+      <button className="instructions-button" onClick={openModalW} style={{display:'none'}}>
         Инструкция
       </button>
       <p />
@@ -215,7 +215,7 @@ const analogTracking = () => {
         <div id="ball" />
         <div id="mark" />
       </div>
-      <button id="startButton" style={{ marginTop: 20 }}>Начать</button>
+      <button id="startButton" style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black', marginBottom: '2%', marginTop: '2%'}}>Начать</button>
       <p></p>
       <div id="reaction" />
       <p></p>

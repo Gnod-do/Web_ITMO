@@ -24,7 +24,8 @@ const SignupForm = () => {
         fullName: "",
         email: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        result : ""
     })
 
     const [validationErrors, setValidationErrors] = useState<InputErros[]>([])
@@ -149,6 +150,7 @@ const SignupForm = () => {
                     required
                     error={getErrorMsg("confirmPassword", validationErrors)}
                 />
+                
 
                 <Button
                     title={"Sign up"}

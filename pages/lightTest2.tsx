@@ -1,6 +1,31 @@
 import React, { useEffect } from "react";
+import axios, { AxiosError } from 'axios'
+import { useSession} from "next-auth/react";
 
 const lightTest2 = () => {
+  
+  const { data: session}: any = useSession();
+  let email: any;
+  let result: any;
+
+  const data = {
+    email: session?.user?.email,
+    result: "da gui duoc du lieu",
+  }
+
+  function updateRs() {
+    console.log(email);
+    console.log('1233');
+    axios.post('/api/update-result', data)
+    .then(response => {
+      // Xử lý phản hồi từ server sau khi cập nhật thành công
+      console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+    })
+    .catch((error: AxiosError) => {
+      // Xử lý lỗi trong quá trình gửi request
+      console.error(error);
+    });
+  }
   function openModalW() {
     const modal = document.getElementById("modal");
     if (modal) modal.style.display = "block";
@@ -405,6 +430,7 @@ const lightTest2 = () => {
           <div className="square" />
         </div>
         <button className="btn start">Начать тест</button>
+        <button className="btn start" style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black'}}>Submit</button>
         <div className="result">Здесь будет отображен результат</div>
       </div>
       <form id="sendForm">
@@ -424,6 +450,7 @@ const lightTest2 = () => {
           type="submit"
           defaultValue="Submit"
           style={{ display: "none" }}
+          onClick={updateRs}
         />
       </form>
     </div>

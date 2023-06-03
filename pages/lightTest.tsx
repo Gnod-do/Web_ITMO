@@ -36,12 +36,12 @@ const lightTest = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)'}}>
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <button
-        className="back-button"
+        className="back-button" style={{display:'none', width: '6%', backgroundColor:'#990000', color:'white',borderTopLeftRadius: '100%', borderBottomLeftRadius: '100%'}}
         onClick={() => {
           location.href = "http://localhost:3000/";
         }}
@@ -49,8 +49,8 @@ const lightTest = () => {
         Назад
       </button>
       <title>Тест на свет</title>
-      <h1>Тест на свет</h1>
-      <button className="instructions-button" onClick={openModalW}>
+      <h1 style={{marginTop: '0'}}>Тест на свет</h1>
+      <button className="instructions-button" onClick={openModalW} style={{display: 'none', width:'16%', height: '30px', padding:'0', margin:'4vh 0', backgroundColor: '#FFFF00', color:'black', borderRadius: '0'}}>
         Инструкция
       </button>
       <p />
@@ -69,15 +69,15 @@ const lightTest = () => {
         </div>
       </div>
       <p>Нажимайте "пробел", когда квадрат сменит цвет!</p>
-      <progress id="progress" value={0} max={100} />
+      <progress id="progress" value={0} max={100} style={{marginBottom: '0'}}/>
       <div className="test" id="test">
         <div className="field">
-          <div className="square" />
-          <div className="square" />
-          <div className="square" />
+          <div className="square" style={{borderRadius:'50%'}}/>
+          <div className="square" style={{borderRadius:'50%'}}/>
+          <div className="square" style={{borderRadius:'50%'}}/>
         </div>
-        <button className="btn start">Начать тест</button>
-        <div className="result">Здесь будет отображен результат</div>
+        <button className="btn start" style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black'}}>Начать тест</button>
+        <div className="result" style={{display:'block', textAlign: 'center', width:'100%', height:'50px', paddingLeft:'0', margin: '4% 4% 0 0'}}>Здесь будет отображен результат</div>
       </div>
       <form id="sendForm">
         <input

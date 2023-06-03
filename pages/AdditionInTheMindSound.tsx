@@ -129,12 +129,12 @@ const AdditionInTheMindSound = () => {
     };
   });
   return (
-    <div>
+    <div style={{backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)'}}>
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/soundTest.css" />
-      <button
+      <button style={{display:'none'}}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
@@ -145,8 +145,8 @@ const AdditionInTheMindSound = () => {
       <title>Document</title>
       <title>Звук чет/нечет</title>
       <meta charSet="UTF-8" />
-      <h1>Оценка скорости реакции на сложение в уме(звук)</h1>
-      <button className="instructions-button" onClick={openModalW}>
+      <h1 style={{marginTop: '0'}}>Оценка скорости реакции на сложение в уме(звук)</h1>
+      <button className="instructions-button" onClick={openModalW} style={{display:'none'}}>
         Инструкция
       </button>
       <p></p>
@@ -167,15 +167,15 @@ const AdditionInTheMindSound = () => {
       </div>
       <p>Сложите числа и выберите результат. </p>
       <progress id="progress" value={0} max={100} />
-      <button className="start" onClick={startTest}>
+      <button className="start" onClick={startTest} style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black', marginBottom: '2%'}}>
         Начать
       </button>
       <p></p>
       <div id="question" />
-      <button className="even" onClick={() => checkAnswer("четное")} style={{ margin: 5 }}>
+      <button className="even" onClick={() => checkAnswer("четное")} style={{borderRadius: '0', backgroundColor:'#FFCC00', color:'black'}} >
         Четное
       </button>
-      <button className="odd" onClick={() => checkAnswer("нечетное")} style={{ margin: 5 }}>
+      <button className="odd" onClick={() => checkAnswer("нечетное")} style={{borderRadius: '0', backgroundColor:'#CC3300', color:'black',textAlign:'center', padding:'20px 30px', marginLeft:'20px'}}>
         Нечетное
       </button>
       <p></p>

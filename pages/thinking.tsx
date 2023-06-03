@@ -371,12 +371,12 @@ const thinking = () => {
     window.addEventListener("click", windowClick);
   });
   return (
-    <div>
+    <div style={{backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)'}}>
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/logicTest.css" />
-      <button
+      <button style={{display:'none'}}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
@@ -386,8 +386,8 @@ const thinking = () => {
       </button>
       <title>Document</title>
       <meta charSet="UTF-8" />
-      <h1>Тест на мышление</h1>
-      <button
+      <h1 style={{margin: '0'}}>Тест на мышление</h1>
+      <button style={{display:'none'}}
         className="instructions-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
@@ -420,7 +420,7 @@ const thinking = () => {
         <progress id="progress" value={0} max={100} />
       </p>
       <div className="container">
-        <button id="start-button" onClick={start}>
+        <button id="start-button" onClick={start} style={{left: 'calc(50% - 86px)', padding:'20px 60px',borderRadius: '0', backgroundColor:'#00FF00', color:'black'}}>
           Начать
         </button>
       </div>
