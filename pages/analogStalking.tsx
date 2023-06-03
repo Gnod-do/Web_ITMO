@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { getTestResult, setTestResult } from './../utils/globals';
 
 const analogStracking = () => {
   function openModalW() {
@@ -75,12 +76,13 @@ const analogStracking = () => {
         ).toFixed(2);
         scoreMy.innerText = `Среднее значение совпадения с шариком: ${avgScore}%`;
         reaction.innerText = `Среднее значение скорости реакции на изменение движения шарика: ${avgReaction} с/шарик`;
-        //sendForm
-        // document.getElementById("avg_time").value = avgReaction;
-        // document.getElementById("correct").value = avgScore;
-        // document.getElementById("score").value = avgScore;
-        // document.getElementById("submit-button").click();
-        //sendForm
+
+        const testId = 'analogStalking';
+        const result = avgScore;
+        setTestResult(testId, (result + " %"));
+        // for test only
+        getTestResult('analogStalking');
+
       }, testTime);
       startButton.style.display = "none";
       const ball1MoveInterval = setInterval(() => {
