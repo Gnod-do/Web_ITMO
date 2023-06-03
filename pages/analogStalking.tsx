@@ -79,7 +79,7 @@ const analogStracking = () => {
 
         const testId = 'analogStalking';
         const result = avgScore;
-        setTestResult(testId, result);
+        setTestResult(testId, (result + " %"));
         // for test only
         getTestResult('analogStalking');
 

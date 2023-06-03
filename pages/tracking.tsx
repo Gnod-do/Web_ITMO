@@ -117,7 +117,7 @@ const tracking = () => {
           resultDiv.innerText = `Ваш средний процент попадания: ${answer}%`;
           // save score to global object
           const testId = 'tracking';
-          setTestResult(testId, answer);
+          setTestResult(testId, (answer + " %"));
           // for test only
           getTestResult('tracking');
         }

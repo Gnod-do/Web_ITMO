@@ -160,7 +160,7 @@ const analogTracking = () => {
         // save score to global object
         const testId = 'analogTracking';
         const result = (100 - deviationAverage).toFixed(2).toString();
-        setTestResult(testId, result);
+        setTestResult(testId, (result + " %"));
         // for test only
         getTestResult('analogStalking');
 

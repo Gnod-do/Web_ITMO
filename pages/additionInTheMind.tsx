@@ -64,7 +64,7 @@ const additionInTheMind = () => {
         averageGood.innerText += ` Среднее время реакции (правильные ответы): ${averageGoodTMP} миллисекунд.`;
         // save score to global object
         const testId = 'additionInTheMind';
-        setTestResult(testId, averageGoodTMP);
+        setTestResult(testId, (averageGoodTMP.toString() + " millisecond"));
         // for test only
         getTestResult('additionInTheMind');
       }

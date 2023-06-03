@@ -101,7 +101,7 @@ const AdditionInTheMindSound = () => {
       }
       // save score to global object
       const testId = 'additionInTheMindSound';
-      setTestResult(testId, averageReactionTime.toFixed(2).toString());
+      setTestResult(testId, (averageReactionTime.toFixed(2).toString() + " millisecond"));
       // for test only
       getTestResult('additionInTheMindSound');
 

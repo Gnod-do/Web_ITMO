@@ -24,10 +24,16 @@ export const Wrapper = styled.div`
 
 export const UserName = styled.h3`
     margin: 1rem;
+    position: absolute;
+    top: 50px;
+    left: 10px;
 `
 
 export const UserEmail = styled.h5`
-    margin-bottom: 1rem;
     color: slateblue;
     font-size: 0.9rem;
+    margin: 1rem;
+    position: absolute;
+    top: 80px;
+    left: 10px;
 `

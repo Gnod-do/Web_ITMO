@@ -197,7 +197,7 @@ const attention = () => {
         // save score to global object
         const testId = 'attention';
         const globaRresult = reactionTime.toString();
-        setTestResult(testId, globaRresult);
+        setTestResult(testId, (globaRresult + " millisecond"));
         // for test only
         getTestResult('analogStalking');
       }
