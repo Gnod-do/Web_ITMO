@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { getTestResult, setTestResult } from "../utils/globals";
 
 const attention = () => {
   function openModalW() {
@@ -22,23 +23,23 @@ const attention = () => {
     };
 
     const words = [
-        "красный",
-        "зеленый",
-        "синий",
-        "оранжевый",
-        "желтый",
-        "розовый",
-      ];
-      const colors = ["red", "green", "blue", "orange", "yellow", "pink"];
-      let wordIndex: number;
-      let colorIndex: any;
-      let answer = "";
-      let count: number = 0,
-        correctAnswers: number = 0,
-        correctReactionTime: number,
-        incorrectReactionTime = 0;
-      let startTime: number;
-      let averageReactionTime = 0;
+      "красный",
+      "зеленый",
+      "синий",
+      "оранжевый",
+      "желтый",
+      "розовый",
+    ];
+    const colors = ["red", "green", "blue", "orange", "yellow", "pink"];
+    let wordIndex: number;
+    let colorIndex: any;
+    let answer = "";
+    let count: number = 0,
+      correctAnswers: number = 0,
+      correctReactionTime: number,
+      incorrectReactionTime = 0;
+    let startTime: number;
+    let averageReactionTime = 0;
 
     const start = document.getElementById("start") as HTMLInputElement;
     if (start)
@@ -183,17 +184,22 @@ const attention = () => {
       ) {
         const result = document.getElementById("result") as HTMLInputElement;
         result.innerHTML = `Правильно! Время реакции: ${reactionTime} мс`;
-        correctAnswers ++;
+        correctAnswers++;
         correctReactionTime += reactionTime;
         const correctAnswersElement = document.getElementById(
           "correctAnswers"
         ) as HTMLInputElement;
         correctAnswersElement.innerHTML = `Количество правильных ответов: ` + correctAnswers;
-        // ${correctAnswers}
       } else {
         const result = document.getElementById("result") as HTMLInputElement;
         result.innerHTML = `Неправильно! Время реакции: ${reactionTime} мс`;
         incorrectReactionTime += reactionTime;
+        // save score to global object
+        const testId = 'attention';
+        const globaRresult = reactionTime.toString();
+        setTestResult(testId, (globaRresult + " millisecond"));
+        // for test only
+        getTestResult('analogStalking');
       }
       wordIndex = Math.floor(Math.random() * words.length);
       colorIndex = Math.floor(Math.random() * colors.length);
@@ -206,7 +212,7 @@ const attention = () => {
         "progress"
       ) as HTMLInputElement;
       if (progressElement)
-        progressElement.value = (count*100/20).toFixed(0);
+        progressElement.value = (count * 100 / 20).toFixed(0);
     }
   });
 

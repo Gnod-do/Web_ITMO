@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { getTestResult, setTestResult } from "../utils/globals";
 
 const additionInTheMind = () => {
   function openModalW() {
@@ -59,13 +60,19 @@ const additionInTheMind = () => {
         (attempts - wrong)
       ).toFixed(0);
     if (attempts === maxAttempts) {
-      if (averageGood)
+      if (averageGood) {
         averageGood.innerText += ` Среднее время реакции (правильные ответы): ${averageGoodTMP} миллисекунд.`;
+        // save score to global object
+        const testId = 'additionInTheMind';
+        setTestResult(testId, (averageGoodTMP.toString() + " millisecond"));
+        // for test only
+        getTestResult('additionInTheMind');
+      }
       if (averageBad)
         averageBad.innerText += ` Среднее время реакции (неправильные ответы): ${averageBadTMP} миллисекунд.`;
       percentageReactionTimeGood =
         averageGoodTMP /
-          (averageGoodTMP + averageBadTMP) *
+        (averageGoodTMP + averageBadTMP) *
         100;
       const start = document.querySelector(".start") as HTMLInputElement;
       start.style.display = "block";
@@ -75,19 +82,6 @@ const additionInTheMind = () => {
       const total_time = document.getElementById(
         "total_time"
       ) as HTMLInputElement;
-    //   if (total_time) total_time.value = totalReactionTime.toFixed(2);
-    //   const correct = document.getElementById("correct") as HTMLInputElement;
-    //   if (correct) correct.value = (maxAttempts - wrong).toFixed(0);
-    //   const misses = document.getElementById("misses") as HTMLInputElement;
-    //   if (misses) misses.value = wrong.toFixed(0);
-    //   const score = document.getElementById("score") as HTMLInputElement;
-    //   if (score) score.value = percentageReactionTimeGood.toFixed(0);
-    //   const submitButton = document.getElementById(
-    //     "submit-button"
-    //   ) as HTMLInputElement;
-    //   if (submitButton) submitButton.click();
-
-      //sendForm
     } else {
       setTimeout(startTest, 2000);
     }
@@ -103,6 +97,8 @@ const additionInTheMind = () => {
       totalReactionTime = 0;
       if (averageReactionTimeGood) averageReactionTimeGood.innerText = "";
       if (averageReactionTimeBad) averageReactionTimeBad.innerText = "";
+
+
     }
     attempts++;
     progress.value = (attempts * 20).toFixed(0);
