@@ -7,11 +7,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return
   }
 
-  const { email, result } = req.body
-  
+  const { email, testNumber, percent, speed } = req.body
 
   try {
-    const user = await User.findOneAndUpdate({ email }, { result }, { new: true })
+    const user = await User.findOneAndUpdate(
+      { email },
+      { $set: { [`result.${testNumber}`]: { percent, speed } } },
+      { new: true, maxTimeMS: 30000 }
+    )
 
     if (!user) {
       res.status(404).json({ message: "User not found" })

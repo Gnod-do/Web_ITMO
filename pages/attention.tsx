@@ -23,7 +23,9 @@ const attention = () => {
     if (correctInput) correctInput.value = result;
     const data = {
       email: session?.user?.email,
-      result: correctAnswers.toFixed(0),
+      testNumber: 'test1',
+      percent: "da gui duoc du lieu",
+      speed: "gui duoc lan 1",
     };
     console.log(email);
     console.log("1233");
@@ -39,7 +41,7 @@ const attention = () => {
       });
   }
 
-  let correctAnswers: number;
+  let correctAnswers: number= 0;
 
 
   useEffect(() => {

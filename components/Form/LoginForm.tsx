@@ -15,7 +15,6 @@ import {
 } from './FormElements'
 import InputFeild from './InputFeild'
 import { ErrorText } from './InputFeildElements'
-import lightTest2 from '../../pages/lightTest2'
 
 
 const LoginForm = () => {

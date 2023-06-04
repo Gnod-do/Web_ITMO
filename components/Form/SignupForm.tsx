@@ -25,7 +25,48 @@ const SignupForm = () => {
         email: "",
         password: "",
         confirmPassword: "",
-        result : ""
+        result : {
+            test1: {
+                percent: "",
+                speed: ""
+            },
+            test2: {
+                percent: "",
+                speed: ""
+            },
+            test3: {
+                percent: "",
+                speed: ""
+            },
+            test4: {
+                percent: "",
+                speed: ""
+            },
+            test5: {
+                percent: "",
+                speed: ""
+            },
+            test6: {
+                percent: "",
+                speed: ""
+            },
+            test7: {
+                percent: "",
+                speed: ""
+            },
+            test8: {
+                percent: "",
+                speed: ""
+            },
+            test9: {
+                percent: "",
+                speed: ""
+            },
+            test10: {
+                percent: "",
+                speed: ""
+            },
+        }
     })
 
     const [validationErrors, setValidationErrors] = useState<InputErros[]>([])

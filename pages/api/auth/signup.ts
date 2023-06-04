@@ -29,7 +29,48 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 fullName,
                 email,
                 password: hashedPassword,
-                result : "",
+                result: {
+                    test1: {
+                        percent: "",
+                        speed: ""
+                    },
+                    test2: {
+                        percent: "",
+                        speed: ""
+                    },
+                    test3: {
+                        percent: "",
+                        speed: ""
+                    },
+                    test4: {
+                        percent: "",
+                        speed: ""
+                    },
+                    test5: {
+                        percent: "",
+                        speed: ""
+                    },
+                    test6: {
+                        percent: "",
+                        speed: ""
+                    },
+                    test7: {
+                        percent: "",
+                        speed: ""
+                    },
+                    test8: {
+                        percent: "",
+                        speed: ""
+                    },
+                    test9: {
+                        percent: "",
+                        speed: ""
+                    },
+                    test10: {
+                        percent: "",
+                        speed: ""
+                    },
+                }
             }, (error: unknown, data: IUser) => {
                 if (error && error instanceof mongoose.Error.ValidationError) {
                     //mongo db will return array
@@ -44,7 +85,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 const user = {
                     email: data.email,
                     fullName: data.fullName,
-                    _id: data._id
+                    _id: data._id,
+                    result: data.result
                 }
 
                 return res.status(201).json({

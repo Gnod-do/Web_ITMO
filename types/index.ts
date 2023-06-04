@@ -7,7 +7,7 @@ export interface IUser {
     _id?: string;
     email: string;
     fullName: string;
-    result: string;
+    result: Object;
 }
 
 export interface LoginUserParams {
