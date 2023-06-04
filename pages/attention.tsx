@@ -23,9 +23,9 @@ const attention = () => {
     if (correctInput) correctInput.value = result;
     const data = {
       email: session?.user?.email,
-      testNumber: 'test1',
-      percent: "da gui duoc du lieu",
-      speed: "gui duoc lan 1",
+      testNumber: 'test4',
+      percent: (correctAnswers*10).toFixed(0) + '%',
+      speed: avgCorrectReactionTime.toString() + 'Мс',
     };
     console.log(email);
     console.log("1233");
@@ -42,6 +42,8 @@ const attention = () => {
   }
 
   let correctAnswers: number= 0;
+
+  let avgCorrectReactionTime: number = 0;
 
 
   useEffect(() => {
@@ -181,7 +183,7 @@ const attention = () => {
         word.innerText = "Тест завершен!";
         const start = document.getElementById("start") as HTMLInputElement;
         start.style.display = "block";
-        const avgCorrectReactionTime = correctReactionTime / correctAnswers;
+        avgCorrectReactionTime = (correctReactionTime / correctAnswers) ;
         const avgIncorrectReactionTime =
           incorrectReactionTime / (count - correctAnswers);
         const scoreMy = document.getElementById("scoreMy") as HTMLInputElement;

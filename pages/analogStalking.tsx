@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { getTestResult, setTestResult } from './../utils/globals';
+import axios, { AxiosError } from "axios";
+import { useSession } from "next-auth/react";
 
 const analogStracking = () => {
   function openModalW() {
@@ -11,6 +13,36 @@ const analogStracking = () => {
     const modal = document.getElementById("modal");
     if (modal) modal.style.display = "none";
   }
+
+  const { data: session }: any = useSession();
+  let email: any;
+  let result: any;
+
+  function updateRs() {
+    const correctInput = document.getElementById("correct") as HTMLInputElement;
+    if (correctInput) correctInput.value = result;
+    const data = {
+      email: session?.user?.email,
+      testNumber: 'test2',
+      percent: (avgScore*1).toFixed(0) + '%',
+      speed: reactionTime.toString() + 'Мс',
+    };
+    console.log(email);
+    console.log("1233");
+    axios
+      .post("http://localhost:3000/api/auth/updateResult", data)
+      .then((response) => {
+        // Xử lý phản hồi từ server sau khi cập nhật thành công
+        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+      })
+      .catch((error: AxiosError) => {
+        // Xử lý lỗi trong quá trình gửi request
+        console.error(error);
+      });
+  }
+
+  let avgScore: any = 0;
+  let reactionTime: number = 0;
   useEffect(() => {
     const windowClick = (event: any) => {
       const modal = document.getElementById("modal");
@@ -32,7 +64,7 @@ const analogStracking = () => {
     let ball1Direction = "right";
     let startTime = 0;
     let testTime = 30000;
-    let reactionTime = 0;
+    
     const startTest = () => {
       const progress = document.getElementById("progress") as HTMLInputElement;
 
@@ -55,7 +87,7 @@ const analogStracking = () => {
         if (rand > 0.5) {
           ball1Direction = ball1Direction === "right" ? "left" : "right";
           const elapsedTime = new Date().getTime() - startTime;
-          const reactionTime = elapsedTime - lastDirectionChangeTime;
+          reactionTime = elapsedTime - lastDirectionChangeTime;
           reactions.push(reactionTime);
         }
       }, 2000);
@@ -66,7 +98,7 @@ const analogStracking = () => {
         startButton.style.display = "block";
         startButton.disabled = false;
 
-        const avgScore = (
+         avgScore = (
           scores.reduce((a: number, b: number) => a + b, 0) / scores.length
         ).toFixed(2);
         const avgReaction = (
@@ -233,6 +265,17 @@ const analogStracking = () => {
       >
         Начать
       </button>
+      <button
+          className="btn start"
+          style={{
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+          }}
+          onClick={updateRs}
+        >
+          Submit
+        </button>
       <p></p>
       <div id="reaction" />
       <div id="scoreMy" />

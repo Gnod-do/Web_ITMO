@@ -12,23 +12,29 @@ const lightTest2 = () => {
 
   function updateRs() {
     const correctInput = document.getElementById("correct") as HTMLInputElement;
-    if(correctInput) correctInput.value = result
+    if (correctInput) correctInput.value = result;
     const data = {
       email: session?.user?.email,
-      result: correctInput.value,
-    }
+      testNumber: 'test1',
+      percent: (correct*10).toFixed(0) + '%',
+      speed: time.toString() + 'Мс',
+    };
     console.log(email);
-    console.log('1233');
-    axios.post("http://localhost:3000/api/auth/updateResult", data)
-    .then(response => {
-      // Xử lý phản hồi từ server sau khi cập nhật thành công
-      console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
-    })
-    .catch((error: AxiosError) => {
-      // Xử lý lỗi trong quá trình gửi request
-      console.error(error);
-    });
+    console.log("1233");
+    axios
+      .post("http://localhost:3000/api/auth/updateResult", data)
+      .then((response) => {
+        // Xử lý phản hồi từ server sau khi cập nhật thành công
+        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+      })
+      .catch((error: AxiosError) => {
+        // Xử lý lỗi trong quá trình gửi request
+        console.error(error);
+      });
   }
+
+  let correct: any = 0;
+  let time: number = 0;
   function openModalW() {
     const modal = document.getElementById("modal");
     if (modal) modal.style.display = "block";
@@ -112,8 +118,9 @@ const lightTest2 = () => {
     incorrect: number;
     num: number;
     isActive: boolean;
-    time: number;
+
     reactionTimes: any[];
+    time: number;
 
     constructor(
       squares: any,
@@ -289,7 +296,7 @@ const lightTest2 = () => {
     public checkCurrentSquare: any;
     public setLabel: any;
     public incorrect: any;
-    public correct: any;
+    
     public updateTime: any;
     public changeCurrentSquareColor: any;
     public baseColor: any;
