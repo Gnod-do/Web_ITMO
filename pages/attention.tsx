@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { getTestResult, setTestResult } from "../utils/globals";
+import axios, { AxiosError } from "axios";
+import { useSession } from "next-auth/react";
 
 const attention = () => {
   function openModalW() {
@@ -12,6 +14,32 @@ const attention = () => {
     if (modal) modal.style.display = "none";
   }
 
+  const { data: session }: any = useSession();
+  let email: any;
+  let result: any;
+
+  function updateRs() {
+    const correctInput = document.getElementById("correct") as HTMLInputElement;
+    if (correctInput) correctInput.value = result;
+    const data = {
+      email: session?.user?.email,
+      result: correctAnswers.toFixed(0),
+    };
+    console.log(email);
+    console.log("1233");
+    axios
+      .post("http://localhost:3000/api/auth/updateResult", data)
+      .then((response) => {
+        // Xử lý phản hồi từ server sau khi cập nhật thành công
+        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+      })
+      .catch((error: AxiosError) => {
+        // Xử lý lỗi trong quá trình gửi request
+        console.error(error);
+      });
+  }
+
+  let correctAnswers: number;
 
 
   useEffect(() => {
@@ -35,7 +63,6 @@ const attention = () => {
     let colorIndex: any;
     let answer = "";
     let count: number = 0,
-      correctAnswers: number = 0,
       correctReactionTime: number,
       incorrectReactionTime = 0;
     let startTime: number;
@@ -80,17 +107,17 @@ const attention = () => {
     }
 
     function startTest() {
-      let correctAnswers: number;
+      correctAnswers = 0;
       let correctAnswersElement = document.getElementById(
         "correctAnswers"
       ) as HTMLInputElement;
       if (correctAnswersElement) {
-        correctAnswersElement.innerHTML = "";
+        correctAnswersElement.innerText = "";
         correctAnswers = 0;
       }
 
       const scoreMy = document.getElementById("scoreMy") as HTMLInputElement;
-      scoreMy.innerHTML = "";
+      scoreMy.innerText = "";
       const progress = document.getElementById("progress") as HTMLInputElement;
       progress.value = "0";
       count = 0;
@@ -98,8 +125,11 @@ const attention = () => {
       incorrectReactionTime = 0;
       averageReactionTime = 0;
       const result = document.getElementById("result") as HTMLInputElement;
-      result.innerHTML = "";
+      result.innerText = "";
       getNextWord();
+      console.log("so cau tra loi dung la:" + colorIndex);
+      // updateRs(correctAnswers.toFixed(0));
+      return correctAnswers.toFixed(0);
     }
 
     function getNextWord() {
@@ -107,7 +137,7 @@ const attention = () => {
       colorIndex = Math.floor(Math.random() * colors.length);
       startTime = new Date().getTime();
       const word = document.getElementById("word") as HTMLInputElement;
-      word.innerHTML = words[wordIndex];
+      word.innerText = words[wordIndex];
       word.style.color = colors[colorIndex];
     }
 
@@ -144,16 +174,16 @@ const attention = () => {
     function checkAnswer(clickedColor: any) {
       const reactionTime = new Date().getTime() - startTime;
       let avgReactionTimePercent;
-      if (count >= 20) {
+      if (count >= 10) {
         const word = document.getElementById("word") as HTMLInputElement;
-        word.innerHTML = "Тест завершен!";
+        word.innerText = "Тест завершен!";
         const start = document.getElementById("start") as HTMLInputElement;
         start.style.display = "block";
         const avgCorrectReactionTime = correctReactionTime / correctAnswers;
         const avgIncorrectReactionTime =
           incorrectReactionTime / (count - correctAnswers);
         const scoreMy = document.getElementById("scoreMy") as HTMLInputElement;
-        scoreMy.innerHTML = `Среднее время реакции на правильные ответы: ${avgCorrectReactionTime.toFixed(
+        scoreMy.innerText = `Среднее время реакции на правильные ответы: ${avgCorrectReactionTime.toFixed(
           2
         )} мс, на неправильные ответы: ${avgIncorrectReactionTime.toFixed(
           2
@@ -183,56 +213,66 @@ const attention = () => {
         clickedColor === words[wordIndex]
       ) {
         const result = document.getElementById("result") as HTMLInputElement;
-        result.innerHTML = `Правильно! Время реакции: ${reactionTime} мс`;
+        result.innerText = `Правильно! Время реакции: ${reactionTime} мс`;
         correctAnswers++;
         correctReactionTime += reactionTime;
         const correctAnswersElement = document.getElementById(
           "correctAnswers"
         ) as HTMLInputElement;
-        correctAnswersElement.innerHTML = `Количество правильных ответов: ` + correctAnswers;
+        correctAnswersElement.innerText = `Количество правильных ответов: ${correctAnswers}`;
       } else {
         const result = document.getElementById("result") as HTMLInputElement;
-        result.innerHTML = `Неправильно! Время реакции: ${reactionTime} мс`;
+        result.innerText = `Неправильно! Время реакции: ${reactionTime} мс`;
         incorrectReactionTime += reactionTime;
         // save score to global object
-        const testId = 'attention';
+        const testId = "attention";
         const globaRresult = reactionTime.toString();
-        setTestResult(testId, (globaRresult + " millisecond"));
+        setTestResult(testId, globaRresult + " millisecond");
         // for test only
-        getTestResult('analogStalking');
+        getTestResult("analogStalking");
       }
       wordIndex = Math.floor(Math.random() * words.length);
       colorIndex = Math.floor(Math.random() * colors.length);
       startTime = new Date().getTime();
       const word = document.getElementById("word") as HTMLInputElement;
-      word.innerHTML = words[wordIndex];
+      word.innerText = words[wordIndex];
       word.style.color = colors[colorIndex];
       answer = "";
       const progressElement = document.getElementById(
         "progress"
       ) as HTMLInputElement;
       if (progressElement)
-        progressElement.value = (count * 100 / 20).toFixed(0);
+        progressElement.value = ((count * 100) / 10).toFixed(0);
     }
   });
 
   return (
-    <div style={{backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)'}}>
+    <div
+      style={{
+        backgroundImage:
+          "linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)",
+      }}
+    >
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/attention.css" />
       <title>Document</title>
-      <h1 style={{marginTop: '0'}}>Тест на внимание</h1>
+      <h1 style={{ marginTop: "0" }}>Тест на внимание</h1>
       <button
-        className="back-button" style={{display:'none'}}
+        className="back-button"
+        style={{ display: "none" }}
         onClick={() => {
           location.href = "http://localhost:3000/";
         }}
       >
         Назад
       </button>
-      <button style={{display:'none'}} className="instructions-button" onClick={openModalW}>
+      <button
+        style={{ display: "none" }}
+        className="instructions-button"
+        onClick={openModalW}
+      >
         Инструкция
       </button>
       <p />
@@ -259,31 +299,100 @@ const attention = () => {
       </div>
       <p>Нажимайте кнопку, обозначающую тот цвет, которым написано слово</p>
       <p>
-        <progress id="progress" style={{marginBottom:'0'}} value={0} max={100} />
+        <progress
+          id="progress"
+          style={{ marginBottom: "0" }}
+          value={0}
+          max={100}
+        />
       </p>
       <p>
-        <button id="start" style={{padding:'20px 60px', marginTop:'3%',borderRadius: '0', backgroundColor:'#00FF00', color:'black'}}>Начать</button>
+        <button
+          id="start"
+          style={{
+            padding: "20px 60px",
+            marginTop: "3%",
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+          }}
+        >
+          Начать
+        </button>
       </p>
       <p id="word" />
       <div className="answ-bottons">
-        <button style={{backgroundColor:'blue', color:'black', borderRadius: '0'}} id="red" className="colorb" disabled>
+        <button
+          style={{ backgroundColor: "blue", color: "black", borderRadius: "0" }}
+          id="red"
+          className="colorb"
+          disabled
+        >
           Красный
         </button>
-        <button style={{backgroundColor:'red', color:'black', borderRadius: '0'}} id="green" className="colorb" disabled>
-          Зеленый 
+        <button
+          style={{ backgroundColor: "red", color: "black", borderRadius: "0" }}
+          id="green"
+          className="colorb"
+          disabled
+        >
+          Зеленый
         </button>
-        <button style={{backgroundColor:'yellow', color:'black', borderRadius: '0'}} id="blue" className="colorb" disabled>
+        <button
+          style={{
+            backgroundColor: "yellow",
+            color: "black",
+            borderRadius: "0",
+          }}
+          id="blue"
+          className="colorb"
+          disabled
+        >
           Синий
         </button>
         <br />
-        <button style={{backgroundColor:'pink', color:'black', borderRadius: '0'}} id="orange" className="colorb" disabled>
+        <button
+          style={{ backgroundColor: "pink", color: "black", borderRadius: "0" }}
+          id="orange"
+          className="colorb"
+          disabled
+        >
           Оранжевый
         </button>
-        <button style={{backgroundColor:'green', color:'black', borderRadius: '0'}} id="yellow" className="colorb" disabled>
+        <button
+          style={{
+            backgroundColor: "green",
+            color: "black",
+            borderRadius: "0",
+          }}
+          id="yellow"
+          className="colorb"
+          disabled
+        >
           Желтый
         </button>
-        <button style={{backgroundColor:'orange', color:'black', borderRadius: '0'}} id="pink" className="colorb" disabled>
+        <button
+          style={{
+            backgroundColor: "orange",
+            color: "black",
+            borderRadius: "0",
+          }}
+          id="pink"
+          className="colorb"
+          disabled
+        >
           Розовый
+        </button>
+        <button
+          className="btn start"
+          style={{
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+          }}
+          onClick={updateRs}
+        >
+          Submit
         </button>
       </div>
       <p id="result" />

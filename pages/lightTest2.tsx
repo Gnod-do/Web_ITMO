@@ -4,19 +4,22 @@ import { useSession} from "next-auth/react";
 
 const lightTest2 = () => {
   
-  const { data: session}: any = useSession();
+  const { data: session }: any = useSession();
   let email: any;
   let result: any;
 
-  const data = {
-    email: session?.user?.email,
-    result: "da gui duoc du lieu",
-  }
+
 
   function updateRs() {
+    const correctInput = document.getElementById("correct") as HTMLInputElement;
+    if(correctInput) correctInput.value = result
+    const data = {
+      email: session?.user?.email,
+      result: correctInput.value,
+    }
     console.log(email);
     console.log('1233');
-    axios.post('/api/update-result', data)
+    axios.post("http://localhost:3000/api/auth/updateResult", data)
     .then(response => {
       // Xử lý phản hồi từ server sau khi cập nhật thành công
       console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
@@ -430,7 +433,7 @@ const lightTest2 = () => {
           <div className="square" />
         </div>
         <button className="btn start">Начать тест</button>
-        <button className="btn start" style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black'}}>Submit</button>
+        <button className="btn start" style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black'}} onClick={updateRs}>Submit</button>
         <div className="result">Здесь будет отображен результат</div>
       </div>
       <form id="sendForm">
