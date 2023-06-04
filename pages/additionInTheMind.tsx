@@ -71,7 +71,7 @@ const additionInTheMind = () => {
         // setTestResult(testId, (averageGoodTMP.toString() + " millisecond"));
         // // for test only
         // getTestResult('additionInTheMind');
-        result_data = (averageGoodTMP.toString() + " millisecond");
+        result_data = (averageGoodTMP.toString() + "мс");
       }
       if (averageBad)
         averageBad.innerText += ` Среднее время реакции (неправильные ответы): ${averageBadTMP} миллисекунд.`;

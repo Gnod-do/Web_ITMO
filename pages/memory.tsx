@@ -1,6 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios, { AxiosError } from "axios";
+import { useSession } from "next-auth/react";
 
 const memory = () => {
+  const { data: session }: any = useSession();
+  const [resultData, setResultData] = useState<string>("");
+
   function openModalW() {
     const modal = document.getElementById("modal");
     if (modal) modal.style.display = "block";
@@ -25,24 +30,24 @@ const memory = () => {
     return Math.sqrt(s / (numbers.length - 1));
   };
 
-//   function send(avg: any, total: any, correct: any, misses: any, score: any) {
-//     const avg_time = document.getElementById("avg_time") as HTMLInputElement;
-//     avg_time.value = avg;
-//     const total_time = document.getElementById(
-//       "total_time"
-//     ) as HTMLInputElement;
-//     total_time.value = total;
-//     const correctInput = document.getElementById("correct") as HTMLInputElement;
-//     correctInput.value = correct;
-//     const missesInput = document.getElementById("misses") as HTMLInputElement;
-//     missesInput.value = misses;
-//     const scoreInput = document.getElementById("score") as HTMLInputElement;
-//     scoreInput.value = score;
-//     const submitButton = document.getElementById(
-//       "submit-button"
-//     ) as HTMLInputElement;
-//     submitButton.click();
-//   }
+  //   function send(avg: any, total: any, correct: any, misses: any, score: any) {
+  //     const avg_time = document.getElementById("avg_time") as HTMLInputElement;
+  //     avg_time.value = avg;
+  //     const total_time = document.getElementById(
+  //       "total_time"
+  //     ) as HTMLInputElement;
+  //     total_time.value = total;
+  //     const correctInput = document.getElementById("correct") as HTMLInputElement;
+  //     correctInput.value = correct;
+  //     const missesInput = document.getElementById("misses") as HTMLInputElement;
+  //     missesInput.value = misses;
+  //     const scoreInput = document.getElementById("score") as HTMLInputElement;
+  //     scoreInput.value = score;
+  //     const submitButton = document.getElementById(
+  //       "submit-button"
+  //     ) as HTMLInputElement;
+  //     submitButton.click();
+  //   }
 
   class Result {
     min: number;
@@ -314,17 +319,15 @@ const memory = () => {
     }
 
     getMessage() {
-      return `Пройдено: ${this.num}/${this.amount}. Правильно: ${
-        this.correct
-      }. Неправильно: ${
-        this.incorrect
-      }. Среднее время реакции: ${this.getAverageTime()} мс`;
+      return `Пройдено: ${this.num}/${this.amount}. Правильно: ${this.correct
+        }. Неправильно: ${this.incorrect
+        }. Среднее время реакции: ${this.getAverageTime()} мс`;
     }
 
     getEndMessage() {
-      return `Ваша реакция: (${this.getAverageTime()} мс). Правильных ответов: ${
-        this.correct
-      }`;
+      setResultData(this.getAverageTime().toString() + "мс");
+      return `Ваша реакция: (${this.getAverageTime()} мс). Правильных ответов: ${this.correct
+        }`;
     }
   }
 
@@ -361,14 +364,34 @@ const memory = () => {
 
     const t = new MemoryReaction(arg1, arg2, arg3, arg4);
   });
+  function updateRs() {
+    const correctInput = document.getElementById("correct") as HTMLInputElement;
+    if (correctInput) correctInput.value = resultData;
+    const data = {
+      email: session?.user?.email,
+      testNumber: 'test6',
+      percent: resultData,
+      speed: resultData,
+    };
+    axios
+      .post("http://localhost:3000/api/auth/updateResult", data)
+      .then((response) => {
+        // Xử lý phản hồi từ server sau khi cập nhật thành công
+        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+      })
+      .catch((error: AxiosError) => {
+        // Xử lý lỗi trong quá trình gửi request
+        console.error(error);
+      });
+  }
   return (
-    <div style={{backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)'}}>
+    <div style={{ backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)' }}>
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/memorieTest.css" />
       <link rel="stylesheet" href="css/progressBar.css" />
-      <button style={{display: 'none'}}
+      <button style={{ display: 'none' }}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
@@ -377,8 +400,8 @@ const memory = () => {
         Назад
       </button>
       <title>Тест на память</title>
-      <h1 style={{marginTop: '0'}}>Тест на память</h1>
-      <button className="instructions-button" onClick={openModalW} style={{display: 'none'}}>
+      <h1 style={{ marginTop: '0' }}>Тест на память</h1>
+      <button className="instructions-button" onClick={openModalW} style={{ display: 'none' }}>
         Инструкция
       </button>
       <p></p>
@@ -397,15 +420,15 @@ const memory = () => {
         </div>
       </div>
       <p>Нажимайте "пробел", если цвет не изменился. Иначе - "enter"</p>
-      <progress id="progress" value={0} max={100} style={{marginBottom: '0'}}/>
+      <progress id="progress" value={0} max={100} style={{ marginBottom: '0' }} />
       <div className="test" id="test">
         <div className="field">
-          <div className="square" style={{borderRadius:'50%'}}/>
-          <div className="square" style={{borderRadius:'50%'}}/>
-          <div className="square" style={{borderRadius:'50%'}}/>
+          <div className="square" style={{ borderRadius: '50%' }} />
+          <div className="square" style={{ borderRadius: '50%' }} />
+          <div className="square" style={{ borderRadius: '50%' }} />
         </div>
-        <button className="btn start" style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black'}}>Начать тест</button>
-        <div className="result" style={{display:'block', textAlign: 'center', width:'100%', height:'50px', paddingLeft:'0', margin: '4% 4% 0 0'}}>Здесь будет отображен результат</div>
+        <button className="btn start" style={{ borderRadius: '0', backgroundColor: '#00FF00', color: 'black' }}>Начать тест</button>
+        <div className="result" style={{ display: 'block', textAlign: 'center', width: '100%', height: '50px', paddingLeft: '0', margin: '4% 4% 0 0' }}>Здесь будет отображен результат</div>
       </div>
       <form id="sendForm">
         <input
@@ -426,6 +449,17 @@ const memory = () => {
           style={{ display: "none" }}
         />
       </form>
+      <button
+        className="btn start"
+        style={{
+          borderRadius: "0",
+          backgroundColor: "#00FF00",
+          color: "black",
+        }}
+        onClick={updateRs}
+      >
+        Submit
+      </button>
     </div>
   );
 };

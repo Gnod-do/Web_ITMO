@@ -106,7 +106,7 @@ const AdditionInTheMindSound = () => {
       // const testId = 'additionInTheMindSound';
       // setTestResult(testId, (averageReactionTime.toFixed(2).toString() + " millisecond"));
 
-      result_data = (averageReactionTime.toFixed(2).toString() + " millisecond");
+      result_data = (averageReactionTime.toFixed(2).toString() + "мс");
 
       let start = document.querySelector(".start") as HTMLInputElement;
       start.style.display = "block";
