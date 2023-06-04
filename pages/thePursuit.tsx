@@ -1,6 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios, { AxiosError } from "axios";
+import { useSession } from "next-auth/react";
 
 const thePursuit = () => {
+  const { data: session }: any = useSession();
+  const [resultData, setResultData] = useState<string>("");
+
   function openModalW() {
     const modal = document.getElementById("modal");
     if (modal) modal.style.display = "block";
@@ -199,6 +204,7 @@ const thePursuit = () => {
       result.innerText = `Ваша средняя точность: ${averageAccuracy}%`;
       startButton.style.display = "block";
       startButton.disabled = false;
+      setResultData(averageAccuracy.toString() + "%");
       //sendForm
       // document.getElementById("avg_time").value = averageAccuracy;
       // document.getElementById("score").value = averageAccuracy;
@@ -330,13 +336,33 @@ const thePursuit = () => {
       }
     });
   });
+  function updateRs() {
+    const correctInput = document.getElementById("correct") as HTMLInputElement;
+    if (correctInput) correctInput.value = resultData;
+    const data = {
+      email: session?.user?.email,
+      testNumber: 'test7',
+      percent: resultData,
+      speed: resultData,
+    };
+    axios
+      .post("http://localhost:3000/api/auth/updateResult", data)
+      .then((response) => {
+        // Xử lý phản hồi từ server sau khi cập nhật thành công
+        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+      })
+      .catch((error: AxiosError) => {
+        // Xử lý lỗi trong quá trình gửi request
+        console.error(error);
+      });
+  }
   return (
-    <div style={{backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)'}}>
+    <div style={{ backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)' }}>
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/motionHardTest.css" />
-      <button style={{display:'none'}}
+      <button style={{ display: 'none' }}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
@@ -346,8 +372,8 @@ const thePursuit = () => {
       </button>
       <title>Document</title>
       <meta charSet="UTF-8" />
-      <h1 style={{marginTop:'0'}}>Оценка точности реакции(сложная)</h1>
-      <button className="instructions-button" onClick={openModalW} style={{display:'none'}}>
+      <h1 style={{ marginTop: '0' }}>Оценка точности реакции(сложная)</h1>
+      <button className="instructions-button" onClick={openModalW} style={{ display: 'none' }}>
         Инструкция
       </button>
       <p></p>
@@ -389,7 +415,7 @@ const thePursuit = () => {
         Ваш процент попадания для 3 круга: <span id="result3" />
       </div>
       <p>
-        <button id="startButton" style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black', marginTop: '2%'}}>Начать</button>
+        <button id="startButton" style={{ borderRadius: '0', backgroundColor: '#00FF00', color: 'black', marginTop: '2%' }}>Начать</button>
       </p>
       <div id="result" />
       <div></div>
@@ -415,6 +441,17 @@ const thePursuit = () => {
           style={{ display: "none" }}
         />
       </form>
+      <button
+        className="btn start"
+        style={{
+          borderRadius: "0",
+          backgroundColor: "#00FF00",
+          color: "black",
+        }}
+        onClick={updateRs}
+      >
+        Submit
+      </button>
     </div>
   );
 };

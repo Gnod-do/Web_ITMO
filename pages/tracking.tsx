@@ -1,7 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getTestResult, setTestResult } from "../utils/globals";
+import axios, { AxiosError } from "axios";
+import { useSession } from "next-auth/react";
 
 const tracking = () => {
+  const { data: session }: any = useSession();
+  const [resultData, setResultData] = useState<string>("");
+
+
   function openModalW() {
     const modal = document.getElementById("modal");
     if (modal) modal.style.display = "block";
@@ -88,7 +94,6 @@ const tracking = () => {
       progress.value = (count * 10).toFixed(2);
       showResult();
     }
-
     function showResult() {
       const average = totalDistance;
       totalDistance = 0;
@@ -115,25 +120,19 @@ const tracking = () => {
         answer = (result / 10).toFixed(0);
         if (resultDiv) {
           resultDiv.innerText = `Ваш средний процент попадания: ${answer}%`;
+          setResultData(answer.toString() + "%");
           // save score to global object
-          const testId = 'tracking';
-          setTestResult(testId, (answer + " %"));
-          // for test only
-          getTestResult('tracking');
+          // const testId = 'tracking';
+          // setTestResult(testId, (answer + " %"));
+          // // for test only 
+          // getTestResult('tracking');
         }
         if (startButton) {
           startButton.style.display = "block";
           startButton.disabled = false;
         }
-
-        //sendForm
-        // document.getElementById("avg_time").value = answer;
-        // document.getElementById("score").value = answer;
-        // document.getElementById("submit-button").click();
-        //sendForm
       }
     }
-
     function loop() {
       if (context) context.clearRect(0, 0, canvas.width, canvas.height);
       circle();
@@ -172,13 +171,33 @@ const tracking = () => {
       }
     });
   });
+  function updateRs() {
+    const correctInput = document.getElementById("correct") as HTMLInputElement;
+    if (correctInput) correctInput.value = resultData;
+    const data = {
+      email: session?.user?.email,
+      testNumber: 'test8',
+      percent: resultData,
+      speed: resultData,
+    };
+    axios
+      .post("http://localhost:3000/api/auth/updateResult", data)
+      .then((response) => {
+        // Xử lý phản hồi từ server sau khi cập nhật thành công
+        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+      })
+      .catch((error: AxiosError) => {
+        // Xử lý lỗi trong quá trình gửi request
+        console.error(error);
+      });
+  }
   return (
-    <div style={{backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)'}}>
+    <div style={{ backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)' }}>
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/motionTest.css" />
-      <button style={{display:'none'}}
+      <button style={{ display: 'none' }}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
@@ -188,8 +207,8 @@ const tracking = () => {
       </button>
       <title>Document</title>
       <meta charSet="UTF-8" />
-      <h1 style={{marginTop: '0'}}>Оценка точности реакции(простая)</h1>
-      <button className="instructions-button" onClick={openModalW} style={{display:'none'}}>
+      <h1 style={{ marginTop: '0' }}>Оценка точности реакции(простая)</h1>
+      <button className="instructions-button" onClick={openModalW} style={{ display: 'none' }}>
         Инструкция
       </button>
       <p></p>
@@ -210,7 +229,7 @@ const tracking = () => {
       <p>Нажимайте на пробел, когда точка будет находиться внутри круга. </p>
       <progress id="progress" value={0} max={100} />
       <p>
-        <button id="startButton" style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black'}}>Начать</button>
+        <button id="startButton" style={{ borderRadius: '0', backgroundColor: '#00FF00', color: 'black' }}>Начать</button>
       </p>
       <p>
         <canvas id="canvas" width={380} height={380} />
@@ -235,6 +254,17 @@ const tracking = () => {
           style={{ display: "none" }}
         />
       </form>
+      <button
+        className="btn start"
+        style={{
+          borderRadius: "0",
+          backgroundColor: "#00FF00",
+          color: "black",
+        }}
+        onClick={updateRs}
+      >
+        Submit
+      </button>
     </div>
   );
 };
