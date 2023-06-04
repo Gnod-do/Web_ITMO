@@ -29,6 +29,7 @@ const AdditionInTheMindSound = () => {
   let averageReactionTime;
   let percentage;
   let result_data: string;
+  let result_data_percent: string;
 
   function generateNumbers() {
     a = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -107,6 +108,7 @@ const AdditionInTheMindSound = () => {
       // setTestResult(testId, (averageReactionTime.toFixed(2).toString() + " millisecond"));
 
       result_data = (averageReactionTime.toFixed(2).toString() + "мс");
+      result_data_percent = (percentage.toFixed(2).toString() + "%");
 
       let start = document.querySelector(".start") as HTMLInputElement;
       start.style.display = "block";
@@ -121,7 +123,7 @@ const AdditionInTheMindSound = () => {
     const data = {
       email: session?.user?.email,
       testNumber: 'test10',
-      percent: result_data,
+      percent: result_data_percent,
       speed: result_data,
     };
     axios
