@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import axios, { AxiosError } from "axios";
+import { useSession } from "next-auth/react";
 
 const thinking = () => {
   function openModalW() {
@@ -25,10 +27,39 @@ const thinking = () => {
     generateSequence10,
   ];
 
-  let numCorrect = 0;
+  const { data: session }: any = useSession();
+  let email: any;
+  let result: any;
+
+  function updateRs() {
+    const correctInput = document.getElementById("correct") as HTMLInputElement;
+    if (correctInput) correctInput.value = result;
+    const data = {
+      email: session?.user?.email,
+      testNumber: 'test5',
+      percent: numCorrect*10 + '%',
+      speed:   'Мс',
+    };
+    console.log(email);
+    console.log("1233");
+    axios
+      .post("http://localhost:3000/api/auth/updateResult", data)
+      .then((response) => {
+        // Xử lý phản hồi từ server sau khi cập nhật thành công
+        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+      })
+      .catch((error: AxiosError) => {
+        // Xử lý lỗi trong quá trình gửi request
+        console.error(error);
+      });
+  }
+
+
   let numDisplayed = 0;
 
   let answerInput;
+
+  let numCorrect = 0;
 
   function start() {
     numCorrect = 0;
@@ -443,6 +474,17 @@ const thinking = () => {
           >
             Завершить тест
           </button>
+          <button
+          className="btn start"
+          style={{
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+          }}
+          onClick={updateRs}
+        >
+          Submit
+        </button>
         </div>
       </div>
       <div id="scoreMy" />

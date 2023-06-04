@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { getTestResult, setTestResult } from "../utils/globals";
+import axios, { AxiosError } from "axios";
+import { useSession } from "next-auth/react";
 
 const analogTracking = () => {
 
@@ -16,6 +18,37 @@ const analogTracking = () => {
   function calculateHitPercentage(progress: HTMLInputElement) {
     throw new Error("Function not implemented.");
   }
+
+  const { data: session }: any = useSession();
+  let email: any;
+  let result: any;
+
+  function updateRs() {
+    const correctInput = document.getElementById("correct") as HTMLInputElement;
+    if (correctInput) correctInput.value = result;
+    const data = {
+      email: session?.user?.email,
+      testNumber: 'test3',
+      percent: deviationValues[deviationValues.length - 1] + '%',
+      speed: reactionValues[reactionValues.length - 1] + 'Мс',
+    };
+    console.log(email);
+    console.log("1233");
+    axios
+      .post("http://localhost:3000/api/auth/updateResult", data)
+      .then((response) => {
+        // Xử lý phản hồi từ server sau khi cập nhật thành công
+        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+      })
+      .catch((error: AxiosError) => {
+        // Xử lý lỗi trong quá trình gửi request
+        console.error(error);
+      });
+  }
+
+  let deviationValues: any[] = [];
+  let reactionValues: any[] = [];
+  let reactionAverage: number = 0;
 
 
 
@@ -47,8 +80,8 @@ const analogTracking = () => {
     let resistance = 1;
     let numHits = 0;
     let count = 0;
-    const reactionValues: any[] = [];
-    const deviationValues: any[] = [];
+
+
 
     function startMovingBall() {
       const progress = document.getElementById("progress") as HTMLInputElement;
@@ -145,7 +178,7 @@ const analogTracking = () => {
         clearInterval(moveBallInterval);
         clearInterval(randomDirectionInterval);
         startButton.style.display = "block";
-        const reactionAverage =
+         reactionAverage =
           reactionValues.reduce((acc, val) => acc + Number(val), 0) /
           reactionValues.length;
         const deviationAverage =
@@ -224,6 +257,17 @@ const analogTracking = () => {
         <div id="mark" />
       </div>
       <button id="startButton" style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black', marginBottom: '2%', marginTop: '2%'}}>Начать</button>
+      <button
+          className="btn start"
+          style={{
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+          }}
+          onClick={updateRs}
+        >
+          Submit
+        </button>
       <p></p>
       <div id="reaction" />
       <p></p>
