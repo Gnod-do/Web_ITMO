@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { getTestResult, setTestResult } from "../utils/globals";
+import axios, { AxiosError } from "axios";
+import { useSession } from "next-auth/react";
 
 const AdditionInTheMindSound = () => {
   function openModalW() {
@@ -11,7 +13,7 @@ const AdditionInTheMindSound = () => {
     const modal = document.getElementById("modal");
     if (modal) modal.style.display = "none";
   }
-
+  const { data: session }: any = useSession();
   const min = 10;
   const max = 99;
   let average: HTMLInputElement;
@@ -26,6 +28,7 @@ const AdditionInTheMindSound = () => {
   let totalReactionTime = 0;
   let averageReactionTime;
   let percentage;
+  let result_data: string;
 
   function generateNumbers() {
     a = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -99,11 +102,11 @@ const AdditionInTheMindSound = () => {
       if (average) {
         average.innerText += ` Среднее время реакции: ${averageReactionTime.toFixed(2)} миллисекунд.`;
       }
-      // save score to global object
-      const testId = 'additionInTheMindSound';
-      setTestResult(testId, (averageReactionTime.toFixed(2).toString() + " millisecond"));
-      // for test only
-      getTestResult('additionInTheMindSound');
+      // // save score to global object
+      // const testId = 'additionInTheMindSound';
+      // setTestResult(testId, (averageReactionTime.toFixed(2).toString() + " millisecond"));
+
+      result_data = (averageReactionTime.toFixed(2).toString() + " millisecond");
 
       let start = document.querySelector(".start") as HTMLInputElement;
       start.style.display = "block";
@@ -112,7 +115,26 @@ const AdditionInTheMindSound = () => {
       setTimeout(startTest, 2000);
     }
   }
-
+  function updateRs() {
+    const correctInput = document.getElementById("correct") as HTMLInputElement;
+    if (correctInput) correctInput.value = result_data;
+    const data = {
+      email: session?.user?.email,
+      testNumber: 'test10',
+      percent: result_data,
+      speed: result_data,
+    };
+    axios
+      .post("http://localhost:3000/api/auth/updateResult", data)
+      .then((response) => {
+        // Xử lý phản hồi từ server sau khi cập nhật thành công
+        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+      })
+      .catch((error: AxiosError) => {
+        // Xử lý lỗi trong quá trình gửi request
+        console.error(error);
+      });
+  }
   useEffect(() => {
     const windowClick = (event: any) => {
       const modal = document.getElementById("modal");
@@ -124,12 +146,12 @@ const AdditionInTheMindSound = () => {
     };
   });
   return (
-    <div style={{backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)'}}>
+    <div style={{ backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)' }}>
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/soundTest.css" />
-      <button style={{display:'none'}}
+      <button style={{ display: 'none' }}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
@@ -140,8 +162,8 @@ const AdditionInTheMindSound = () => {
       <title>Document</title>
       <title>Звук чет/нечет</title>
       <meta charSet="UTF-8" />
-      <h1 style={{marginTop: '0'}}>Оценка скорости реакции на сложение в уме(звук)</h1>
-      <button className="instructions-button" onClick={openModalW} style={{display:'none'}}>
+      <h1 style={{ marginTop: '0' }}>Оценка скорости реакции на сложение в уме(звук)</h1>
+      <button className="instructions-button" onClick={openModalW} style={{ display: 'none' }}>
         Инструкция
       </button>
       <p></p>
@@ -162,15 +184,15 @@ const AdditionInTheMindSound = () => {
       </div>
       <p>Сложите числа и выберите результат. </p>
       <progress id="progress" value={0} max={100} />
-      <button className="start" onClick={startTest} style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black', marginBottom: '2%'}}>
+      <button className="start" onClick={startTest} style={{ borderRadius: '0', backgroundColor: '#00FF00', color: 'black', marginBottom: '2%' }}>
         Начать
       </button>
       <p></p>
       <div id="question" />
-      <button className="even" onClick={() => checkAnswer("четное")} style={{borderRadius: '0', backgroundColor:'#FFCC00', color:'black'}} >
+      <button className="even" onClick={() => checkAnswer("четное")} style={{ borderRadius: '0', backgroundColor: '#FFCC00', color: 'black' }} >
         Четное
       </button>
-      <button className="odd" onClick={() => checkAnswer("нечетное")} style={{borderRadius: '0', backgroundColor:'#CC3300', color:'black',textAlign:'center', padding:'20px 30px', marginLeft:'20px'}}>
+      <button className="odd" onClick={() => checkAnswer("нечетное")} style={{ borderRadius: '0', backgroundColor: '#CC3300', color: 'black', textAlign: 'center', padding: '20px 30px', marginLeft: '20px' }}>
         Нечетное
       </button>
       <p></p>
@@ -197,6 +219,17 @@ const AdditionInTheMindSound = () => {
           style={{ display: "none" }}
         />
       </form>
+      <button
+        className="btn start"
+        style={{
+          borderRadius: "0",
+          backgroundColor: "#00FF00",
+          color: "black",
+        }}
+        onClick={updateRs}
+      >
+        Submit
+      </button>
     </div>
   );
 };
