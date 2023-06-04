@@ -123,7 +123,7 @@ const AdditionInTheMindSound = () => {
     const data = {
       email: session?.user?.email,
       testNumber: 'test10',
-      percent: result_data_percent,
+      percent: (5-wrong)*10 + "%",
       speed: result_data,
     };
     axios

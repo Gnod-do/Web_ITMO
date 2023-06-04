@@ -97,8 +97,8 @@ const additionInTheMind = () => {
     const data = {
       email: session?.user?.email,
       testNumber: 'test9',
-      percent: result_data,
-      speed: result_data,
+      percent: (5-wrong)*10 + '%',
+      speed: totalReactionTime/5 + 'мс',
     };
     axios
       .post("http://localhost:3000/api/auth/updateResult", data)

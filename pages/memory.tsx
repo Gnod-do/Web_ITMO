@@ -64,6 +64,7 @@ const memory = () => {
     }
   }
 
+  let correctA: number = 0;
   class SquareBase {
     squares: any;
     startButton: any;
@@ -246,6 +247,7 @@ const memory = () => {
 
   class MemoryReaction extends SquareBase {
     codes: string[];
+    correctB: number = 0 ;
     colorHistory: any[];
     listener: (event: { code: any }) => void;
     constructor(
@@ -316,6 +318,8 @@ const memory = () => {
       }
       this.updateTime();
       this.changeCurrentSquareColor(this.baseColor);
+      this.correctB = this.incorrect;
+      correctA = this.correctB;
     }
 
     getMessage() {
@@ -326,6 +330,7 @@ const memory = () => {
 
     getEndMessage() {
       setResultData(this.getAverageTime().toString() + "мс");
+      // this.correctB = this.correct;
       return `Ваша реакция: (${this.getAverageTime()} мс). Правильных ответов: ${this.correct
         }`;
     }
@@ -370,7 +375,7 @@ const memory = () => {
     const data = {
       email: session?.user?.email,
       testNumber: 'test6',
-      percent: resultData,
+      percent: correctA,
       speed: resultData,
     };
     axios

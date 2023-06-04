@@ -15,6 +15,23 @@ const thePursuit = () => {
     const modal = document.getElementById("modal");
     if (modal) modal.style.display = "none";
   }
+
+  let theResult;
+  const circleX1 = 200;
+  const circleY1 = 200;
+  const circleX2 = 600;
+  const circleY2 = 200;
+  const circleX3 = 1000;
+  const circleY3 = 200;
+  const circleRadius = 150;
+  const pointRadius = 10;
+  let totalAccuracy1 = 0;
+  let totalAttempts1 = 0;
+  let totalAccuracy2 = 0;
+  let totalAttempts2 = 0;
+  let totalAccuracy3 = 0;
+  let totalAttempts3 = 0;
+
   useEffect(() => {
     const windowClick = (event: any) => {
       const modal = document.getElementById("modal");
@@ -33,21 +50,7 @@ const thePursuit = () => {
     const startButton = document.getElementById(
       "startButton"
     ) as HTMLInputElement;
-    let theResult;
-    const circleX1 = 200;
-    const circleY1 = 200;
-    const circleX2 = 600;
-    const circleY2 = 200;
-    const circleX3 = 1000;
-    const circleY3 = 200;
-    const circleRadius = 150;
-    const pointRadius = 10;
-    let totalAccuracy1 = 0;
-    let totalAttempts1 = 0;
-    let totalAccuracy2 = 0;
-    let totalAttempts2 = 0;
-    let totalAccuracy3 = 0;
-    let totalAttempts3 = 0;
+
     const point1 = {
       x: circleX1 + circleRadius,
       y: circleY1,
@@ -338,12 +341,15 @@ const thePursuit = () => {
   });
   function updateRs() {
     const correctInput = document.getElementById("correct") as HTMLInputElement;
+    const result1 = document.getElementById("result1") as HTMLInputElement;
+    const result2 = document.getElementById("result2") as HTMLInputElement;
+    const result3 = document.getElementById("result3") as HTMLInputElement;
     if (correctInput) correctInput.value = resultData;
     const data = {
       email: session?.user?.email,
       testNumber: 'test7',
-      percent: resultData,
-      speed: resultData,
+      percent: ((totalAccuracy1 + totalAccuracy2 + totalAccuracy3)/300).toFixed(2) + '%',
+      speed: "мс",
     };
     axios
       .post("http://localhost:3000/api/auth/updateResult", data)

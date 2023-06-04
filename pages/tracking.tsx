@@ -178,7 +178,7 @@ const tracking = () => {
       email: session?.user?.email,
       testNumber: 'test8',
       percent: resultData,
-      speed: resultData,
+      speed: "мс",
     };
     axios
       .post("http://localhost:3000/api/auth/updateResult", data)
