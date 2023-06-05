@@ -1,6 +1,13 @@
 import axios from "axios";
 import { FormWrapper } from "./FormWrapper";
-import { useState, useEffect } from "react";
+import {
+  useState,
+  useEffect,
+  JSXElementConstructor,
+  ReactElement,
+  ReactFragment,
+  ReactPortal,
+} from "react";
 
 type Table1Data = {
   First: boolean;
@@ -22,34 +29,27 @@ const Table1Form = ({
   Fifth,
   updateFields,
 }: Table1FormProps) => {
-  //   try {
-  //     const listData = await getList();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   const [listData, setListData] = useState();
-  //   useEffect(async () => {
-  //     const listData = await getList();
-  //     setListData(listData);
-  //   }, []);
-
-  const [listData, setListData] = useState();
-
-  const getList = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.NEXTAUTH_URL}/api/criterias`
-      );
-      setListData(response?.data);
-      console.log(response);
-    } catch (error) {}
-  };
-
-  //   const listData = await getList();
+  const [criteria1, setCriteria1] = useState("");
+  const [criteria2, setCriteria2] = useState("");
+  const [criteria3, setCriteria3] = useState("");
+  const [criteria4, setCriteria4] = useState("");
+  const [criteria5, setCriteria5] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const data = getList();
+    fetch("http://localhost:3000/api/criterias")
+      .then((response) => response.json())
+      .then((data) => {
+        setCriteria1(data.criteriaList[0].criteria1);
+        setCriteria2(data.criteriaList[0].criteria2);
+        setCriteria3(data.criteriaList[0].criteria3);
+        setCriteria4(data.criteriaList[0].criteria4);
+        setCriteria5(data.criteriaList[0].criteria5);
+        setLoading(false);
+      })
+      .catch((error) => console.error(error));
   }, []);
+
   return (
     <FormWrapper title=" Какими качествами ты обладаешь?">
       <p>Какими качествами ты обладаешь?</p>
@@ -63,7 +63,7 @@ const Table1Form = ({
               checked={First}
               onChange={(e) => updateFields({ First: e.target.checked })}
             />
-            <p>Самостоятельность</p>
+            {loading ? <p>Retrieving data from API...</p> : <p>{criteria1}</p>}
           </label>
         </li>
 
@@ -76,7 +76,7 @@ const Table1Form = ({
               checked={Second}
               onChange={(e) => updateFields({ Second: e.target.checked })}
             />
-            <p>Исполнительность и старательность</p>
+            {loading ? <p>Retrieving data from API...</p> : <p>{criteria2}</p>}
           </label>
         </li>
         <li className={"flex-li"}>
@@ -88,7 +88,7 @@ const Table1Form = ({
               checked={Third}
               onChange={(e) => updateFields({ Third: e.target.checked })}
             />
-            <p>Логичность</p>
+            {loading ? <p>Retrieving data from API...</p> : <p>{criteria3}</p>}
           </label>
         </li>
         <li className={"flex-li"}>
@@ -100,7 +100,7 @@ const Table1Form = ({
               checked={Fourth}
               onChange={(e) => updateFields({ Fourth: e.target.checked })}
             />
-            <p>Ответственность</p>
+            {loading ? <p>Retrieving data from API...</p> : <p>{criteria4}</p>}
           </label>
         </li>
         <li className={"flex-li"}>
@@ -112,7 +112,7 @@ const Table1Form = ({
               checked={Fifth}
               onChange={(e) => updateFields({ Fifth: e.target.checked })}
             />
-            <p>Экстернальность</p>
+            {loading ? <p>Retrieving data from API...</p> : <p>{criteria5}</p>}
           </label>
         </li>
       </ul>
