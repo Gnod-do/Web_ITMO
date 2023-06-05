@@ -66,7 +66,7 @@ const AdditionInTheMindSound = () => {
       startTime = performance.now();
     } else {
       if (resultDiv)
-        resultDiv.innerText = "Ваш браузер не поддерживает голосовой синтез.";
+        resultDiv.innerText = "Your browser does not support voice synthesis.";
     }
   }
 
@@ -76,23 +76,21 @@ const AdditionInTheMindSound = () => {
     const time = performance.now() - startTime - timeToSpeakDigits;
     resultDiv = document.getElementById("result") as HTMLInputElement;
     if (
-      (answer === "четное" && (a + b) % 2 === 0) ||
-      (answer === "нечетное" && (a + b) % 2 !== 0)
+      (answer === "Even" && (a + b) % 2 === 0) ||
+      (answer === "Odd" && (a + b) % 2 !== 0)
     ) {
       if (parseFloat(time.toFixed(2)) < 0) {
-        if (resultDiv) resultDiv.innerText = "А вот так вот не надо...";
+        if (resultDiv) resultDiv.innerText = "And so it's not necessary...";
       } else {
         if (resultDiv)
-          resultDiv.innerText = `Ваше время реакции: ${time.toFixed(
-            2
-          )} миллисекунд.`;
+          resultDiv.innerText = `Your reaction time: ${time.toFixed(2)} ms.`;
         totalReactionTime += time;
       }
     } else {
       if (parseFloat(time.toFixed(2)) < 0) {
-        if (resultDiv) resultDiv.innerText = "А вот так вот не надо...";
+        if (resultDiv) resultDiv.innerText = "And so it's not necessary...";
       } else {
-        if (resultDiv) resultDiv.innerText = "Ошибочка(";
+        if (resultDiv) resultDiv.innerText = "Error";
         wrong++;
       }
     }
@@ -101,18 +99,19 @@ const AdditionInTheMindSound = () => {
     average = document.getElementById("average") as HTMLInputElement;
     if (attempts === maxAttempts) {
       if (average) {
-        average.innerText += ` Среднее время реакции: ${averageReactionTime.toFixed(2)} миллисекунд.`;
+        average.innerText += ` Average reaction time: ${averageReactionTime.toFixed(
+          2
+        )} ms.`;
       }
       // // save score to global object
       // const testId = 'additionInTheMindSound';
       // setTestResult(testId, (averageReactionTime.toFixed(2).toString() + " millisecond"));
 
-      result_data = (averageReactionTime.toFixed(2).toString() + "мс");
-      result_data_percent = (percentage.toFixed(2).toString() + "%");
+      result_data = averageReactionTime.toFixed(2).toString() + "мс";
+      result_data_percent = percentage.toFixed(2).toString() + "%";
 
       let start = document.querySelector(".start") as HTMLInputElement;
       start.style.display = "block";
-
     } else {
       setTimeout(startTest, 2000);
     }
@@ -122,8 +121,8 @@ const AdditionInTheMindSound = () => {
     if (correctInput) correctInput.value = result_data;
     const data = {
       email: session?.user?.email,
-      testNumber: 'test10',
-      percent: (5-wrong)*10 + "%",
+      testNumber: "test10",
+      percent: (5 - wrong) * 10 + "%",
       speed: result_data,
     };
     axios
@@ -148,25 +147,37 @@ const AdditionInTheMindSound = () => {
     };
   });
   return (
-    <div style={{ backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)' }}>
+    <div
+      style={{
+        backgroundImage:
+          "linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)",
+      }}
+    >
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/soundTest.css" />
-      <button style={{ display: 'none' }}
+      <button
+        style={{ display: "none" }}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
         }}
       >
-        Назад
+        Back
       </button>
       <title>Document</title>
-      <title>Звук чет/нечет</title>
+      <title>Sound even/odd</title>
       <meta charSet="UTF-8" />
-      <h1 style={{ marginTop: '0' }}>Оценка скорости реакции на сложение в уме(звук)</h1>
-      <button className="instructions-button" onClick={openModalW} style={{ display: 'none' }}>
-        Инструкция
+      <h1 style={{ marginTop: "0" }}>
+        Assessing the speed of reaction to addition in the mind (sound)
+      </h1>
+      <button
+        className="instructions-button"
+        onClick={openModalW}
+        style={{ display: "none" }}
+      >
+        Instruction
       </button>
       <p></p>
       <div id="modal" className="modal">
@@ -174,28 +185,55 @@ const AdditionInTheMindSound = () => {
           <span className="close" onClick={closeModalW}>
             ×
           </span>
-          <h2>Инструкция</h2>
+          <h2>Instruction</h2>
           <p>
-            Для начала теста, нажмите кнопку "Начать". Вы услышите два числа,
-            ваша задача сложить их и определить, является ли результат четным
-            или нечетным. Нажмите соответствующую кнопку, чтобы выбрать ответ.
-            Вы можете повторить тест несколько раз, чтобы улучшить свой
-            результат.
+            To start the test, click the "Start" button. You will hear two
+            numbers your task is to add them up and determine if the result is
+            even or odd. Click the appropriate button to select an answer. You
+            can repeat the test several times to improve your result.
           </p>
         </div>
       </div>
-      <p>Сложите числа и выберите результат. </p>
+      <p>Add up the numbers and choose the result. </p>
       <progress id="progress" value={0} max={100} />
-      <button className="start" onClick={startTest} style={{ borderRadius: '0', backgroundColor: '#00FF00', color: 'black', marginBottom: '2%' }}>
-        Начать
+      <button
+        className="start"
+        onClick={startTest}
+        style={{
+          borderRadius: "0",
+          backgroundColor: "#00FF00",
+          color: "black",
+          marginBottom: "2%",
+        }}
+      >
+        Begin
       </button>
       <p></p>
       <div id="question" />
-      <button className="even" onClick={() => checkAnswer("четное")} style={{ borderRadius: '0', backgroundColor: '#FFCC00', color: 'black' }} >
-        Четное
+      <button
+        className="even"
+        onClick={() => checkAnswer("четное")}
+        style={{
+          borderRadius: "0",
+          backgroundColor: "#FFCC00",
+          color: "black",
+        }}
+      >
+        Even
       </button>
-      <button className="odd" onClick={() => checkAnswer("нечетное")} style={{ borderRadius: '0', backgroundColor: '#CC3300', color: 'black', textAlign: 'center', padding: '20px 30px', marginLeft: '20px' }}>
-        Нечетное
+      <button
+        className="odd"
+        onClick={() => checkAnswer("нечетное")}
+        style={{
+          borderRadius: "0",
+          backgroundColor: "#CC3300",
+          color: "black",
+          textAlign: "center",
+          padding: "20px 30px",
+          marginLeft: "20px",
+        }}
+      >
+        Odd
       </button>
       <p></p>
       <div id="result" />
@@ -207,7 +245,7 @@ const AdditionInTheMindSound = () => {
           type="hidden"
           name="test_name"
           id="test_name"
-          defaultValue="Сложение (звук)"
+          defaultValue="Addition (sound)"
         />
         <input type="hidden" name="avg_time" id="avg_time" />
         <input type="hidden" name="total_time" id="total_time" />

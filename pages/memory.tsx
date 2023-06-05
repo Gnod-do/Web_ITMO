@@ -118,7 +118,7 @@ const memory = () => {
 
     attachTest(test: any) {
       this.startButton.onclick = () => {
-        this.setLabel("Тест начался!");
+        this.setLabel("The test has begun!");
         this.startButton.style.display = "none";
         test();
       };
@@ -247,7 +247,7 @@ const memory = () => {
 
   class MemoryReaction extends SquareBase {
     codes: string[];
-    correctB: number = 0 ;
+    correctB: number = 0;
     colorHistory: any[];
     listener: (event: { code: any }) => void;
     constructor(
@@ -300,7 +300,7 @@ const memory = () => {
 
     clickHandler(code: string) {
       if (!this.checkCurrentSquare()) {
-        this.setLabel("Вы нажали слишком рано!");
+        this.setLabel("You clicked too soon!");
         this.incorrect++;
         return;
       }
@@ -323,16 +323,19 @@ const memory = () => {
     }
 
     getMessage() {
-      return `Пройдено: ${this.num}/${this.amount}. Правильно: ${this.correct
-        }. Неправильно: ${this.incorrect
-        }. Среднее время реакции: ${this.getAverageTime()} мс`;
+      return `Passed: ${this.num}/${this.amount}. Right: ${
+        this.correct
+      }. Wrong: ${
+        this.incorrect
+      }. Average reaction time: ${this.getAverageTime()} ms`;
     }
 
     getEndMessage() {
-      setResultData(this.getAverageTime().toString() + "мс");
+      setResultData(this.getAverageTime().toString() + "ms");
       // this.correctB = this.correct;
-      return `Ваша реакция: (${this.getAverageTime()} мс). Правильных ответов: ${this.correct
-        }`;
+      return `Your reaction: (${this.getAverageTime()} ms). Correct answers: ${
+        this.correct
+      }`;
     }
   }
 
@@ -374,7 +377,7 @@ const memory = () => {
     if (correctInput) correctInput.value = resultData;
     const data = {
       email: session?.user?.email,
-      testNumber: 'test6',
+      testNumber: "test6",
       percent: correctA,
       speed: resultData,
     };
@@ -390,24 +393,34 @@ const memory = () => {
       });
   }
   return (
-    <div style={{ backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)' }}>
+    <div
+      style={{
+        backgroundImage:
+          "linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)",
+      }}
+    >
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/memorieTest.css" />
       <link rel="stylesheet" href="css/progressBar.css" />
-      <button style={{ display: 'none' }}
+      <button
+        style={{ display: "none" }}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
         }}
       >
-        Назад
+        Back
       </button>
-      <title>Тест на память</title>
-      <h1 style={{ marginTop: '0' }}>Тест на память</h1>
-      <button className="instructions-button" onClick={openModalW} style={{ display: 'none' }}>
-        Инструкция
+      <title>Memory test</title>
+      <h1 style={{ marginTop: "0" }}>Memory test</h1>
+      <button
+        className="instructions-button"
+        onClick={openModalW}
+        style={{ display: "none" }}
+      >
+        Instruction
       </button>
       <p></p>
       <div id="modal" className="modal">
@@ -415,32 +428,61 @@ const memory = () => {
           <span className="close" onClick={closeModalW}>
             ×
           </span>
-          <h2>Инструкция</h2>
+          <h2>Instruction</h2>
           <p>
-            Для начала теста, нажмите кнопку "Начать тест". <br />
-            Начнут появляться квадраты разных цветов. <br />
-            Если цвет изменился, нажмите "enter" <br />
-            Если цвет НЕ изменился, нажмите "пробел"
+            To start the test, click the "Start Test" button. <br />
+            Squares of different colors will start to appear. <br />
+            If the color has changed, press "enter" <br />
+            If the color has NOT changed, press "space"
           </p>
         </div>
       </div>
-      <p>Нажимайте "пробел", если цвет не изменился. Иначе - "enter"</p>
-      <progress id="progress" value={0} max={100} style={{ marginBottom: '0' }} />
+      <p>
+        Press "space" if the color has not changed. Otherwise - "enter". When
+        completing the test, click the Submit button, your data is stored
+      </p>
+      <progress
+        id="progress"
+        value={0}
+        max={100}
+        style={{ marginBottom: "0" }}
+      />
       <div className="test" id="test">
         <div className="field">
-          <div className="square" style={{ borderRadius: '50%' }} />
-          <div className="square" style={{ borderRadius: '50%' }} />
-          <div className="square" style={{ borderRadius: '50%' }} />
+          <div className="square" style={{ borderRadius: "50%" }} />
+          <div className="square" style={{ borderRadius: "50%" }} />
+          <div className="square" style={{ borderRadius: "50%" }} />
         </div>
-        <button className="btn start" style={{ borderRadius: '0', backgroundColor: '#00FF00', color: 'black' }}>Начать тест</button>
-        <div className="result" style={{ display: 'block', textAlign: 'center', width: '100%', height: '50px', paddingLeft: '0', margin: '4% 4% 0 0' }}>Здесь будет отображен результат</div>
+        <button
+          className="btn start"
+          style={{
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+          }}
+        >
+          Begin test
+        </button>
+        <div
+          className="result"
+          style={{
+            display: "block",
+            textAlign: "center",
+            width: "100%",
+            height: "50px",
+            paddingLeft: "0",
+            margin: "4% 4% 0 0",
+          }}
+        >
+          The result will be displayed here
+        </div>
       </div>
       <form id="sendForm">
         <input
           type="hidden"
           name="test_name"
           id="test_name"
-          defaultValue="Память"
+          defaultValue="memory"
         />
         <input type="hidden" name="avg_time" id="avg_time" />
         <input type="hidden" name="total_time" id="total_time" />

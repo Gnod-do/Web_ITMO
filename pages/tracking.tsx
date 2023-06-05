@@ -7,7 +7,6 @@ const tracking = () => {
   const { data: session }: any = useSession();
   const [resultData, setResultData] = useState<string>("");
 
-
   function openModalW() {
     const modal = document.getElementById("modal");
     if (modal) modal.style.display = "block";
@@ -102,29 +101,23 @@ const tracking = () => {
       if (matchPercent < 0) {
         matchPercent = 0;
         if (resultDiv)
-          resultDiv.innerText = `Ваш процент попадания: ${matchPercent.toFixed(
-            2
-          )}%`;
+          resultDiv.innerText = `Your hit rate: ${matchPercent.toFixed(2)}%`;
         result = result + matchPercent;
-
       } else {
         if (resultDiv)
-          resultDiv.innerText = `Ваш процент попадания: ${matchPercent.toFixed(
-            2
-          )}%`;
+          resultDiv.innerText = `Your hit rate: ${matchPercent.toFixed(2)}%`;
         result = result + matchPercent;
-
       }
       let answer;
       if (count === 10) {
         answer = (result / 10).toFixed(0);
         if (resultDiv) {
-          resultDiv.innerText = `Ваш средний процент попадания: ${answer}%`;
+          resultDiv.innerText = `Your average hit rate: ${answer}%`;
           setResultData(answer.toString() + "%");
           // save score to global object
           // const testId = 'tracking';
           // setTestResult(testId, (answer + " %"));
-          // // for test only 
+          // // for test only
           // getTestResult('tracking');
         }
         if (startButton) {
@@ -176,7 +169,7 @@ const tracking = () => {
     if (correctInput) correctInput.value = resultData;
     const data = {
       email: session?.user?.email,
-      testNumber: 'test8',
+      testNumber: "test8",
       percent: resultData,
       speed: "мс",
     };
@@ -192,24 +185,34 @@ const tracking = () => {
       });
   }
   return (
-    <div style={{ backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)' }}>
+    <div
+      style={{
+        backgroundImage:
+          "linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)",
+      }}
+    >
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/motionTest.css" />
-      <button style={{ display: 'none' }}
+      <button
+        style={{ display: "none" }}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
         }}
       >
-        Назад
+        Back
       </button>
       <title>Document</title>
       <meta charSet="UTF-8" />
-      <h1 style={{ marginTop: '0' }}>Оценка точности реакции(простая)</h1>
-      <button className="instructions-button" onClick={openModalW} style={{ display: 'none' }}>
-        Инструкция
+      <h1 style={{ marginTop: "0" }}>Reaction accuracy estimation (simple)</h1>
+      <button
+        className="instructions-button"
+        onClick={openModalW}
+        style={{ display: "none" }}
+      >
+        Instruction
       </button>
       <p></p>
       <div id="modal" className="modal">
@@ -217,19 +220,32 @@ const tracking = () => {
           <span className="close" onClick={closeModalW}>
             ×
           </span>
-          <h2>Инструкция</h2>
+          <h2>Instruction</h2>
           <p>
-            Для начала теста, нажмите кнопку "Начать". Нажимайте на пробел,
-            когда точка будет находиться внутри круга. После 10 попыток тест
-            завершится, и вы увидите ваш средний процент попадания в круг. Вы
-            можете повторить тест несколько раз, чтобы улучшить свой результат.
+            To start the test, click the "Start" button. Press the space bar
+            when the point is inside the circle. After 10 attempts test will
+            complete and you will see your average percentage of hitting the
+            circle. You You can repeat the test several times to improve your
+            score.
           </p>
         </div>
       </div>
-      <p>Нажимайте на пробел, когда точка будет находиться внутри круга. </p>
+      <p>
+        Press the spacebar when the dot is inside the circle. When completing
+        the test, click the Submit button, your data is stored
+      </p>
       <progress id="progress" value={0} max={100} />
       <p>
-        <button id="startButton" style={{ borderRadius: '0', backgroundColor: '#00FF00', color: 'black' }}>Начать</button>
+        <button
+          id="startButton"
+          style={{
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+          }}
+        >
+          Begin
+        </button>
       </p>
       <p>
         <canvas id="canvas" width={380} height={380} />
@@ -240,7 +256,7 @@ const tracking = () => {
           type="hidden"
           name="test_name"
           id="test_name"
-          defaultValue="Точность реакции (простая)"
+          defaultValue="Response accuracy (simple)"
         />
         <input type="hidden" name="avg_time" id="avg_time" />
         <input type="hidden" name="total_time" id="total_time" />

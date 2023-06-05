@@ -23,9 +23,9 @@ const attention = () => {
     if (correctInput) correctInput.value = result;
     const data = {
       email: session?.user?.email,
-      testNumber: 'test4',
-      percent: (correctAnswers*10).toFixed(0) + '%',
-      speed: avgCorrectReactionTime.toString() + 'Мс',
+      testNumber: "test4",
+      percent: (correctAnswers * 10).toFixed(0) + "%",
+      speed: avgCorrectReactionTime.toString() + "Мс",
     };
     console.log(email);
     console.log("1233");
@@ -41,10 +41,9 @@ const attention = () => {
       });
   }
 
-  let correctAnswers: number= 0;
+  let correctAnswers: number = 0;
 
   let avgCorrectReactionTime: number = 0;
-
 
   useEffect(() => {
     const windowClick = (event: any) => {
@@ -54,14 +53,7 @@ const attention = () => {
       }
     };
 
-    const words = [
-      "красный",
-      "зеленый",
-      "синий",
-      "оранжевый",
-      "желтый",
-      "розовый",
-    ];
+    const words = ["red", "green", "blue", "orange", "yellow", "pink"];
     const colors = ["red", "green", "blue", "orange", "yellow", "pink"];
     let wordIndex: number;
     let colorIndex: any;
@@ -180,18 +172,16 @@ const attention = () => {
       let avgReactionTimePercent;
       if (count >= 10) {
         const word = document.getElementById("word") as HTMLInputElement;
-        word.innerText = "Тест завершен!";
+        word.innerText = "Test completed!";
         const start = document.getElementById("start") as HTMLInputElement;
         start.style.display = "block";
-        avgCorrectReactionTime = (correctReactionTime / correctAnswers) ;
+        avgCorrectReactionTime = correctReactionTime / correctAnswers;
         const avgIncorrectReactionTime =
           incorrectReactionTime / (count - correctAnswers);
         const scoreMy = document.getElementById("scoreMy") as HTMLInputElement;
-        scoreMy.innerText = `Среднее время реакции на правильные ответы: ${avgCorrectReactionTime.toFixed(
+        scoreMy.innerText = `Average reaction time for correct answers: ${avgCorrectReactionTime.toFixed(
           2
-        )} мс, на неправильные ответы: ${avgIncorrectReactionTime.toFixed(
-          2
-        )} мс`;
+        )} ms, for wrong answers: ${avgIncorrectReactionTime.toFixed(2)} ms`;
         const avgReactionTime = correctAnswers > 0 ? avgCorrectReactionTime : 0;
         avgReactionTimePercent = ((avgReactionTime / 1000) * 100).toFixed(0);
         //sendForm
@@ -217,16 +207,16 @@ const attention = () => {
         clickedColor === words[wordIndex]
       ) {
         const result = document.getElementById("result") as HTMLInputElement;
-        result.innerText = `Правильно! Время реакции: ${reactionTime} мс`;
+        result.innerText = `Right! Reaction time: ${reactionTime} ms`;
         correctAnswers++;
         correctReactionTime += reactionTime;
         const correctAnswersElement = document.getElementById(
           "correctAnswers"
         ) as HTMLInputElement;
-        correctAnswersElement.innerText = `Количество правильных ответов: ${correctAnswers}`;
+        correctAnswersElement.innerText = `Number of correct answers: ${correctAnswers}`;
       } else {
         const result = document.getElementById("result") as HTMLInputElement;
-        result.innerText = `Неправильно! Время реакции: ${reactionTime} мс`;
+        result.innerText = `Wrong! Reaction time: ${reactionTime} ms`;
         incorrectReactionTime += reactionTime;
         // save score to global object
         const testId = "attention";
@@ -270,14 +260,14 @@ const attention = () => {
           location.href = "http://localhost:3000/";
         }}
       >
-        Назад
+        Back
       </button>
       <button
         style={{ display: "none" }}
         className="instructions-button"
         onClick={openModalW}
       >
-        Инструкция
+        Instruction
       </button>
       <p />
       <div id="modal" className="modal">
@@ -285,23 +275,26 @@ const attention = () => {
           <span className="close" onClick={closeModalW}>
             ×
           </span>
-          <h2>Инструкция</h2>
+          <h2>Instruction</h2>
           <p>
-            Вам нужно указать цвет, которым написано слово, само являющееся
-            названием цвета. Название цвета (слово) может не совпадать с цветом,
-            которым оно написано. Например, слово «зеленый» может быть написано
-            красным цветом. Для большей ясности вот несколько примеров заданий и
-            правильные ответы к ним:
+            You need to indicate the color in which the word itself is written
+            color name. The name of the color (word) may not match the color, by
+            which it was written. For example, the word "green" might be written
+            in red. For clarity, here are some examples of tasks and correct
+            answers to them:
           </p>
           <ul>
-            <li style={{ color: "#B22222" }}>- правильный ответ «красный»</li>
-            <li style={{ color: "#9ACD32" }}>- правильный ответ «зеленый»</li>
-            <li style={{ color: "#FF69B4" }}>- правильный ответ «розовый»</li>
-            <li style={{ color: "#FF8C00" }}>- правильный ответ «оранжевый»</li>
+            <li style={{ color: "#B22222" }}>- correct answer is red</li>
+            <li style={{ color: "#9ACD32" }}>- correct answer is green</li>
+            <li style={{ color: "#FF69B4" }}>- correct answer is "pink"</li>
+            <li style={{ color: "#FF8C00" }}>- correct answer is orange</li>
           </ul>
         </div>
       </div>
-      <p>Нажимайте кнопку, обозначающую тот цвет, которым написано слово</p>
+      <p>
+        Press the button indicating the color in which the word is written! When
+        completing the test, click the Submit button, your data is stored
+      </p>
       <p>
         <progress
           id="progress"
@@ -321,7 +314,7 @@ const attention = () => {
             color: "black",
           }}
         >
-          Начать
+          Begin
         </button>
       </p>
       <p id="word" />
@@ -332,7 +325,7 @@ const attention = () => {
           className="colorb"
           disabled
         >
-          Красный
+          Red
         </button>
         <button
           style={{ backgroundColor: "red", color: "black", borderRadius: "0" }}
@@ -340,7 +333,7 @@ const attention = () => {
           className="colorb"
           disabled
         >
-          Зеленый
+          Green
         </button>
         <button
           style={{
@@ -352,7 +345,7 @@ const attention = () => {
           className="colorb"
           disabled
         >
-          Синий
+          Blue
         </button>
         <br />
         <button
@@ -361,7 +354,7 @@ const attention = () => {
           className="colorb"
           disabled
         >
-          Оранжевый
+          Orange
         </button>
         <button
           style={{
@@ -373,7 +366,7 @@ const attention = () => {
           className="colorb"
           disabled
         >
-          Желтый
+          Yellow
         </button>
         <button
           style={{
@@ -385,7 +378,7 @@ const attention = () => {
           className="colorb"
           disabled
         >
-          Розовый
+          Pink
         </button>
         <button
           className="btn start"
@@ -407,7 +400,7 @@ const attention = () => {
           type="hidden"
           name="test_name"
           id="test_name"
-          defaultValue="Внимание"
+          defaultValue="Attention"
         />
         <input type="hidden" name="avg_time" id="avg_time" />
         <input type="hidden" name="total_time" id="total_time" />

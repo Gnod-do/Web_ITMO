@@ -10,6 +10,9 @@ export const Nav = styled.nav`
     align-items: center;
     box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
     height: 5vh;
+    position: sticky;
+    top: 0px;
+    z-index: 10;
 
 `;
 

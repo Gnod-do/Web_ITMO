@@ -347,8 +347,10 @@ const thePursuit = () => {
     if (correctInput) correctInput.value = resultData;
     const data = {
       email: session?.user?.email,
-      testNumber: 'test7',
-      percent: ((totalAccuracy1 + totalAccuracy2 + totalAccuracy3)/300).toFixed(2) + '%',
+      testNumber: "test7",
+      percent:
+        ((totalAccuracy1 + totalAccuracy2 + totalAccuracy3) / 300).toFixed(2) +
+        "%",
       speed: "мс",
     };
     axios
@@ -363,24 +365,36 @@ const thePursuit = () => {
       });
   }
   return (
-    <div style={{ backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)' }}>
+    <div
+      style={{
+        backgroundImage:
+          "linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)",
+      }}
+    >
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/motionHardTest.css" />
-      <button style={{ display: 'none' }}
+      <button
+        style={{ display: "none" }}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
         }}
       >
-        Назад
+        Back
       </button>
       <title>Document</title>
       <meta charSet="UTF-8" />
-      <h1 style={{ marginTop: '0' }}>Оценка точности реакции(сложная)</h1>
-      <button className="instructions-button" onClick={openModalW} style={{ display: 'none' }}>
-        Инструкция
+      <h1 style={{ marginTop: "0" }}>
+        Evaluation of reaction accuracy (difficult)
+      </h1>
+      <button
+        className="instructions-button"
+        onClick={openModalW}
+        style={{ display: "none" }}
+      >
+        Instruction
       </button>
       <p></p>
       <div id="modal" className="modal">
@@ -388,40 +402,50 @@ const thePursuit = () => {
           <span className="close" onClick={closeModalW}>
             ×
           </span>
-          <h2>Инструкция</h2>
+          <h2>Instruction</h2>
           <p>
-            Для начала теста, нажмите кнопку "Начать". Нажимайте на цифры:
-            (1-первый круг, 2-второй круг, 3-третий круг), когда точки будут
-            находиться внутри круов. После 10 попыток тест завершится(для
-            каждого круга), и вы увидите ваш средний процент попадания в круги.
-            Вы можете повторить тест несколько раз, чтобы улучшить свой
-            результат.
+            To start the test, click the "Start" button. Click on the numbers:
+            (1-first circle, 2-second circle, 3-third circle) when the points
+            are be inside the circles. After 10 attempts, the test will end (for
+            each lap) and you'll see your average lap percentage. You can repeat
+            the test several times to improve your result.
           </p>
         </div>
       </div>
       <p>
-        Нажимайте на цифры: (1-первый круг, 2-второй круг, 3-третий круг), когда
-        точки будут находиться внутри круга.{" "}
+        Click on the numbers: (1-first circle, 2-second circle, 3-third circle)
+        when the points will be inside the circle. When completing the test,
+        click the Submit button, your data is stored{" "}
       </p>
       <progress id="progress1" value={0} max={100} />
       <p></p>
       <div>
-        Ваш процент попадания для 1 круга: <span id="result1" />
+        Your hit percentage for 1 lap: <span id="result1" />
       </div>
       <p>
         <progress id="progress2" value={0} max={100} />
       </p>
       <div>
-        Ваш процент попадания для 2 круга: <span id="result2" />
+        Your hit percentage for lap 2: <span id="result2" />
       </div>
       <p>
         <progress id="progress3" value={0} max={100} />
       </p>
       <div>
-        Ваш процент попадания для 3 круга: <span id="result3" />
+        Your hit percentage for lap 3: <span id="result3" />
       </div>
       <p>
-        <button id="startButton" style={{ borderRadius: '0', backgroundColor: '#00FF00', color: 'black', marginTop: '2%' }}>Начать</button>
+        <button
+          id="startButton"
+          style={{
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+            marginTop: "2%",
+          }}
+        >
+          Begin
+        </button>
       </p>
       <div id="result" />
       <div></div>
@@ -433,7 +457,7 @@ const thePursuit = () => {
           type="hidden"
           name="test_name"
           id="test_name"
-          defaultValue="Точность реакции (сложная)"
+          defaultValue="Reaction accuracy (complex)"
         />
         <input type="hidden" name="avg_time" id="avg_time" />
         <input type="hidden" name="total_time" id="total_time" />

@@ -53,7 +53,7 @@ const Table1Form = ({
   return (
     <FormWrapper title=" Какими качествами ты обладаешь?">
       <p>Какими качествами ты обладаешь?</p>
-      <ul className={"no-bullets"}>
+      <ul className={"no-bullets"} >
         <li className={"flex-li"}>
           <label>
             <input
@@ -63,7 +63,7 @@ const Table1Form = ({
               checked={First}
               onChange={(e) => updateFields({ First: e.target.checked })}
             />
-            {loading ? <p>Retrieving data from API...</p> : <p>{criteria1}</p>}
+            {loading ? <p>Retrieving data from API...</p> : <p >{criteria1}</p>}
           </label>
         </li>
 

@@ -39,10 +39,10 @@ const Navbar = () => {
         setCurTest(option.value);
     };
     return (
-        <Nav>
+        <Nav style={{backgroundColor: 'white'}}>
             <LogoContainer>
                 <NavLink route="/">
-                    <Image src={LogoImage} alt="logo" width={50} height={50} />
+                    <Image src={LogoImage} alt="logo" width={80} height={50} />
                 </NavLink>
             </LogoContainer>
             <DropdownContainer>

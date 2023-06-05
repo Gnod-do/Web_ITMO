@@ -87,8 +87,8 @@ const HomeContent = (props: Props) => {
                     </div> */}
 
                     <div id="slider">
-                        <div className="text" style={{ whiteSpace: 'pre' }}>
-                            {'\t'}ВЫБЕРИ СЕБЕ ПРОФЕССИЮ
+                        <div className="text" style={{ whiteSpace: 'pre', textAlign:'center', }}>
+                        ВЫБЕРИ СЕБЕ ПРОФЕССИЮ
                             <br />
                             ПО СВОИМ УНИКАЛЬНЫМ КАЧЕСТВАМ
                         </div>

@@ -16,8 +16,8 @@ a {
     background-color: #f8f8f8;
 }
 .result canvas {
-    width: 500px !important;
-    height: 500px !important;
+    width: 400px !important;
+    height: 400px !important;
 }
 .my-form {
 }
@@ -161,8 +161,8 @@ a {
     border: 1px solid #d9d9d9;
     border-radius: 20px;
     color: #fff;
-    width: 60%;
-    height: 90px;
+    width: 84%;
+    height: 68px;
 }
 
 #content .profes1,
@@ -224,7 +224,7 @@ a {
 #footer .chose {
     margin-top: 10vh;
     width: 78%;
-    height: 800px;
+    height: 650px;
     position: relative;
     background-image: linear-gradient(65.28deg, #4651ba 7.3%, #64cdcd 153.08%);
     left: 10%;
@@ -338,7 +338,7 @@ input[type='checkbox'] {
     border-radius: 0.25rem;
     cursor: pointer;
     margin-left: 0.5rem;
-    bottom: -800px;
+    bottom: -620px;
 }
 
 .form-container button:first-child {

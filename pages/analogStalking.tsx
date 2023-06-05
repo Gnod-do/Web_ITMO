@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getTestResult, setTestResult } from './../utils/globals';
+import { getTestResult, setTestResult } from "./../utils/globals";
 import axios, { AxiosError } from "axios";
 import { useSession } from "next-auth/react";
 
@@ -23,9 +23,9 @@ const analogStracking = () => {
     if (correctInput) correctInput.value = result;
     const data = {
       email: session?.user?.email,
-      testNumber: 'test2',
-      percent: (avgScore*1).toFixed(0) + '%',
-      speed: reactionTime.toString() + 'Мс',
+      testNumber: "test2",
+      percent: (avgScore * 1).toFixed(0) + "%",
+      speed: reactionTime.toString() + "Мс",
     };
     console.log(email);
     console.log("1233");
@@ -64,7 +64,7 @@ const analogStracking = () => {
     let ball1Direction = "right";
     let startTime = 0;
     let testTime = 30000;
-    
+
     const startTest = () => {
       const progress = document.getElementById("progress") as HTMLInputElement;
 
@@ -98,7 +98,7 @@ const analogStracking = () => {
         startButton.style.display = "block";
         startButton.disabled = false;
 
-         avgScore = (
+        avgScore = (
           scores.reduce((a: number, b: number) => a + b, 0) / scores.length
         ).toFixed(2);
         const avgReaction = (
@@ -106,15 +106,14 @@ const analogStracking = () => {
           reactions.length /
           1000
         ).toFixed(2);
-        scoreMy.innerText = `Среднее значение совпадения с шариком: ${avgScore}%`;
-        reaction.innerText = `Среднее значение скорости реакции на изменение движения шарика: ${avgReaction} с/шарик`;
+        scoreMy.innerText = `Average value of ball match: ${avgScore}%`;
+        reaction.innerText = `The average value of the speed of reaction to a change in the movement of the ball: ${avgReaction} c/ball`;
 
-        const testId = 'analogStalking';
+        const testId = "analogStalking";
         const result = avgScore;
-        setTestResult(testId, (result + " %"));
+        setTestResult(testId, result + " %");
         // for test only
-        getTestResult('analogStalking');
-
+        getTestResult("analogStalking");
       }, testTime);
       startButton.style.display = "none";
       const ball1MoveInterval = setInterval(() => {
@@ -155,11 +154,11 @@ const analogStracking = () => {
           const reactionTime = elapsedTime - lastDirectionChangeTime;
           const speed = (reactionTime / 1000).toFixed(2);
           const percentMatch = ((elapsedTime / testTime) * 100).toFixed(2);
-          scoreMy.innerText = `Совпадение с шариком: ${Math.max(
+          scoreMy.innerText = `Ball match: ${Math.max(
             parseFloat(percentMatch),
             0
           )}%`;
-          reaction.innerText = `Cкорость реакции на изменение движения шарика: ${speed} с/шарик`;
+          reaction.innerText = `The speed of reaction to a change in the movement of the ball: ${speed} c/ball`;
           lastDirectionChangeTime = elapsedTime;
         }
       }, 50);
@@ -221,13 +220,13 @@ const analogStracking = () => {
         Назад
       </button>
       <title>Document</title>
-      <h1 style={{ marginTop: "0" }}>Аналоговое преследование</h1>
+      <h1 style={{ marginTop: "0" }}>Analog Stalking</h1>
       <button
         className="instructions-button"
         style={{ display: "none" }}
         onClick={openModalW}
       >
-        Инструкция
+        Instruction
       </button>
       <p />
       <div id="modal" className="modal">
@@ -235,16 +234,18 @@ const analogStracking = () => {
           <span className="close" onClick={closeModalW}>
             ×
           </span>
-          <h2>Инструкция</h2>
+          <h2>Instruction</h2>
           <p>
-            Нажмите кнопку "Начать".Красный шарик начнет двигаться по экрану
-            влево и вправо. Ваша задача - управлять синим шариком с помощью
-            клавиш "влево" и "вправо", чтобы держать его как можно ближе к
-            красному шарику.
+            Press the "Start" button. The red ball will start moving around the
+            screen left and right. Your task is to control the blue ball with
+            left and right keys to keep it as close as possible to red ball.
           </p>
         </div>
       </div>
-      <p>Управляйте синим шариком с помощью клавиш "влево" и "вправо". </p>
+      <p>
+        Control the blue ball with the left and right keys! When completing the
+        test, click the Submit button, your data is stored{" "}
+      </p>
       <progress id="progress" value={0} max={30} />
       <div
         id="container"
@@ -266,16 +267,16 @@ const analogStracking = () => {
         Начать
       </button>
       <button
-          className="btn start"
-          style={{
-            borderRadius: "0",
-            backgroundColor: "#00FF00",
-            color: "black",
-          }}
-          onClick={updateRs}
-        >
-          Submit
-        </button>
+        className="btn start"
+        style={{
+          borderRadius: "0",
+          backgroundColor: "#00FF00",
+          color: "black",
+        }}
+        onClick={updateRs}
+      >
+        Submit
+      </button>
       <p></p>
       <div id="reaction" />
       <div id="scoreMy" />
@@ -284,7 +285,7 @@ const analogStracking = () => {
           type="hidden"
           name="test_name"
           id="test_name"
-          defaultValue="Аналоговое преследование"
+          defaultValue="Analog Stalking"
         />
         <input type="hidden" name="avg_time" id="avg_time" />
         <input type="hidden" name="total_time" id="total_time" />

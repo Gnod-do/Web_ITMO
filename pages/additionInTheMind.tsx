@@ -40,22 +40,22 @@ const additionInTheMind = () => {
     ) as HTMLInputElement;
     let averageBad = document.getElementById("averageBad") as HTMLInputElement;
     if (
-      (answer === "четное" && (a + b) % 2 === 0) ||
-      (answer === "нечетное" && (a + b) % 2 !== 0)
+      (answer === "even" && (a + b) % 2 === 0) ||
+      (answer === "odd" && (a + b) % 2 !== 0)
     ) {
       if (resultDiv)
-        resultDiv.innerText = `Ваше время реакции: ${time.toFixed(
-          2
-        )} миллисекунд.`;
+        resultDiv.innerText = `Your reaction time: ${time.toFixed(2)} ms.`;
       totalReactionTime += time;
     } else {
-      if (resultDiv) resultDiv.innerText = "Ошибочка(";
+      if (resultDiv) resultDiv.innerText = "Error";
       wrong++;
       totalReactionTimeBad += time;
     }
     answers++;
     let averageGoodTMP = parseInt((totalReactionTimeBad / wrong).toFixed(2));
-    let averageBadTMP = parseInt((totalReactionTime / (attempts - wrong)).toFixed(2));
+    let averageBadTMP = parseInt(
+      (totalReactionTime / (attempts - wrong)).toFixed(2)
+    );
     if (averageReactionTimeBad)
       averageReactionTimeBad = (totalReactionTimeBad / wrong).toFixed(0);
     if (averageReactionTimeGood)
@@ -65,20 +65,18 @@ const additionInTheMind = () => {
       ).toFixed(0);
     if (attempts === maxAttempts) {
       if (averageGood) {
-        averageGood.innerText += ` Среднее время реакции (правильные ответы): ${averageGoodTMP} миллисекунд.`;
+        averageGood.innerText += ` Average reaction time (correct answers): ${averageGoodTMP} ms.`;
         // // save score to global object
         // const testId = 'additionInTheMind';
         // setTestResult(testId, (averageGoodTMP.toString() + " millisecond"));
         // // for test only
         // getTestResult('additionInTheMind');
-        result_data = (averageGoodTMP.toString() + "мс");
+        result_data = averageGoodTMP.toString() + "мс";
       }
       if (averageBad)
-        averageBad.innerText += ` Среднее время реакции (неправильные ответы): ${averageBadTMP} миллисекунд.`;
+        averageBad.innerText += ` Average reaction time (wrong answers): ${averageBadTMP} ms.`;
       percentageReactionTimeGood =
-        averageGoodTMP /
-        (averageGoodTMP + averageBadTMP) *
-        100;
+        (averageGoodTMP / (averageGoodTMP + averageBadTMP)) * 100;
       const start = document.querySelector(".start") as HTMLInputElement;
       start.style.display = "block";
       //sendForm
@@ -96,9 +94,9 @@ const additionInTheMind = () => {
     if (correctInput) correctInput.value = result_data;
     const data = {
       email: session?.user?.email,
-      testNumber: 'test9',
-      percent: (5-wrong)*10 + '%',
-      speed: totalReactionTime/5 + 'мс',
+      testNumber: "test9",
+      percent: (5 - wrong) * 10 + "%",
+      speed: totalReactionTime / 5 + "мс",
     };
     axios
       .post("http://localhost:3000/api/auth/updateResult", data)
@@ -122,8 +120,6 @@ const additionInTheMind = () => {
       totalReactionTime = 0;
       if (averageReactionTimeGood) averageReactionTimeGood.innerText = "";
       if (averageReactionTimeBad) averageReactionTimeBad.innerText = "";
-
-
     }
     attempts++;
     progress.value = (attempts * 20).toFixed(0);
@@ -155,25 +151,37 @@ const additionInTheMind = () => {
     };
   });
   return (
-    <div style={{ backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)' }}>
+    <div
+      style={{
+        backgroundImage:
+          "linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)",
+      }}
+    >
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/evenOddTest.css" />
-      <button style={{ display: 'none' }}
+      <button
+        style={{ display: "none" }}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
         }}
       >
-        Назад
+        Back
       </button>
       <title>Document</title>
-      <title>Звук чет/нечет</title>
+      <title>Sound even/odd</title>
       <meta charSet="UTF-8" />
-      <h1 style={{ marginTop: '0' }}>Оценка скорости реакции на сложение в уме(текст)</h1>
-      <button className="instructions-button" onClick={openModalW} style={{ display: 'none' }}>
-        Инструкция
+      <h1 style={{ marginTop: "0" }}>
+      Assessing the speed of reaction to addition in the mind (text)
+      </h1>
+      <button
+        className="instructions-button"
+        onClick={openModalW}
+        style={{ display: "none" }}
+      >
+        Instruction
       </button>
       <p></p>
       <div id="modal" className="modal">
@@ -181,30 +189,60 @@ const additionInTheMind = () => {
           <span className="close" onClick={closeModalW}>
             ×
           </span>
-          <h2>Инструкция</h2>
+          <h2>Instruction</h2>
           <p>
-            Для начала теста, нажмите кнопку "Начать". Вы увидете два числа,
-            ваша задача сложить их и определить, является ли результат четным
-            или нечетным. Нажмите соответствующую кнопку, чтобы выбрать ответ.
-            Вы можете повторить тест несколько раз, чтобы улучшить свой
-            результат.
+            To start the test, click the "Start" button. You will see two
+            numbers your task is to add them up and determine if the result is
+            even or odd. Click the appropriate button to select an answer. You
+            can repeat the test several times to improve your result.
           </p>
         </div>
       </div>
-      <p>Сложите числа и выберите результат. </p>
+      <p>
+        Add up the numbers and choose the result.When completing the test, click
+        the Submit button, your data is stored{" "}
+      </p>
       <progress id="progress" value={0} max={100} />
       <p>
-        <button className="start" onClick={startTest} style={{ borderRadius: '0', backgroundColor: '#00FF00', color: 'black', marginBottom: '2%' }}>
-          Начать
+        <button
+          className="start"
+          onClick={startTest}
+          style={{
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+            marginBottom: "2%",
+          }}
+        >
+          Begin
         </button>
       </p>
       <p></p>
       <div id="question" />
-      <button style={{ borderRadius: '0', backgroundColor: '#FFCC00', color: 'black' }} className="even" onClick={() => checkAnswer("четное")}>
-        Четное
+      <button
+        style={{
+          borderRadius: "0",
+          backgroundColor: "#FFCC00",
+          color: "black",
+        }}
+        className="even"
+        onClick={() => checkAnswer("четное")}
+      >
+        Even
       </button>
-      <button style={{ borderRadius: '0', backgroundColor: '#CC3300', color: 'black', textAlign: 'center', padding: '20px 30px', marginLeft: '20px' }} className="odd" onClick={() => checkAnswer("нечетное")}>
-        Нечетное
+      <button
+        style={{
+          borderRadius: "0",
+          backgroundColor: "#CC3300",
+          color: "black",
+          textAlign: "center",
+          padding: "20px 30px",
+          marginLeft: "20px",
+        }}
+        className="odd"
+        onClick={() => checkAnswer("нечетное")}
+      >
+        Odd
       </button>
       <p></p>
       <div id="result" />

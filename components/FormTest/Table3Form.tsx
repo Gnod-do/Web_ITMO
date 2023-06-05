@@ -54,7 +54,7 @@ export function Table3Form({
               checked={Eleventh}
               onChange={(e) => updateFields({ Eleventh: e.target.checked })}
             />
-            {loading ? <p>Retrieving data from API...</p> : <p>{criteria11}</p>}
+            {loading ? <p>Retrieving data from API...</p> : <p style={{width: '80%', textAlign: 'left'}}>{criteria11}</p>}
           </label>
         </li>
         <li className={"flex-li"}>
@@ -66,7 +66,7 @@ export function Table3Form({
               checked={Twelfth}
               onChange={(e) => updateFields({ Twelfth: e.target.checked })}
             />
-            {loading ? <p>Retrieving data from API...</p> : <p>{criteria12}</p>}
+            {loading ? <p>Retrieving data from API...</p> : <p style={{width: '80%', textAlign: 'left'}}>{criteria12}</p>}
           </label>
         </li>
         <li className={"flex-li"}>
@@ -78,7 +78,7 @@ export function Table3Form({
               checked={Thirteenth}
               onChange={(e) => updateFields({ Thirteenth: e.target.checked })}
             />
-            {loading ? <p>Retrieving data from API...</p> : <p>{criteria13}</p>}
+            {loading ? <p>Retrieving data from API...</p> : <p style={{width: '80%', textAlign: 'left'}}>{criteria13}</p>}
           </label>
         </li>
         <li className={"flex-li"}>
@@ -90,7 +90,7 @@ export function Table3Form({
               checked={Fourteenth}
               onChange={(e) => updateFields({ Fourteenth: e.target.checked })}
             />
-            {loading ? <p>Retrieving data from API...</p> : <p>{criteria14}</p>}
+            {loading ? <p>Retrieving data from API...</p> : <p style={{width: '80%', textAlign: 'left'}}>{criteria14}</p>}
           </label>
         </li>
         <li className={"flex-li"}>
@@ -102,7 +102,7 @@ export function Table3Form({
               checked={Fifteenth}
               onChange={(e) => updateFields({ Fifteenth: e.target.checked })}
             />
-            {loading ? <p>Retrieving data from API...</p> : <p>{criteria15}</p>}
+            {loading ? <p>Retrieving data from API...</p> : <p style={{width: '80%', textAlign: 'left'}}>{criteria15}</p>}
           </label>
         </li>
       </ul>

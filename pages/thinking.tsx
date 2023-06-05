@@ -36,9 +36,9 @@ const thinking = () => {
     if (correctInput) correctInput.value = result;
     const data = {
       email: session?.user?.email,
-      testNumber: 'test5',
-      percent: numCorrect*10 + '%',
-      speed:   'Мс',
+      testNumber: "test5",
+      percent: numCorrect * 10 + "%",
+      speed: "Мс",
     };
     console.log(email);
     console.log("1233");
@@ -53,7 +53,6 @@ const thinking = () => {
         console.error(error);
       });
   }
-
 
   let numDisplayed = 0;
 
@@ -95,12 +94,11 @@ const thinking = () => {
     const startButton = document.getElementById(
       "start-button"
     ) as HTMLInputElement;
-    if (startButton) startButton.style.display = "block"; // Отобразить кнопку "Начать"
+    if (startButton) startButton.style.display = "block";
     const percentage = Math.round((numCorrect / numDisplayed) * 100);
-    const resultString = `${numCorrect} из ${numDisplayed} (${percentage}%) правильных ответов`;
+    const resultString = `${numCorrect} from ${numDisplayed} (${percentage}%) correct answers`;
     const testEnd = document.getElementById("test-end") as HTMLInputElement;
-    if (testEnd)
-      testEnd.innerHTML = `Тест завершен. Результат: ${resultString}.`;
+    if (testEnd) testEnd.innerHTML = `Test completed. Result: ${resultString}.`;
     const sequence = document.getElementById("sequence") as HTMLInputElement;
     if (sequence) sequence.innerHTML = "";
     const answerInput = document.getElementById(
@@ -133,7 +131,7 @@ const thinking = () => {
       const percentage = Math.round((numCorrect / numDisplayed) * 100);
       const resultString = `${numCorrect} из ${numDisplayed}  (${percentage}%)`;
       const name = document.getElementById("name") as HTMLInputElement;
-      name.innerHTML = `Продолжите текущую последовательность:`;
+      name.innerHTML = `Continue current sequence:`;
       const result = document.getElementById("result") as HTMLInputElement;
       result.innerHTML = resultString;
       const sequence = document.getElementById("sequence") as HTMLInputElement;
@@ -168,7 +166,7 @@ const thinking = () => {
       const answer = document.getElementById("answer") as HTMLInputElement;
       answer.value = "";
       const scoreMy = document.getElementById("scoreMy") as HTMLInputElement;
-      scoreMy.innerHTML = `Правильных ответов: ${numCorrect}`;
+      scoreMy.innerHTML = `Correct answers: ${numCorrect}`;
       numDisplayed++;
       const progress = document.getElementById("progress") as HTMLInputElement;
       progress.value = ((numDisplayed / sequences.length) * 100).toFixed(0);
@@ -214,12 +212,12 @@ const thinking = () => {
     }
     if (userAnswer === correctAnswer) {
       const scoreMy = document.getElementById("scoreMy") as HTMLInputElement;
-      scoreMy.innerHTML = "Правильно!";
+      scoreMy.innerHTML = "Right!";
       numCorrect++;
       isCorrect = true;
     } else {
       const scoreMy = document.getElementById("scoreMy") as HTMLInputElement;
-      scoreMy.innerHTML = `Неправильно. Правильный ответ: ${correctAnswer}`;
+      scoreMy.innerHTML = `Wrong. Correct answer: ${correctAnswer}`;
     }
     return isCorrect;
   }
@@ -402,57 +400,77 @@ const thinking = () => {
     window.addEventListener("click", windowClick);
   });
   return (
-    <div style={{backgroundImage: 'linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)'}}>
+    <div
+      style={{
+        backgroundImage:
+          "linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)",
+      }}
+    >
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/logicTest.css" />
-      <button style={{display:'none'}}
+      <button
+        style={{ display: "none" }}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
         }}
       >
-        Назад
+        Back
       </button>
       <title>Document</title>
       <meta charSet="UTF-8" />
-      <h1 style={{margin: '0'}}>Тест на мышление</h1>
-      <button style={{display:'none'}}
+      <h1 style={{ margin: "0" }}>Thinking Test</h1>
+      <button
+        style={{ display: "none" }}
         className="instructions-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
         }}
       >
-        Инструкция
+        Instruction
       </button>
       <div id="modal" className="modal">
         <div className="modal-content">
           <span className="close" onClick={closeModalW}>
             ×
           </span>
-          <h2>Инструкция</h2>
+          <h2>Instruction</h2>
           <p>
-            Вам будут представлены последовательности чисел, заданные в
-            определённом порядке <br />
-            Ваша задача - проанализировать, как задана последовательность и в
-            поле ввода написать число, котрое является следующим в данной вам
-            последовательности. <br />
-            Например, последовательность: 2,4,6... Правильный ответ: 8<br />
-            После того как в ввели значение, нажмите кнопку "Проверить".
+            You will be presented with sequences of numbers given in certain
+            order
             <br />
-            Если вы не знаете ответа, вы можете пропустить тест, нажав кнопку
-            "Далее".
+            Your task is to analyze how the sequence is given and in input field
+            write the number that is next in the given you sequences. <br />
+            For example, the sequence: 2,4,6... Correct answer: 8<br />
+            After entering the value, click the "Check" button.
+            <br />
+            If you don't know the answer, you can skip the test by clicking the
+            button. "Further".
           </p>
         </div>
       </div>
-      <p>Укажите "следующее" число в последовательности</p>
+      <p>
+        Specify the "next" number in the sequence. When completing the test,
+        click the Submit button, your data is stored
+      </p>
       <p>
         <progress id="progress" value={0} max={100} />
       </p>
       <div className="container">
-        <button id="start-button" onClick={start} style={{left: 'calc(50% - 86px)', padding:'20px 60px',borderRadius: '0', backgroundColor:'#00FF00', color:'black'}}>
-          Начать
+        <button
+          id="start-button"
+          onClick={start}
+          style={{
+            left: "calc(50% - 86px)",
+            padding: "20px 60px",
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+          }}
+        >
+          Begin
         </button>
       </div>
       <div id="sequence" className="test-text" />
@@ -464,7 +482,7 @@ const thinking = () => {
       >
         <input type="text" id="answer" />
         <button id="check" onClick={checkAnswer}>
-          Проверить
+          Check
         </button>
         <div className="container">
           <button
@@ -472,19 +490,19 @@ const thinking = () => {
             onClick={endTestHandle}
             style={{ display: "none" }}
           >
-            Завершить тест
+            Finish Test
           </button>
           <button
-          className="btn start"
-          style={{
-            borderRadius: "0",
-            backgroundColor: "#00FF00",
-            color: "black",
-          }}
-          onClick={updateRs}
-        >
-          Submit
-        </button>
+            className="btn start"
+            style={{
+              borderRadius: "0",
+              backgroundColor: "#00FF00",
+              color: "black",
+            }}
+            onClick={updateRs}
+          >
+            Submit
+          </button>
         </div>
       </div>
       <div id="scoreMy" />
@@ -493,7 +511,7 @@ const thinking = () => {
       <div id="testEnd" />
       <div className="container">
         <button onClick={nextSequence} id="next" style={{ display: "none" }}>
-          Далее
+          Further
         </button>
       </div>
       <form id="sendForm">
@@ -501,7 +519,7 @@ const thinking = () => {
           type="hidden"
           name="test_name"
           id="test_name"
-          defaultValue="Мышление"
+          defaultValue="Thinking"
         />
         <input type="hidden" name="avg_time" id="avg_time" />
         <input type="hidden" name="total_time" id="total_time" />

@@ -1,23 +1,20 @@
 import React, { useEffect } from "react";
-import axios, { AxiosError } from 'axios'
-import { useSession} from "next-auth/react";
+import axios, { AxiosError } from "axios";
+import { useSession } from "next-auth/react";
 
 const lightTest2 = () => {
-  
   const { data: session }: any = useSession();
   let email: any;
   let result: any;
-
-
 
   function updateRs() {
     const correctInput = document.getElementById("correct") as HTMLInputElement;
     if (correctInput) correctInput.value = result;
     const data = {
       email: session?.user?.email,
-      testNumber: 'test1',
-      percent: (correct*10).toFixed(0) + '%',
-      speed: time.toString() + 'Мс',
+      testNumber: "test1",
+      percent: (correct * 10).toFixed(0) + "%",
+      speed: time.toString() + "Мс",
     };
     console.log(email);
     console.log("1233");
@@ -151,7 +148,7 @@ const lightTest2 = () => {
 
     attachTest(test: any) {
       this.startButton.onclick = () => {
-        this.setLabel("Тест начался!");
+        this.setLabel("The test has begun!");
         this.startButton.style.display = "none";
         test();
       };
@@ -296,7 +293,7 @@ const lightTest2 = () => {
     public checkCurrentSquare: any;
     public setLabel: any;
     public incorrect: any;
-    
+
     public updateTime: any;
     public changeCurrentSquareColor: any;
     public baseColor: any;
@@ -313,10 +310,10 @@ const lightTest2 = () => {
     ) {
       super(squares, startButton, resultLabel, progressBar, amount);
       this.results = [
-        new Result(0, 300, "У вас отличная простая реакция!"),
-        new Result(300, 400, "У вас хорошая простая реакция!"),
-        new Result(400, 600, "У вас удовлетворительная простая реакция!"),
-        new Result(800, 10000, "У вас неудовлетворительная простая реакция!"),
+        new Result(0, 300, "You have a great simple reaction!"),
+        new Result(300, 400, "You have a nice simple reaction!"),
+        new Result(400, 600, "You have a satisfying simple reaction!"),
+        new Result(800, 10000, "You have an unsatisfactory simple reaction!"),
       ];
 
       this.attachTest(this.start.bind(this));
@@ -347,7 +344,7 @@ const lightTest2 = () => {
 
     clickHandler() {
       if (!this.checkCurrentSquare()) {
-        this.setLabel("Вы нажали слишком рано!");
+        this.setLabel("You clicked too soon!");
         this.incorrect++;
         return;
       }
@@ -357,16 +354,16 @@ const lightTest2 = () => {
     }
 
     getMessages() {
-      return `Пройдено: ${this.num}/${
+      return `Passed: ${this.num}/${
         this.amount
-      }. Среднее время реакции: ${this.getAverageTime()} мс`;
+      }. Average reaction time: ${this.getAverageTime()} мс`;
     }
 
     getEndMessage() {
-      return `Поздравляем: ${this.chooseResult(
+      return `Congratulations: ${this.chooseResult(
         this.results,
         this.getAverageTime()
-      )} (${this.getAverageTime()} мс)`;
+      )} (${this.getAverageTime()} ms)`;
     }
   }
 
@@ -378,7 +375,6 @@ const lightTest2 = () => {
       }
     };
 
-    //блокировать нажатие на кнопку при нажатии пробела или enter
     const keydownEvent = (event: any) => {
       console.log(event.code);
       if (event.code === "Space" || event.code == "Enter") {
@@ -399,11 +395,17 @@ const lightTest2 = () => {
   });
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage:
+          "linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)",
+      }}
+    >
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <button
+        style={{ display: "none" }}
         className="back-button"
         onClick={() => {
           location.href = "http://localhost:3000/";
@@ -411,9 +413,13 @@ const lightTest2 = () => {
       >
         Назад
       </button>
-      <title>Тест на свет</title>
-      <h1>Тест на свет</h1>
-      <button className="instructions-button" onClick={openModalW}>
+      <title>Light Test</title>
+      <h1 style={{ marginTop: "0" }}>Light Test</h1>
+      <button
+        className="instructions-button"
+        onClick={openModalW}
+        style={{ display: "none" }}
+      >
         Инструкция
       </button>
       <p />
@@ -422,26 +428,67 @@ const lightTest2 = () => {
           <span className="close" onClick={closeModalW}>
             ×
           </span>
-          <h2>Инструкция</h2>
+          <h2>Instruction</h2>
           <p>
-            Для начала теста, нажмите кнопку "Начать тест". <br />
-            Квадраты начнут менять цвет. <br />
-            Вам надо как можно быстрее нажимать "пробел", когда вы увидите, что
-            какой-то квадрат сменил цвет.
+            To start the test, click the "Start Test" button. <br />
+            The squares will begin to change color. <br />
+            You need to press "space" as quickly as possible when you see that
+            some square changed color.
           </p>
         </div>
       </div>
-      <p>Нажимайте "пробел", когда квадрат сменит цвет!</p>
-      <progress id="progress" value={0} max={100} />
+      <p>
+        Press "space" when the square changes color! When completing the test,
+        click the Submit button, your data is stored
+      </p>
+
+      <progress
+        id="progress"
+        value={0}
+        max={100}
+        style={{ marginBottom: "0" }}
+      />
       <div className="test" id="test">
         <div className="field">
-          <div className="square" />
-          <div className="square" />
-          <div className="square" />
+          <div className="square" style={{ borderRadius: "50%" }} />
+          <div className="square" style={{ borderRadius: "50%" }} />
+          <div className="square" style={{ borderRadius: "50%" }} />
         </div>
-        <button className="btn start">Начать тест</button>
-        <button className="btn start" style={{borderRadius: '0', backgroundColor:'#00FF00', color:'black'}} onClick={updateRs}>Submit</button>
-        <div className="result">Здесь будет отображен результат</div>
+        <button
+          className="btn start"
+          style={{
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+            marginBottom: "2%",
+          }}
+        >
+          Start test
+        </button>
+        <button
+          className="btn start"
+          style={{
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+          }}
+          onClick={updateRs}
+        >
+          Submit
+        </button>
+        <div
+          className="result"
+          style={{
+            display: "block",
+            textAlign: "center",
+            width: "100%",
+            height: "50px",
+            paddingLeft: "0",
+            margin: "4% 4% 0 0",
+          }}
+        >
+          The result will be displayed here
+        </div>
       </div>
       <form id="sendForm">
         <input
