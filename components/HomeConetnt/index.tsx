@@ -1,10 +1,10 @@
 import React, { FormEvent, useState } from 'react';
 import { Container } from './HomeElements';
 import { useMultistepForm } from '../FormTest/useMultistepForm';
-import { Table1Form } from '../FormTest/Table1Form';
 import { Table2Form } from '../FormTest/Table2Form';
 import { Table3Form } from '../FormTest/Table3Form';
 import { Result } from '../FormTest/Result';
+import Table1Form from '../FormTest/Table1Form';
 type Props = {};
 
 type FormData = {
