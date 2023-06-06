@@ -40,20 +40,22 @@ const additionInTheMind = () => {
     ) as HTMLInputElement;
     let averageBad = document.getElementById("averageBad") as HTMLInputElement;
     if (
-      (answer === "even" && (a + b) % 2 === 0) ||
-      (answer === "odd" && (a + b) % 2 !== 0)
+      (answer === "четное" && (a + b) % 2 === 0) ||
+      (answer === "нечетное" && (a + b) % 2 !== 0)
     ) {
       if (resultDiv)
-        resultDiv.innerText = `Your reaction time: ${time.toFixed(2)} ms.`;
-      totalReactionTime += time;
+       { resultDiv.innerText = `Your reaction time: ${time.toFixed(2)} ms.`;
+      totalReactionTime += time;}
     } else {
-      if (resultDiv) resultDiv.innerText = "Error";
-      wrong++;
-      totalReactionTimeBad += time;
+      if (resultDiv) {
+        resultDiv.innerText = "Error";
+        wrong++;
+        totalReactionTimeBad += time;
+      }
     }
     answers++;
-    let averageGoodTMP = parseInt((totalReactionTimeBad / wrong).toFixed(2));
-    let averageBadTMP = parseInt(
+    let averageBadTMP = parseInt((totalReactionTimeBad / wrong).toFixed(2));
+    let averageGoodTMP = parseInt(
       (totalReactionTime / (attempts - wrong)).toFixed(2)
     );
     if (averageReactionTimeBad)
@@ -71,12 +73,14 @@ const additionInTheMind = () => {
         // setTestResult(testId, (averageGoodTMP.toString() + " millisecond"));
         // // for test only
         // getTestResult('additionInTheMind');
-        result_data = averageGoodTMP.toString() + "мс";
+        result_data = (averageGoodTMP.toString() + "мс");
       }
       if (averageBad)
         averageBad.innerText += ` Average reaction time (wrong answers): ${averageBadTMP} ms.`;
       percentageReactionTimeGood =
-        (averageGoodTMP / (averageGoodTMP + averageBadTMP)) * 100;
+      averageGoodTMP /
+      (averageGoodTMP + averageBadTMP) *
+      100;
       const start = document.querySelector(".start") as HTMLInputElement;
       start.style.display = "block";
       //sendForm
@@ -174,7 +178,7 @@ const additionInTheMind = () => {
       <title>Sound even/odd</title>
       <meta charSet="UTF-8" />
       <h1 style={{ marginTop: "0" }}>
-      Assessing the speed of reaction to addition in the mind (text)
+        Assessing the speed of reaction to addition in the mind (text)
       </h1>
       <button
         className="instructions-button"

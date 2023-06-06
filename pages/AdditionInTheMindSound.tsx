@@ -76,8 +76,8 @@ const AdditionInTheMindSound = () => {
     const time = performance.now() - startTime - timeToSpeakDigits;
     resultDiv = document.getElementById("result") as HTMLInputElement;
     if (
-      (answer === "Even" && (a + b) % 2 === 0) ||
-      (answer === "Odd" && (a + b) % 2 !== 0)
+      (answer === "четное" && (a + b) % 2 === 0) ||
+      (answer === "нечетное" && (a + b) % 2 !== 0)
     ) {
       if (parseFloat(time.toFixed(2)) < 0) {
         if (resultDiv) resultDiv.innerText = "And so it's not necessary...";
