@@ -2,13 +2,11 @@ import React, { useEffect } from "react";
 import axios, { AxiosError } from 'axios'
 import { useSession} from "next-auth/react";
 
-const lightTest2 = () => {
+const lastResult = () => {
   
   const { data: session }: any = useSession();
   let email: any;
   let result: any;
-
-
 
   function updateRs() {
     const correctInput = document.getElementById("correct") as HTMLInputElement;
@@ -467,4 +465,4 @@ const lightTest2 = () => {
   );
 };
 
-export default lightTest2;
+export default lastResult;
