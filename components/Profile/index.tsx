@@ -15,27 +15,45 @@ function createData(testName: string, scoreData: any) {
   return { testName, scoreData };
 }
 
-const rows = [
-  createData(
-    "Analog Stalking ",
-    testResults.analogStalking || "Вы еще не вступили."
-  ),
-  createData('Analog Tracking ', testResults.analogTracking|| 'Вы еще не вступили.'),
-  createData("Attention ", testResults.attention || "Вы еще не вступили."),
-  createData("Tracking ", testResults.tracking || "Вы еще не вступили."),
-  createData(
-    "Addition In The Mind ",
-    testResults.additionInTheMind || "Вы еще не вступили."
-  ),
-  createData(
-    "Addition The Mind Sound ",
-    testResults.additionInTheMindSound || "Вы еще не вступили."
-  ),
-];
+
 
 const UserProfile = () => {
   const { data: session }: any = useSession();
   const results = testResults;
+
+  const rows = [
+    createData(
+      "Light Test ",
+      session?.user?.result?.test1?.percent|| "Вы еще не вступили."
+    ),
+    createData(
+      "Analog Stalking ",
+      session?.user?.result?.test2?.percent|| "Вы еще не вступили."
+    ),
+    createData('Analog Tracking ', session?.user?.result?.test3?.percent|| 'Вы еще не вступили.'),
+    createData("Attention ", session?.user?.result?.test4?.percent || "Вы еще не вступили."),
+    createData(
+      "Thinking ",
+      session?.user?.result?.test5?.percent|| "Вы еще не вступили."
+    ),
+    createData(
+      "Memory ",
+      session?.user?.result?.test6?.percent|| "Вы еще не вступили."
+    ),
+    createData(
+      "The Pursuit",
+      session?.user?.result?.test7?.percent|| "Вы еще не вступили."
+    ),
+    createData("Tracking ", session?.user?.result?.test8?.percent || "Вы еще не вступили."),
+    createData(
+      "Addition In The Mind ",
+      session?.user?.result?.test9?.percent || "Вы еще не вступили."
+    ),
+    createData(
+      "Addition The Mind Sound ",
+      session?.user?.result?.test10?.percent || "Вы еще не вступили."
+    ),
+  ];
   // console.log(results);
   // console.log('cac phan tu cua user la'+session?.user)
   // console.log("So luong la: " + session?.user.result)

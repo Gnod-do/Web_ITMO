@@ -147,7 +147,7 @@ export function Result(props: ResultProps) {
         {max === b && (
           <>
             <h3 style={{ color: "black", margin: "40px 0 16px 0" }}>
-              Вы разработчик
+              Вы MOBILE РАЗРАБОТЧИК
             </h3>
             <p
               style={{
