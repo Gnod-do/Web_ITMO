@@ -72,7 +72,7 @@ const LastResult = () => {
             <ul style={listStyles}>
               {qualities.map((quality, index) => (
                 <li key={index} style={itemStyles}>
-                  <span style={professionStyles}>{`On ${quality.percentage}%`}</span>
+                  <span style={professionStyles}>{`${quality.percentage}%`}</span>
                   {quality.name}
                 </li>
               ))}
