@@ -13,6 +13,21 @@ const soundTest = () => {
     if (modal) modal.style.display = "none";
   }
 
+  function showNotification() {
+    const message = "Your result saved!"; // Thông báo bạn muốn hiển thị
+    const notification = document.createElement("div"); // Tạo một thẻ div mới
+    notification.innerText = message; // Thiết lập nội dung thông báo
+    notification.classList.add("notification"); // Thêm class để tùy chỉnh thông báo
+    document.body.appendChild(notification); // Thêm thông báo vào DOM
+
+    // Đợi 3 giây rồi xóa thông báo khỏi DOM
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 3000);
+  }
+
+  // Lắng nghe sự kiện click trên nút
+
   const delay = 1500;
   let timerId: any;
   let attempts = 0;
@@ -24,7 +39,7 @@ const soundTest = () => {
 
   function startTest() {
     let start = document.querySelector(".start") as HTMLInputElement;
-    if(start) start.style.display = "none";
+    if (start) start.style.display = "none";
     // playSound();
     if (attempts === maxAttempts) {
       attempts = 0;
@@ -34,7 +49,7 @@ const soundTest = () => {
     }
     attempts++;
     let progress = document.getElementById("progress") as HTMLInputElement;
-    progress.value = (attempts * 10).toFixed(2);
+    if (progress) progress.value = (attempts * 10).toFixed(2);
     if (attempts > maxAttempts) {
       return;
     }
@@ -42,36 +57,39 @@ const soundTest = () => {
   }
 
   function playSound() {
-    const audio = new Audio("./audio/sound1.wav");
+    const audio = new Audio("https://bigsoundbank.com/UPLOAD/mp3/1417.mp3");
     audio.play();
     const reactionStartTime = Date.now();
     const listener = function () {
       const reactionTime: any = Date.now() - reactionStartTime;
-      const reactionTimeInput = document.getElementById("reactionTime") as HTMLInputElement;
-      reactionTimeInput.innerHTML = `Ваше время реакции: ${reactionTime} миллисекунд`;
+      const reactionTimeInput = document.getElementById(
+        "reactionTime"
+      ) as HTMLInputElement;
+      if (reactionTimeInput)
+        reactionTimeInput.innerHTML = `Your time reaction: ${reactionTime} ms`;
       totalReactionTime += reactionTime;
       averageReactionTime = totalReactionTime / attempts;
       document.removeEventListener("keydown", listener);
     };
     document.addEventListener("keydown", listener);
     if (attempts === maxAttempts) {
-      average.innerText += ` Среднее время реакции: ${averageReactionTime.toFixed(
-        2
-      )} миллисекунд.`;
+      if (average)
+        average.innerText += ` Average time reaction: ${averageReactionTime.toFixed(
+          2
+        )} ms.`;
       averagePercent = ((averageReactionTime / delay) * 100).toFixed(2);
 
+      const start = document.querySelector(".start") as HTMLInputElement;
+      start.style.display = "block";
 
-        const start = document.querySelector(".start") as HTMLInputElement;
-        start.style.display = "block";
-
-    //   //sendForm
-    //   document.getElementById("total_time").value =
-    //     totalReactionTime.toFixed(2);
-    //   document.getElementById("avg_time").value =
-    //     averageReactionTime.toFixed(2);
-    //   document.getElementById("score").value = averagePercent;
-    //   document.getElementById("submit-button").click();
-    //   //sendForm
+      //   //sendForm
+      //   document.getElementById("total_time").value =
+      //     totalReactionTime.toFixed(2);
+      //   document.getElementById("avg_time").value =
+      //     averageReactionTime.toFixed(2);
+      //   document.getElementById("score").value = averagePercent;
+      //   document.getElementById("submit-button").click();
+      //   //sendForm
     } else {
       setTimeout(startTest, 2000);
     }
@@ -85,18 +103,26 @@ const soundTest = () => {
       }
     };
 
+    const button = document.querySelector("button");
+    if (button) button.addEventListener("click", showNotification);
+
     window.addEventListener("click", windowClick);
   });
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage:
+          "linear-gradient(105.07deg, rgb(85, 211, 211) -64.38%, rgb(43, 58, 186) 138.29%)",
+      }}
+    >
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/sound.css" />
       {/* <button className="back-button" onClick="location.href='testPage.html'">Назад</button> */}
       <title>Document</title>
-      <h1>Оценка скорости реакции на звук</h1>
+      <h1>Evaluation of the speed of reaction to sound</h1>
       {/* <button className="instructions-button" onClick="openModalW()">Инструкция</button> */}
       <p></p>
       <div id="modal" className="modal">
@@ -110,7 +136,11 @@ const soundTest = () => {
           </p>
         </div>
       </div>
-      <p>Вы услышите звук, ваша задача как можно бысрее нажать на "пробел". </p>
+      <p>
+        You will hear a sound, your task is to press the "space" as quickly as
+        possible. When completing the test, click the Submit button, your data
+        is stored{" "}
+      </p>
       <progress id="progress" value={0} max={100} />
       <button className="start" onClick={startTest}>
         Begin
@@ -137,9 +167,20 @@ const soundTest = () => {
           style={{ display: "none" }}
         />
       </form>
+
+      <button
+        className="btn start"
+        style={{
+          borderRadius: "0",
+          backgroundColor: "#00FF00",
+          color: "black",
+        }}
+        onClick={showNotification}
+      >
+        Submit
+      </button>
     </div>
   );
 };
-
 
 export default soundTest;

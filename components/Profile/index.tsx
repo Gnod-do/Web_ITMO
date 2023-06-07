@@ -15,8 +15,6 @@ function createData(testName: string, scoreData: any) {
   return { testName, scoreData };
 }
 
-
-
 const UserProfile = () => {
   const { data: session }: any = useSession();
   const results = testResults;
