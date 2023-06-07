@@ -42,7 +42,7 @@ const soundTest = () => {
   }
 
   function playSound() {
-    const audio = new Audio("./audio/sound1.mp3");
+    const audio = new Audio("./audio/sound1.wav");
     audio.play();
     const reactionStartTime = Date.now();
     const listener = function () {

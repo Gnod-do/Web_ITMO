@@ -7,8 +7,18 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 const LastResult = () => {
-  const [professions, setProfessions] = useState([]);
-  const [qualities, setQualities] = useState([]);
+
+    type Profession = {
+        name: string;
+        percentage: number;
+      };
+      
+      type Quality = {
+        name: string;
+        percentage: number;
+      };
+  const [professions, setProfessions] = useState<Profession[]>([]);
+  const [qualities, setQualities] = useState<Quality[]>([]);
 
   useEffect(() => {
     const generateRandomData = () => {
@@ -26,31 +36,30 @@ const LastResult = () => {
 
       setProfessions(randomProfessions);
       setQualities(randomQualities);
+    };
 
-      generateRandomData();
-    }, []);
+    generateRandomData();
+  }, []);
 
-    const listStyles = {
-        padding: 0,
-        listStyleType: 'none'
-      };
+  const listStyles = {
+    padding: 0,
+    listStyleType: 'none'
+  };
 
+  const itemStyles = {
+    marginBottom: '8px',
+    textAlign: 'left',
+    paddingLeft: '150',
+  };
 
-      const itemStyles = {
-        marginBottom: '8px',
-        textAlign: 'left',
-        paddingLeft: 150
-      };
+  const professionStyles = {
+    fontWeight: 'bold',
+    marginRight: '8px',
+  };
 
-      const professionStyles = {
-        fontWeight: 'bold',
-        marginRight: '8px'
-      };
-    
-      return (
-        <div>
-
-<Card sx={{ minWidth: 275, marginTop: 10 }}>
+  return (
+    <div>
+      <Card sx={{ minWidth: 275, marginTop: 10 }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             <h1 style={{ textAlign: 'left', paddingLeft: 100, paddingBottom: 50 }}>Ваши результаты</h1>
@@ -61,7 +70,7 @@ const LastResult = () => {
             <h3 style={{ textAlign: 'left', paddingLeft: 100 }}>Работа:</h3>
             <ul style={listStyles}>
               {professions.map((profession, index) => (
-                <li key={index} style={itemStyles}>
+                <li key={index} style={{marginBottom: '8px', textAlign: 'left', paddingLeft: '150'}}>
                   <span style={professionStyles}>{`${profession.percentage}%`}</span>
                   {profession.name}
                 </li>
@@ -72,8 +81,8 @@ const LastResult = () => {
             <h3 style={{ textAlign: 'left', paddingLeft: 100 }}>Top 3 Qualities:</h3>
             <ul style={listStyles}>
               {qualities.map((quality, index) => (
-                <li key={index} style={itemStyles}>
-                  <span style={professionStyles}>{`On ${quality.percentage}%`}</span>
+                <li key={index} style={{marginBottom: '8px', textAlign: 'left', paddingLeft: '150'}}>
+                  <span style={professionStyles}>{`${quality.percentage}%`}</span>
                   {quality.name}
                 </li>
               ))}
@@ -89,6 +98,5 @@ const LastResult = () => {
     </div >
   );
 };
-
 
 export default LastResult;

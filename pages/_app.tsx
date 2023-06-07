@@ -10,6 +10,7 @@ import '../styles/soundTest.css'
 import '../styles/memories.css'
 import '../styles/motion.css'
 import '../styles/motionHard.css'
+import '../styles/sound.css'
 
 import type { AppProps } from 'next/app'
 import Navbar from '../components/Navbar'
