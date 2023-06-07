@@ -492,17 +492,6 @@ const thinking = () => {
           >
             Finish Test
           </button>
-          <button
-            className="btn start"
-            style={{
-              borderRadius: "0",
-              backgroundColor: "#00FF00",
-              color: "black",
-            }}
-            onClick={updateRs}
-          >
-            Submit
-          </button>
         </div>
       </div>
       <div id="scoreMy" />
@@ -513,6 +502,18 @@ const thinking = () => {
         <button onClick={nextSequence} id="next" style={{ display: "none" }}>
           Further
         </button>
+
+        <button
+        className="btn start"
+        style={{
+          borderRadius: "0",
+          backgroundColor: "#00FF00",
+          color: "black",
+        }}
+        onClick={updateRs}
+      >
+        Submit
+      </button>
       </div>
       <form id="sendForm">
         <input

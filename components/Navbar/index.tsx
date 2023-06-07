@@ -92,6 +92,10 @@ const Navbar = () => {
                             label: 'AdditionInTheMindSound',
                             value: 'AdditionInTheMindSound',
                         },
+                        {
+                            label: 'soundTest',
+                            value: 'soundTest',
+                        },
                     ]}
                     onSelect={onSelect}
                 />

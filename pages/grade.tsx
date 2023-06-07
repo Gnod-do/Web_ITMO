@@ -30,7 +30,7 @@ const grade = (props: Props) => {
                 </div>
 
                 <div style={{backgroundImage: 'linear-gradient(to top, #2d3b72, #62c9ca)', borderRadius: '4px', paddingBottom: '20px',width: '30% '}}>
-                    <p style={{textAlign: 'center', fontWeight: '600', fontSize: '20px', color: 'white', paddingTop: '15px'}}>ИНДИ РАЗРАБОТЧИК</p>
+                    <p style={{textAlign: 'center', fontWeight: '600', fontSize: '20px', color: 'white', paddingTop: '15px'}}>MOBILE РАЗРАБОТЧИК</p>
                     <div style={{display: 'flex', }}>
                         <div style={{margin:'10px 15px 0 4px', borderRight: '2px solid #ffffff'}}>
                             <ul style={{color: 'white', fontSize: '16px', lineHeight: '30px', marginRight: '15px', marginLeft:'24px'}}>
@@ -52,7 +52,7 @@ const grade = (props: Props) => {
                 </div>
 
                 <div style={{backgroundImage: 'linear-gradient(to top, #2d3b72, #62c9ca)', borderRadius: '4px', paddingBottom: '20px', width: '30%'}}>
-                    <p style={{textAlign: 'center', fontWeight: '600', fontSize: '20px', color: 'white', paddingTop: '15px'}}>ИНДИ РАЗРАБОТЧИК</p>
+                    <p style={{textAlign: 'center', fontWeight: '600', fontSize: '20px', color: 'white', paddingTop: '15px'}}>DATA SCIENTIST</p>
                     <div style={{display: 'flex', }}>
                         <div style={{margin:'10px 15px 0 4px', borderRight: '2px solid #ffffff'}}>
                             <ul style={{color: 'white', fontSize: '16px', lineHeight: '30px', marginRight: '15px', marginLeft:'24px'}}>
@@ -70,6 +70,19 @@ const grade = (props: Props) => {
                             <span>8<br></br></span>
                             <span style={{display: 'block', marginTop: '90px'}}>7<br></br></span>
                         </div>
+                        <button
+        className="btn start"
+        style={{
+          borderRadius: "0",
+          backgroundColor: "#00FF00",
+          color: "black",
+        }}
+        onClick={() => {
+            location.href = "http://localhost:3000/lastResult";
+          }}
+      >
+        Submit
+      </button>
                     </div>
                 </div>
             </div>
