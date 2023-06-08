@@ -31,27 +31,15 @@ const thinking = () => {
   let email: any;
   let result: any;
 
-  function updateRs() {
-    const correctInput = document.getElementById("correct") as HTMLInputElement;
-    if (correctInput) correctInput.value = result;
-    const data = {
-      email: session?.user?.email,
-      testNumber: "test5",
-      percent: numCorrect * 10 + "%",
-      speed: "Мс",
-    };
-    console.log(email);
-    console.log("1233");
-    axios
-      .post("http://localhost:3000/api/auth/updateResult", data)
-      .then((response) => {
-        // Xử lý phản hồi từ server sau khi cập nhật thành công
-        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
-      })
-      .catch((error: AxiosError) => {
-        // Xử lý lỗi trong quá trình gửi request
-        console.error(error);
-      });
+  function showNotification() {
+    const message = "Your result saved!"; 
+    const notification = document.createElement("div"); 
+    notification.innerText = message; 
+    notification.classList.add("notification"); 
+    document.body.appendChild(notification); 
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 3000);
   }
 
   let numDisplayed = 0;
@@ -124,6 +112,25 @@ const thinking = () => {
     ) as HTMLInputElement;
     submitButton.click();
     //sendForm
+
+    const data = {
+      email: session?.user?.email,
+      testNumber: "test5",
+      percent: percentage.toFixed(0) + "%",
+      speed: "0 Мс",
+    };
+    console.log(email);
+    console.log("1233");
+    axios
+      .post("http://localhost:3000/api/auth/updateResult", data)
+      .then((response) => {
+        // Xử lý phản hồi từ server sau khi cập nhật thành công
+        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+      })
+      .catch((error: AxiosError) => {
+        // Xử lý lỗi trong quá trình gửi request
+        console.error(error);
+      });
   }
   function nextSequence() {
     currentSequence++;
@@ -447,7 +454,7 @@ const thinking = () => {
             After entering the value, click the "Check" button.
             <br />
             If you don't know the answer, you can skip the test by clicking the
-            button. "Further".
+            button. "Next".
           </p>
         </div>
       </div>
@@ -500,7 +507,7 @@ const thinking = () => {
       <div id="testEnd" />
       <div className="container">
         <button onClick={nextSequence} id="next" style={{ display: "none" }}>
-          Further
+          Next
         </button>
 
         <button
@@ -510,7 +517,7 @@ const thinking = () => {
           backgroundColor: "#00FF00",
           color: "black",
         }}
-        onClick={updateRs}
+        onClick={showNotification}
       >
         Submit
       </button>

@@ -7,27 +7,15 @@ const lightTest2 = () => {
   let email: any;
   let result: any;
 
-  function updateRs() {
-    const correctInput = document.getElementById("correct") as HTMLInputElement;
-    if (correctInput) correctInput.value = result;
-    const data = {
-      email: session?.user?.email,
-      testNumber: "test1",
-      percent: (correct * 10).toFixed(0) + "%",
-      speed: time.toString() + "Мс",
-    };
-    console.log(email);
-    console.log("1233");
-    axios
-      .post("http://localhost:3000/api/auth/updateResult", data)
-      .then((response) => {
-        // Xử lý phản hồi từ server sau khi cập nhật thành công
-        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
-      })
-      .catch((error: AxiosError) => {
-        // Xử lý lỗi trong quá trình gửi request
-        console.error(error);
-      });
+  function showNotification() {
+    const message = "Your result saved!"; 
+    const notification = document.createElement("div"); 
+    notification.innerText = message; 
+    notification.classList.add("notification"); 
+    document.body.appendChild(notification); 
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 3000);
   }
 
   let correct: any = 0;
@@ -82,6 +70,24 @@ const lightTest2 = () => {
       "submitButton"
     ) as HTMLInputElement;
     if (submitButtonInput) submitButtonInput.click();
+    const data = {
+      email: session?.user?.email,
+      testNumber: "test1",
+      percent: correct* 10 + "%",
+      speed: avg + "ms",
+    };
+    console.log(email);
+    console.log("1233");
+    axios
+      .post("http://localhost:3000/api/auth/updateResult", data)
+      .then((response) => {
+        // Xử lý phản hồi từ server sau khi cập nhật thành công
+        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+      })
+      .catch((error: AxiosError) => {
+        // Xử lý lỗi trong quá trình gửi request
+        console.error(error);
+      });
   }
 
   class Result {
@@ -472,7 +478,7 @@ const lightTest2 = () => {
             backgroundColor: "#00FF00",
             color: "black",
           }}
-          onClick={updateRs}
+          onClick={showNotification}
         >
           Submit
         </button>
@@ -507,7 +513,6 @@ const lightTest2 = () => {
           type="submit"
           defaultValue="Submit"
           style={{ display: "none" }}
-          onClick={updateRs}
         />
       </form>
     </div>

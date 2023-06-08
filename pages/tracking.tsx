@@ -124,6 +124,16 @@ const tracking = () => {
           startButton.style.display = "block";
           startButton.disabled = false;
         }
+        const avg_time = document.getElementById(
+          "avg_time"
+        ) as HTMLInputElement;
+        if (avg_time) avg_time.value = answer;
+        const score = document.getElementById("score") as HTMLInputElement;
+        if (score) score.value = answer;
+        const submitButton = document.getElementById(
+          "submit-button"
+        ) as HTMLInputElement;
+        if (submitButton) submitButton.click();
       }
     }
     function loop() {

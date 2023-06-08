@@ -61,6 +61,14 @@ const UserSchema = new Schema({
                 percent: "",
                 speed: ""
             },
+            test11: {
+                percent: "",
+                speed: ""
+            },
+            test12: {
+                percent: "",
+                speed: ""
+            }
         }
       }
 })

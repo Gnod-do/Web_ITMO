@@ -51,6 +51,14 @@ const UserProfile = () => {
       "Addition The Mind Sound ",
       session?.user?.result?.test10?.percent || "Вы еще не вступили."
     ),
+    createData(
+      "Sound Test ",
+      session?.user?.result?.test11?.percent || "Вы еще не вступили."
+    ),
+    createData(
+      "Color Test ",
+      session?.user?.result?.test12?.percent || "Вы еще не вступили."
+    ),
   ];
   // console.log(results);
   // console.log('cac phan tu cua user la'+session?.user)

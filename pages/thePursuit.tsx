@@ -351,7 +351,7 @@ const thePursuit = () => {
       percent:
         ((totalAccuracy1 + totalAccuracy2 + totalAccuracy3) / 300).toFixed(2) +
         "%",
-      speed: "мс",
+      speed: "0 ms",
     };
     axios
       .post("http://localhost:3000/api/auth/updateResult", data)

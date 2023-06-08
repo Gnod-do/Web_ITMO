@@ -107,6 +107,36 @@ const AdditionInTheMindSound = () => {
       // const testId = 'additionInTheMindSound';
       // setTestResult(testId, (averageReactionTime.toFixed(2).toString() + " millisecond"));
 
+
+      //sendForm
+      const avg_time = document.getElementById("avg_time") as HTMLInputElement;
+      if(avg_time) avg_time.value = averageReactionTime.toFixed(2);
+      const total_time = document.getElementById("total_time") as HTMLInputElement;
+      if(total_time) total_time.value = totalReactionTime.toFixed(2);
+      const correct = document.getElementById("correct") as HTMLInputElement;
+      if(correct) correct.value = (maxAttempts - wrong).toFixed(0);
+      const misses = document.getElementById("misses") as HTMLInputElement;
+      if(misses) misses.value= wrong.toFixed(0);
+      const score = document.getElementById("score") as HTMLInputElement;
+      if(score) score.value= percentage.toFixed(0);
+      //sendForm
+
+      const data = {
+        email: session?.user?.email,
+        testNumber: "test10",
+        percent: (maxAttempts - wrong) * 10 + "%",
+        speed: averageReactionTime.toFixed(2) + "ms",
+      };
+      axios
+        .post("http://localhost:3000/api/auth/updateResult", data)
+        .then((response) => {
+          // Xử lý phản hồi từ server sau khi cập nhật thành công
+          console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+        })
+        .catch((error: AxiosError) => {
+          // Xử lý lỗi trong quá trình gửi request
+          console.error(error);
+        });
       result_data = averageReactionTime.toFixed(2).toString() + "мс";
       result_data_percent = percentage.toFixed(2).toString() + "%";
 
@@ -116,25 +146,15 @@ const AdditionInTheMindSound = () => {
       setTimeout(startTest, 2000);
     }
   }
-  function updateRs() {
-    const correctInput = document.getElementById("correct") as HTMLInputElement;
-    if (correctInput) correctInput.value = result_data;
-    const data = {
-      email: session?.user?.email,
-      testNumber: "test10",
-      percent: (5 - wrong) * 10 + "%",
-      speed: result_data,
-    };
-    axios
-      .post("http://localhost:3000/api/auth/updateResult", data)
-      .then((response) => {
-        // Xử lý phản hồi từ server sau khi cập nhật thành công
-        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
-      })
-      .catch((error: AxiosError) => {
-        // Xử lý lỗi trong quá trình gửi request
-        console.error(error);
-      });
+  function showNotification() {
+    const message = "Your result saved!"; 
+    const notification = document.createElement("div"); 
+    notification.innerText = message; 
+    notification.classList.add("notification"); 
+    document.body.appendChild(notification); 
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 3000);
   }
   useEffect(() => {
     const windowClick = (event: any) => {
@@ -266,7 +286,7 @@ const AdditionInTheMindSound = () => {
           backgroundColor: "#00FF00",
           color: "black",
         }}
-        onClick={updateRs}
+        onClick={showNotification}
       >
         Submit
       </button>

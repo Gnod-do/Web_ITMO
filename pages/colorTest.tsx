@@ -4,6 +4,23 @@ import axios, { AxiosError } from "axios";
 import { useSession } from "next-auth/react";
 
 const colorTest2 = () => {
+  const { data: session }: any = useSession();
+  let email: any;
+  let result: any;
+
+  function showNotification() {
+    const message = "Your result saved!"; 
+    const notification = document.createElement("div"); 
+    notification.innerText = message; 
+    notification.classList.add("notification"); 
+    document.body.appendChild(notification); 
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 3000);
+  }
+
+  let correct: any = 0;
+  let time: number = 0;
   function openModalW() {
     const modal = document.getElementById("modal");
     if (modal) modal.style.display = "block";
@@ -26,6 +43,7 @@ const colorTest2 = () => {
     return Math.sqrt(s / (numbers.length - 1));
   };
 
+  
   function send(
     avg: string,
     total: any,
@@ -54,6 +72,26 @@ const colorTest2 = () => {
       "submitButton"
     ) as HTMLInputElement;
     if (submitButtonInput) submitButtonInput.click();
+    
+    let email: any;
+    const data = {
+      email: session?.user?.email,
+      testNumber: "test12",
+      percent: correct*10 + "%",
+      speed: avg + "ms",
+    };
+    console.log(email);
+    console.log("1233");
+    axios
+      .post("http://localhost:3000/api/auth/updateResult", data)
+      .then((response) => {
+        // Xử lý phản hồi từ server sau khi cập nhật thành công
+        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+      })
+      .catch((error: AxiosError) => {
+        // Xử lý lỗi trong quá trình gửi request
+        console.error(error);
+      });
   }
 
   class Result {
@@ -256,67 +294,80 @@ const colorTest2 = () => {
     results: Result[];
     codes: string[];
     listener: (event: any) => void;
-	constructor(squares: NodeListOf<Element>, startButton: Element | null, resultLabel: Element | null, progressBar: HTMLElement | null, amount = 10) {
-		super(squares, startButton, resultLabel, progressBar, amount)
-		this.results = [
-			new Result(9, 1000, "У вас отличная сложная реакция!"),
-			new Result(7, 9, "У вас хорошая сложная реакция!"),
-			new Result(5, 7, "У вас удовлетворительная сложная реакция!"),
-			new Result(0, 5, "У вас неудовлетворительная сложная реакция!"),
-		]
+    constructor(
+      squares: NodeListOf<Element>,
+      startButton: Element | null,
+      resultLabel: Element | null,
+      progressBar: HTMLElement | null,
+      amount = 10
+    ) {
+      super(squares, startButton, resultLabel, progressBar, amount);
+      this.results = [
+        new Result(9, 1000, "You have a great complex reaction!"),
+        new Result(7, 9, "You have a good complex reaction!"),
+        new Result(5, 7, "You have a satisfactory complex reaction!"),
+        new Result(0, 5, "You have an unsatisfactory complex reaction!"),
+      ];
 
-		this.codes = ["Digit1", "Digit2", "Digit3"]
+      this.codes = ["Digit1", "Digit2", "Digit3"];
 
-		this.attachTest(this.start.bind(this))
-		this.setMessage(this.getMessage)
-		this.setEndMessage(this.getEndMessage)
-		this.listener = (event) => {
-			if (!(this.codes.includes(event.code))) {
-				return;
-			}
-			this.clickHandler(event.code)
-		}
-	}
+      this.attachTest(this.start.bind(this));
+      this.setMessage(this.getMessage);
+      this.setEndMessage(this.getEndMessage);
+      this.listener = (event) => {
+        if (!this.codes.includes(event.code)) {
+          return;
+        }
+        this.clickHandler(event.code);
+      };
+    }
 
-	start() {
-		this.reset()
+    start() {
+      this.reset();
 
-		let time = 1000
+      let time = 1000;
 
-		for (let i = 0; i < this.amount; i++) {
-			let index = getRandomInt(0, this.squares.length)
-			time += getRandomInt(1000, 2000)
-			this.step(this.colors[index], time, index)
-		}
+      for (let i = 0; i < this.amount; i++) {
+        let index = getRandomInt(0, this.squares.length);
+        time += getRandomInt(1000, 2000);
+        this.step(this.colors[index], time, index);
+      }
 
-		document.addEventListener("keydown", this.listener)
-		this.end(time + 2000)
-	}
+      document.addEventListener("keydown", this.listener);
+      this.end(time + 2000);
+    }
 
-	clickHandler(code: any) {
-		if (!this.checkCurrentSquare()) {
-			this.setLabel("Вы нажали слишком рано!")
-			this.incorrect++
-			return
-		}
+    clickHandler(code: any) {
+      if (!this.checkCurrentSquare()) {
+        this.setLabel("You clicked too soon!");
+        this.incorrect++;
+        return;
+      }
 
-		if (this.codes.indexOf(code) == this.curSquare) {
-			this.correct++
-		} else {
-			this.incorrect++
-		}
-		this.updateTime()
-		this.changeCurrentSquareColor(this.baseColor)
-	}
+      if (this.codes.indexOf(code) == this.curSquare) {
+        this.correct++;
+      } else {
+        this.incorrect++;
+      }
+      this.updateTime();
+      this.changeCurrentSquareColor(this.baseColor);
+    }
 
-	getMessage() {
-		return `Пройдено: ${this.num}/${this.amount}. Правильно: ${this.correct}. Неправильно: ${this.incorrect}. Среднее время реакции: ${this.getAverageTime()} мс`
-	}
+    public getMessage(): string {
+      return `Passed: ${this.num}/${this.amount}. Right: ${
+        this.correct
+      }. Wrong: ${
+        this.incorrect
+      }. Average reaction time: ${this.getAverageTime()} ms`;
+    }
 
-	getEndMessage() {
-		return `Поздравляем: ${this.chooseResult(this.results, this.correct)} (${this.getAverageTime()} мс). Правильных ответов: ${this.correct}`
-	}
-}
+    getEndMessage() {
+      return `Congratulations: ${this.chooseResult(
+        this.results,
+        this.correct
+      )} (${this.getAverageTime()} ms). Correct answers: ${this.correct}`;
+    }
+  }
 
   useEffect(() => {
     const windowClick = (event: any) => {
@@ -343,6 +394,34 @@ const colorTest2 = () => {
     const arg4 = document.getElementById("progress");
 
     const t = new ColorReaction(arg1, arg2, arg3, arg4);
+
+    const sendForm = document.getElementById("sendForm") as HTMLInputElement;
+    sendForm.addEventListener("submit", function (event: any) {
+      // Отменяем стандартное поведение формы
+      event.preventDefault();
+
+      // Получаем данные из формы
+
+      const formData = new FormData(event.target);
+
+      // Отправляем AJAX запрос на сервер
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "/php/send_test_result.php", true);
+      xhr.onload = function () {
+        if (this.status === 200) {
+          // Обработка ответа сервера
+          console.log(this.responseText);
+        }
+      };
+      xhr.send(formData);
+    });
+
+    function submit() {
+      const submitButton = document.getElementById(
+        "submit-button"
+      ) as HTMLInputElement;
+      submitButton.click();
+    }
   });
   return (
     <div>
@@ -351,10 +430,13 @@ const colorTest2 = () => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/squareTest.css" />
       <link rel="stylesheet" href="css/progressBar.css" />
-      <title>Тест на цвет</title>
-      <h1>Тест на цвет</h1>
+      <title>Color Test</title>
+      <h1>Color Test</h1>
       <p></p>
-      <p>Нажимайте "1", "2" или "3", когда квадрат сменит цвет!</p>
+      <p>
+        Press "1", "2" or "3" when the square changes color! When completing the
+        test, click the Submit button, your data is stored
+      </p>
       <progress id="progress" value={0} max={100} />
       <div className="test" id="test">
         <div className="field">
@@ -362,8 +444,19 @@ const colorTest2 = () => {
           <div className="square">2</div>
           <div className="square">3</div>
         </div>
-        <button className="btn start">Начать тест</button>
-        <div className="result">Здесь будет отображен результат</div>
+        <button className="btn start">Begin</button>
+        <button
+          className="btn start"
+          style={{
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+          }}
+          onClick={showNotification}
+        >
+          Submit
+        </button>
+        <div className="result">The result will be displayed here</div>
       </div>
       <form id="sendForm">
         <input

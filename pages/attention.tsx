@@ -18,27 +18,15 @@ const attention = () => {
   let email: any;
   let result: any;
 
-  function updateRs() {
-    const correctInput = document.getElementById("correct") as HTMLInputElement;
-    if (correctInput) correctInput.value = result;
-    const data = {
-      email: session?.user?.email,
-      testNumber: "test4",
-      percent: (correctAnswers * 10).toFixed(0) + "%",
-      speed: avgCorrectReactionTime.toString() + "Мс",
-    };
-    console.log(email);
-    console.log("1233");
-    axios
-      .post("http://localhost:3000/api/auth/updateResult", data)
-      .then((response) => {
-        // Xử lý phản hồi từ server sau khi cập nhật thành công
-        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
-      })
-      .catch((error: AxiosError) => {
-        // Xử lý lỗi trong quá trình gửi request
-        console.error(error);
-      });
+  function showNotification() {
+    const message = "Your result saved!"; 
+    const notification = document.createElement("div"); 
+    notification.innerText = message; 
+    notification.classList.add("notification"); 
+    document.body.appendChild(notification); 
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 3000);
   }
 
   let correctAnswers: number = 0;
@@ -103,7 +91,7 @@ const attention = () => {
     }
 
     function startTest() {
-      correctAnswers = 0;
+      // correctAnswers = 0;
       let correctAnswersElement = document.getElementById(
         "correctAnswers"
       ) as HTMLInputElement;
@@ -198,6 +186,26 @@ const attention = () => {
         ) as HTMLInputElement;
         if (submitButton) submitButton.click();
         //sendForm
+
+        const data = {
+          email: session?.user?.email,
+          testNumber: "test4",
+          percent: correctAnswers*10 + "%",
+          speed: avgReactionTimePercent.toString() + "ms",
+        };
+        console.log(email);
+        console.log("1233");
+        axios
+          .post("http://localhost:3000/api/auth/updateResult", data)
+          .then((response) => {
+            // Xử lý phản hồi từ server sau khi cập nhật thành công
+            console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+          })
+          .catch((error: AxiosError) => {
+            // Xử lý lỗi trong quá trình gửi request
+            console.error(error);
+          });
+
         disableButtons();
         return;
       }
@@ -387,7 +395,7 @@ const attention = () => {
             backgroundColor: "#00FF00",
             color: "black",
           }}
-          onClick={updateRs}
+          onClick={showNotification}
         >
           Submit
         </button>

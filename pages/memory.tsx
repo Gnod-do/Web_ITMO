@@ -30,24 +30,41 @@ const memory = () => {
     return Math.sqrt(s / (numbers.length - 1));
   };
 
-  //   function send(avg: any, total: any, correct: any, misses: any, score: any) {
-  //     const avg_time = document.getElementById("avg_time") as HTMLInputElement;
-  //     avg_time.value = avg;
-  //     const total_time = document.getElementById(
-  //       "total_time"
-  //     ) as HTMLInputElement;
-  //     total_time.value = total;
-  //     const correctInput = document.getElementById("correct") as HTMLInputElement;
-  //     correctInput.value = correct;
-  //     const missesInput = document.getElementById("misses") as HTMLInputElement;
-  //     missesInput.value = misses;
-  //     const scoreInput = document.getElementById("score") as HTMLInputElement;
-  //     scoreInput.value = score;
-  //     const submitButton = document.getElementById(
-  //       "submit-button"
-  //     ) as HTMLInputElement;
-  //     submitButton.click();
-  //   }
+  function send(avg: any, total: any, correct: any, misses: any, score: any) {
+    const avg_time = document.getElementById("avg_time") as HTMLInputElement;
+    avg_time.value = avg;
+    const total_time = document.getElementById(
+      "total_time"
+    ) as HTMLInputElement;
+    total_time.value = total;
+    const correctInput = document.getElementById("correct") as HTMLInputElement;
+    correctInput.value = correct;
+    const missesInput = document.getElementById("misses") as HTMLInputElement;
+    missesInput.value = misses;
+    const scoreInput = document.getElementById("score") as HTMLInputElement;
+    scoreInput.value = score;
+    const submitButton = document.getElementById(
+      "submit-button"
+    ) as HTMLInputElement;
+    submitButton.click();
+
+    const data = {
+      email: session?.user?.email,
+      testNumber: "test6",
+      percent: (correct / (correct + misses)) * 100 + "%",
+      speed: avg + "ms",
+    };
+    axios
+      .post("http://localhost:3000/api/auth/updateResult", data)
+      .then((response) => {
+        // Xử lý phản hồi từ server sau khi cập nhật thành công
+        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+      })
+      .catch((error: AxiosError) => {
+        // Xử lý lỗi trong quá trình gửi request
+        console.error(error);
+      });
+  }
 
   class Result {
     min: number;
@@ -203,13 +220,13 @@ const memory = () => {
         // document.removeEventListener("keydown", this.listener)
 
         this.startButton.style.display = "block";
-        // send(
-        //   this.getAverageTime(),
-        //   this.totalTime,
-        //   this.correct,
-        //   this.incorrect,
-        //   Math.round((this.correct * 100) / (this.correct + this.incorrect))
-        // );
+        send(
+          this.getAverageTime(),
+          this.totalTime,
+          this.correct,
+          this.incorrect,
+          Math.round((this.correct * 100) / (this.correct + this.incorrect))
+        );
       }, time);
     }
 
@@ -339,6 +356,17 @@ const memory = () => {
     }
   }
 
+  function showNotification() {
+    const message = "Your result saved!"; 
+    const notification = document.createElement("div"); 
+    notification.innerText = message; 
+    notification.classList.add("notification"); 
+    document.body.appendChild(notification); 
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 3000);
+  }
+
   // const t = new MemoryReaction(
   //     document.querySelectorAll("#test .field .square"),
   //     document.querySelector("#test .btn"),
@@ -372,26 +400,7 @@ const memory = () => {
 
     const t = new MemoryReaction(arg1, arg2, arg3, arg4);
   });
-  function updateRs() {
-    const correctInput = document.getElementById("correct") as HTMLInputElement;
-    if (correctInput) correctInput.value = resultData;
-    const data = {
-      email: session?.user?.email,
-      testNumber: "test6",
-      percent: correctA,
-      speed: resultData,
-    };
-    axios
-      .post("http://localhost:3000/api/auth/updateResult", data)
-      .then((response) => {
-        // Xử lý phản hồi từ server sau khi cập nhật thành công
-        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
-      })
-      .catch((error: AxiosError) => {
-        // Xử lý lỗi trong quá trình gửi request
-        console.error(error);
-      });
-  }
+
   return (
     <div
       style={{
@@ -503,7 +512,7 @@ const memory = () => {
           backgroundColor: "#00FF00",
           color: "black",
         }}
-        onClick={updateRs}
+        onClick={showNotification}
       >
         Submit
       </button>

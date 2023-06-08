@@ -22,27 +22,15 @@ const analogTracking = () => {
   let email: any;
   let result: any;
 
-  function updateRs() {
-    const correctInput = document.getElementById("correct") as HTMLInputElement;
-    if (correctInput) correctInput.value = result;
-    const data = {
-      email: session?.user?.email,
-      testNumber: "test3",
-      percent: deviationValues[deviationValues.length - 1] + "%",
-      speed: reactionValues[reactionValues.length - 1] + "Мс",
-    };
-    console.log(email);
-    console.log("1233");
-    axios
-      .post("http://localhost:3000/api/auth/updateResult", data)
-      .then((response) => {
-        // Xử lý phản hồi từ server sau khi cập nhật thành công
-        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
-      })
-      .catch((error: AxiosError) => {
-        // Xử lý lỗi trong quá trình gửi request
-        console.error(error);
-      });
+  function showNotification() {
+    const message = "Your result saved!"; 
+    const notification = document.createElement("div"); 
+    notification.innerText = message; 
+    notification.classList.add("notification"); 
+    document.body.appendChild(notification); 
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 3000);
   }
 
   let deviationValues: any[] = [];
@@ -218,6 +206,24 @@ const analogTracking = () => {
         ) as HTMLInputElement;
         if (submitButton) submitButton.click();
         //sendForm
+        const data = {
+          email: session?.user?.email,
+          testNumber: "test3",
+          percent: deviationAverage.toFixed(2) + "%",
+          speed: reactionAverage.toFixed(2) + "ms",
+        };
+        console.log(email);
+        console.log("1233");
+        axios
+          .post("http://localhost:3000/api/auth/updateResult", data)
+          .then((response) => {
+            // Xử lý phản hồi từ server sau khi cập nhật thành công
+            console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+          })
+          .catch((error: AxiosError) => {
+            // Xử lý lỗi trong quá trình gửi request
+            console.error(error);
+          });
       }, 30000);
     }
 
@@ -297,7 +303,7 @@ const analogTracking = () => {
           backgroundColor: "#00FF00",
           color: "black",
         }}
-        onClick={updateRs}
+        onClick={showNotification}
       >
         Submit
       </button>

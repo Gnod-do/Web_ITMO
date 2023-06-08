@@ -3,6 +3,9 @@ import axios, { AxiosError } from "axios";
 import { useSession } from "next-auth/react";
 
 const soundTest = () => {
+
+  const { data: session }: any = useSession();
+  let email: any;
   function openModalW() {
     const modal = document.getElementById("modal");
     if (modal) modal.style.display = "block";
@@ -82,14 +85,38 @@ const soundTest = () => {
       const start = document.querySelector(".start") as HTMLInputElement;
       start.style.display = "block";
 
-      //   //sendForm
-      //   document.getElementById("total_time").value =
-      //     totalReactionTime.toFixed(2);
-      //   document.getElementById("avg_time").value =
-      //     averageReactionTime.toFixed(2);
-      //   document.getElementById("score").value = averagePercent;
-      //   document.getElementById("submit-button").click();
-      //   //sendForm
+      //sendForm
+      const total_time = document.getElementById(
+        "total_time"
+      ) as HTMLInputElement;
+      if (total_time) total_time.value = totalReactionTime.toFixed(2);
+      const avg_time = document.getElementById("avg_time") as HTMLInputElement;
+      if (avg_time) avg_time.value = averageReactionTime.toFixed(2);
+      const score = document.getElementById("score") as HTMLInputElement;
+      if (score) score.value = averagePercent;
+      const submitButton = document.getElementById(
+        "submit-button"
+      ) as HTMLInputElement;
+      if (submitButton) submitButton.click();
+      //sendForm
+      const data = {
+        email: session?.user?.email,
+        testNumber: "test11",
+        percent: (parseFloat(averagePercent)/10).toFixed(2) + "%",
+        speed: averageReactionTime.toFixed(2) + "ms",
+      };
+      console.log(email);
+      console.log("1233");
+      axios
+        .post("http://localhost:3000/api/auth/updateResult", data)
+        .then((response) => {
+          // Xử lý phản hồi từ server sau khi cập nhật thành công
+          console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+        })
+        .catch((error: AxiosError) => {
+          // Xử lý lỗi trong quá trình gửi request
+          console.error(error);
+        });
     } else {
       setTimeout(startTest, 2000);
     }

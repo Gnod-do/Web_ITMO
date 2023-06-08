@@ -70,6 +70,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                         percent: "",
                         speed: ""
                     },
+                    test11: {
+                        percent: "",
+                        speed: ""
+                    },
+                    test12: {
+                        percent: "",
+                        speed: ""
+                    }
                 }
             }, (error: unknown, data: IUser) => {
                 if (error && error instanceof mongoose.Error.ValidationError) {
