@@ -16,19 +16,19 @@ export interface LoginUserParams {
 }
 
 export interface ICriteria {
-    criteria1: string;
-    criteria2: string;
-    criteria3: string;
-    criteria4: string;
-    criteria5: string;
-    criteria6: string;
-    criteria7: string;
-    criteria8: string;
-    criteria9: string;
-    criteria10: string;
-    criteria11: string;
-    criteria12: string;
-    criteria13: string;
-    criteria14: string;
-    criteria15: string;
+    criteria1: Object;
+    criteria2: Object;
+    criteria3: Object;
+    criteria4: Object;
+    criteria5: Object;
+    criteria6: Object;
+    criteria7: Object;
+    criteria8: Object;
+    criteria9: Object;
+    criteria10: Object;
+    criteria11: Object;
+    criteria12: Object;
+    criteria13: Object;
+    criteria14: Object;
+    criteria15: Object;
 }

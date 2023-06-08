@@ -6,13 +6,14 @@ const lightTest2 = () => {
   const { data: session }: any = useSession();
   let email: any;
   let result: any;
+  let tmp: number = 0;
 
   function showNotification() {
-    const message = "Your result saved!"; 
-    const notification = document.createElement("div"); 
-    notification.innerText = message; 
-    notification.classList.add("notification"); 
-    document.body.appendChild(notification); 
+    const message = "Your result saved!";
+    const notification = document.createElement("div");
+    notification.innerText = message;
+    notification.classList.add("notification");
+    document.body.appendChild(notification);
     setTimeout(() => {
       document.body.removeChild(notification);
     }, 3000);
@@ -70,11 +71,17 @@ const lightTest2 = () => {
       "submitButton"
     ) as HTMLInputElement;
     if (submitButtonInput) submitButtonInput.click();
+    if (correct * 10 < 21) tmp = 0.25;
+    if (correct * 10 < 61 && correct * 10 > 20) tmp = 0.5;
+    if (correct * 10 < 91 && correct * 10 > 60) tmp = 0.8;
+    if (correct * 10 > 90) tmp = 1;
+
     const data = {
       email: session?.user?.email,
       testNumber: "test1",
-      percent: correct* 10 + "%",
+      percent: correct * 10 + "%",
       speed: avg + "ms",
+      coefficient: tmp,
     };
     console.log(email);
     console.log("1233");
@@ -88,7 +95,9 @@ const lightTest2 = () => {
         // Xử lý lỗi trong quá trình gửi request
         console.error(error);
       });
+    tmp = 0;
   }
+
 
   class Result {
     min: any;

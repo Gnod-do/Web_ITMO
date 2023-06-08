@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 const soundTest = () => {
 
   const { data: session }: any = useSession();
+  let tmp: number = 0;
   let email: any;
   function openModalW() {
     const modal = document.getElementById("modal");
@@ -99,11 +100,16 @@ const soundTest = () => {
       ) as HTMLInputElement;
       if (submitButton) submitButton.click();
       //sendForm
+      if (parseFloat(averagePercent)/10 < 21) tmp = 0.25;
+      if (parseFloat(averagePercent)/10 < 61 && parseFloat(averagePercent)/10 > 20) tmp = 0.5;
+      if (parseFloat(averagePercent)/10 < 91 && parseFloat(averagePercent)/10 > 60) tmp = 0.8;
+      if (parseFloat(averagePercent)/10 > 90) tmp = 1;
       const data = {
         email: session?.user?.email,
         testNumber: "test11",
         percent: (parseFloat(averagePercent)/10).toFixed(2) + "%",
         speed: averageReactionTime.toFixed(2) + "ms",
+        coefficient: tmp,
       };
       console.log(email);
       console.log("1233");
@@ -117,6 +123,7 @@ const soundTest = () => {
           // Xử lý lỗi trong quá trình gửi request
           console.error(error);
         });
+      tmp = 0;
     } else {
       setTimeout(startTest, 2000);
     }

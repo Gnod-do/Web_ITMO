@@ -30,13 +30,14 @@ const thinking = () => {
   const { data: session }: any = useSession();
   let email: any;
   let result: any;
+  let tmp: number = 0;
 
   function showNotification() {
-    const message = "Your result saved!"; 
-    const notification = document.createElement("div"); 
-    notification.innerText = message; 
-    notification.classList.add("notification"); 
-    document.body.appendChild(notification); 
+    const message = "Your result saved!";
+    const notification = document.createElement("div");
+    notification.innerText = message;
+    notification.classList.add("notification");
+    document.body.appendChild(notification);
     setTimeout(() => {
       document.body.removeChild(notification);
     }, 3000);
@@ -113,11 +114,17 @@ const thinking = () => {
     submitButton.click();
     //sendForm
 
+    if (percentage  < 21) tmp = 0.25;
+    if (percentage  < 61 && percentage  > 20) tmp = 0.5;
+    if (percentage  < 91 && percentage  > 60) tmp = 0.8;
+    if (percentage  > 90) tmp = 1;
+
     const data = {
       email: session?.user?.email,
       testNumber: "test5",
       percent: percentage.toFixed(0) + "%",
       speed: "0 Мс",
+      coefficient: tmp,
     };
     console.log(email);
     console.log("1233");
@@ -131,6 +138,8 @@ const thinking = () => {
         // Xử lý lỗi trong quá trình gửi request
         console.error(error);
       });
+
+    tmp = 0;
   }
   function nextSequence() {
     currentSequence++;
@@ -511,16 +520,16 @@ const thinking = () => {
         </button>
 
         <button
-        className="btn start"
-        style={{
-          borderRadius: "0",
-          backgroundColor: "#00FF00",
-          color: "black",
-        }}
-        onClick={showNotification}
-      >
-        Submit
-      </button>
+          className="btn start"
+          style={{
+            borderRadius: "0",
+            backgroundColor: "#00FF00",
+            color: "black",
+          }}
+          onClick={showNotification}
+        >
+          Submit
+        </button>
       </div>
       <form id="sendForm">
         <input

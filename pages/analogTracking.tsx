@@ -21,6 +21,7 @@ const analogTracking = () => {
   const { data: session }: any = useSession();
   let email: any;
   let result: any;
+  let tmp: number = 0;
 
   function showNotification() {
     const message = "Your result saved!"; 
@@ -206,11 +207,18 @@ const analogTracking = () => {
         ) as HTMLInputElement;
         if (submitButton) submitButton.click();
         //sendForm
+        if (submitButton) submitButton.click();
+        if (deviationAverage < 21) tmp = 0.25;
+        if (deviationAverage < 61 && deviationAverage > 20) tmp = 0.5;
+        if (deviationAverage < 91 && deviationAverage > 60) tmp = 0.8;
+        if (deviationAverage > 90) tmp = 1;
+
         const data = {
           email: session?.user?.email,
           testNumber: "test3",
           percent: deviationAverage.toFixed(2) + "%",
           speed: reactionAverage.toFixed(2) + "ms",
+          coefficient: tmp,
         };
         console.log(email);
         console.log("1233");
@@ -225,6 +233,7 @@ const analogTracking = () => {
             console.error(error);
           });
       }, 30000);
+      tmp = 0;
     }
 
     startButton.addEventListener("click", startMovingBall);

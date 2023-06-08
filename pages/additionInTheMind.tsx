@@ -17,6 +17,7 @@ const additionInTheMind = () => {
   const min = 10;
   const max = 99;
   const { data: session }: any = useSession();
+  let tmp: number = 0;
   let averageGood: HTMLInputElement;
   let averageBad: HTMLInputElement;
   let resultDiv: HTMLInputElement;
@@ -89,11 +90,16 @@ const additionInTheMind = () => {
       const total_time = document.getElementById(
         "total_time"
       ) as HTMLInputElement;
+      if (answers*20  < 21) tmp = 0.25;
+      if (answers*20  < 61 && answers*20  > 20) tmp = 0.5;
+      if (answers*20  < 91 && answers*20  > 60) tmp = 0.8;
+      if (answers*20  > 90) tmp = 1;
       const data = {
         email: session?.user?.email,
         testNumber: "test9",
         percent: answers*20 + "%",
         speed: (totalReactionTime / 5).toFixed(2) + "мс",
+        coefficient: tmp,
       };
       axios
         .post("http://localhost:3000/api/auth/updateResult", data)
@@ -105,6 +111,7 @@ const additionInTheMind = () => {
           // Xử lý lỗi trong quá trình gửi request
           console.error(error);
         });
+      tmp = 0;
     } else {
       setTimeout(startTest, 2000);
     }

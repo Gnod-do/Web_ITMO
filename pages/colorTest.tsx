@@ -74,12 +74,19 @@ const colorTest2 = () => {
     if (submitButtonInput) submitButtonInput.click();
     
     let email: any;
+    let tmp: number = 0;
+    if (correct*10  < 21) tmp = 0.25;
+    if (correct*10  < 61 && correct*10  > 20) tmp = 0.5;
+    if (correct*10  < 91 && correct*10  > 60) tmp = 0.8;
+    if (correct*10  > 90) tmp = 1;
     const data = {
       email: session?.user?.email,
       testNumber: "test12",
       percent: correct*10 + "%",
       speed: avg + "ms",
+      coefficient: 0,
     };
+    tmp = 0;
     console.log(email);
     console.log("1233");
     axios
@@ -394,27 +401,6 @@ const colorTest2 = () => {
     const arg4 = document.getElementById("progress");
 
     const t = new ColorReaction(arg1, arg2, arg3, arg4);
-
-    const sendForm = document.getElementById("sendForm") as HTMLInputElement;
-    sendForm.addEventListener("submit", function (event: any) {
-      // Отменяем стандартное поведение формы
-      event.preventDefault();
-
-      // Получаем данные из формы
-
-      const formData = new FormData(event.target);
-
-      // Отправляем AJAX запрос на сервер
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", "/php/send_test_result.php", true);
-      xhr.onload = function () {
-        if (this.status === 200) {
-          // Обработка ответа сервера
-          console.log(this.responseText);
-        }
-      };
-      xhr.send(formData);
-    });
 
     function submit() {
       const submitButton = document.getElementById(

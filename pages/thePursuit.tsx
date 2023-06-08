@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 const thePursuit = () => {
   const { data: session }: any = useSession();
   const [resultData, setResultData] = useState<string>("");
+  let tmp: number = 0;
 
   function openModalW() {
     const modal = document.getElementById("modal");
@@ -345,6 +346,10 @@ const thePursuit = () => {
     const result2 = document.getElementById("result2") as HTMLInputElement;
     const result3 = document.getElementById("result3") as HTMLInputElement;
     if (correctInput) correctInput.value = resultData;
+    if ((totalAccuracy1 + totalAccuracy2 + totalAccuracy3) / 300  < 21) tmp = 0.25;
+    if ((totalAccuracy1 + totalAccuracy2 + totalAccuracy3) / 300  < 61 && (totalAccuracy1 + totalAccuracy2 + totalAccuracy3) / 300  > 20) tmp = 0.5;
+    if ((totalAccuracy1 + totalAccuracy2 + totalAccuracy3) / 300  < 91 && (totalAccuracy1 + totalAccuracy2 + totalAccuracy3) / 300  > 60) tmp = 0.8;
+    if ((totalAccuracy1 + totalAccuracy2 + totalAccuracy3) / 300  > 90) tmp = 1;
     const data = {
       email: session?.user?.email,
       testNumber: "test7",
@@ -352,6 +357,7 @@ const thePursuit = () => {
         ((totalAccuracy1 + totalAccuracy2 + totalAccuracy3) / 300).toFixed(2) +
         "%",
       speed: "0 ms",
+      coefficient: tmp,
     };
     axios
       .post("http://localhost:3000/api/auth/updateResult", data)
@@ -363,6 +369,7 @@ const thePursuit = () => {
         // Xử lý lỗi trong quá trình gửi request
         console.error(error);
       });
+    tmp = 0;
   }
   return (
     <div

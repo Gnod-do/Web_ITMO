@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 const tracking = () => {
   const { data: session }: any = useSession();
   const [resultData, setResultData] = useState<string>("");
+  let tmp: number = 0;
 
   function openModalW() {
     const modal = document.getElementById("modal");
@@ -134,6 +135,28 @@ const tracking = () => {
           "submit-button"
         ) as HTMLInputElement;
         if (submitButton) submitButton.click();
+        if (parseFloat(resultData)  < 21) tmp = 0.25;
+        if (parseFloat(resultData)  < 61 && parseFloat(resultData)  > 20) tmp = 0.5;
+        if (parseFloat(resultData)  < 91 && parseFloat(resultData)  > 60) tmp = 0.8;
+        if (parseFloat(resultData)  > 90) tmp = 1;
+        const data = {
+          email: session?.user?.email,
+          testNumber: "test8",
+          percent: resultData + "%",
+          speed: answer + "ms",
+          coefficient: tmp,
+        };
+        axios
+          .post("http://localhost:3000/api/auth/updateResult", data)
+          .then((response) => {
+            // Xử lý phản hồi từ server sau khi cập nhật thành công
+            console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
+          })
+          .catch((error: AxiosError) => {
+            // Xử lý lỗi trong quá trình gửi request
+            console.error(error);
+          });
+        tmp = 0;
       }
     }
     function loop() {
@@ -174,25 +197,15 @@ const tracking = () => {
       }
     });
   });
-  function updateRs() {
-    const correctInput = document.getElementById("correct") as HTMLInputElement;
-    if (correctInput) correctInput.value = resultData;
-    const data = {
-      email: session?.user?.email,
-      testNumber: "test8",
-      percent: resultData,
-      speed: "мс",
-    };
-    axios
-      .post("http://localhost:3000/api/auth/updateResult", data)
-      .then((response) => {
-        // Xử lý phản hồi từ server sau khi cập nhật thành công
-        console.log(response.data); // In ra phản hồi từ server (tùy chỉnh theo yêu cầu)
-      })
-      .catch((error: AxiosError) => {
-        // Xử lý lỗi trong quá trình gửi request
-        console.error(error);
-      });
+  function showNotification() {
+    const message = "Your result saved!";
+    const notification = document.createElement("div");
+    notification.innerText = message;
+    notification.classList.add("notification");
+    document.body.appendChild(notification);
+    setTimeout(() => {
+      document.body.removeChild(notification);
+    }, 3000);
   }
   return (
     <div
@@ -287,7 +300,7 @@ const tracking = () => {
           backgroundColor: "#00FF00",
           color: "black",
         }}
-        onClick={updateRs}
+        onClick={showNotification}
       >
         Submit
       </button>

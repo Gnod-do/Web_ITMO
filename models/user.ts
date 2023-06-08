@@ -23,51 +23,63 @@ const UserSchema = new Schema({
         default: {
             test1: {
                 percent: "",
-                speed: ""
+                speed: "",
+                coefficient: 0
             },
             test2: {
                 percent: "",
-                speed: ""
+                speed: "",
+                coefficient: 0
             },
             test3: {
                 percent: "",
-                speed: ""
+                speed: "",
+                coefficient: 0
             },
             test4: {
                 percent: "",
-                speed: ""
+                speed: "",
+                coefficient: 0
             },
             test5: {
                 percent: "",
-                speed: ""
+                speed: "",
+                coefficient: 0
             },
             test6: {
                 percent: "",
-                speed: ""
+                speed: "",
+                coefficient: 0
             },
             test7: {
                 percent: "",
-                speed: ""
+                speed: "",
+                coefficient: 0
             },
             test8: {
                 percent: "",
-                speed: ""
+                speed: "",
+                coefficient: 0
             },
             test9: {
                 percent: "",
-                speed: ""
+                speed: "",
+                coefficient: 0
             },
             test10: {
                 percent: "",
-                speed: ""
+                speed: "",
+                coefficient: 0
             },
             test11: {
                 percent: "",
-                speed: ""
+                speed: "",
+                coefficient: 0
             },
             test12: {
                 percent: "",
-                speed: ""
+                speed: "",
+                coefficient: 0
             }
         }
       }

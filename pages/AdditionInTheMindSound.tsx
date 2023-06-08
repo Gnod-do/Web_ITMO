@@ -14,6 +14,7 @@ const AdditionInTheMindSound = () => {
     if (modal) modal.style.display = "none";
   }
   const { data: session }: any = useSession();
+  let tmp: number = 0;
   const min = 10;
   const max = 99;
   let average: HTMLInputElement;
@@ -120,12 +121,17 @@ const AdditionInTheMindSound = () => {
       const score = document.getElementById("score") as HTMLInputElement;
       if(score) score.value= percentage.toFixed(0);
       //sendForm
+      if ((maxAttempts - wrong) * 20  < 21) tmp = 0.25;
+      if ((maxAttempts - wrong) * 20  < 61 && (maxAttempts - wrong) * 20  > 20) tmp = 0.5;
+      if ((maxAttempts - wrong) * 20  < 91 && (maxAttempts - wrong) * 20  > 60) tmp = 0.8;
+      if ((maxAttempts - wrong) * 20  > 90) tmp = 1;
 
       const data = {
         email: session?.user?.email,
         testNumber: "test10",
-        percent: (maxAttempts - wrong) * 10 + "%",
+        percent: (maxAttempts - wrong) * 20 + "%",
         speed: averageReactionTime.toFixed(2) + "ms",
+        coefficient: tmp,
       };
       axios
         .post("http://localhost:3000/api/auth/updateResult", data)
@@ -137,6 +143,7 @@ const AdditionInTheMindSound = () => {
           // Xử lý lỗi trong quá trình gửi request
           console.error(error);
         });
+      tmp = 0;
       result_data = averageReactionTime.toFixed(2).toString() + "мс";
       result_data_percent = percentage.toFixed(2).toString() + "%";
 

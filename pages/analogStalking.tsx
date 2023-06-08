@@ -17,6 +17,7 @@ const analogStracking = () => {
   const { data: session }: any = useSession();
   let email: any;
   let result: any;
+  let tmp: number = 0;
 
   function showNotification() {
     const message = "Your result saved!"; 
@@ -109,11 +110,16 @@ const analogStracking = () => {
           "submit-button"
         ) as HTMLInputElement;
         if (submitButton) submitButton.click();
+        if (avgScore < 21) tmp = 0.25;
+        if (avgScore < 61 && avgScore > 20) tmp = 0.5;
+        if (avgScore < 91 && avgScore > 60) tmp = 0.8;
+        if (avgScore > 90) tmp = 1;
         const data = {
           email: session?.user?.email,
           testNumber: "test2",
           percent: avgScore + "%",
           speed: avgReaction + "mc",
+          coefficient: tmp,
         };
         console.log(email);
         console.log("1233");
@@ -127,6 +133,8 @@ const analogStracking = () => {
             // Xử lý lỗi trong quá trình gửi request
             console.error(error);
           });
+
+        tmp = 0;
 
         const testId = "analogStalking";
         const result = avgScore;

@@ -7,12 +7,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return
   }
 
-  const { email, testNumber, percent, speed } = req.body
+  const { email, testNumber, percent, speed, coefficient } = req.body
 
   try {
     const user = await User.findOneAndUpdate(
       { email },
-      { $set: { [`result.${testNumber}`]: { percent, speed } } },
+      { $set: { [`result.${testNumber}`]: { percent, speed, coefficient } } },
       { new: true, maxTimeMS: 30000 }
     )
 

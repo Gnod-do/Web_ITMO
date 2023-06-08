@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 const memory = () => {
   const { data: session }: any = useSession();
   const [resultData, setResultData] = useState<string>("");
+  let tmp: number = 0;
 
   function openModalW() {
     const modal = document.getElementById("modal");
@@ -48,11 +49,17 @@ const memory = () => {
     ) as HTMLInputElement;
     submitButton.click();
 
+    if ((correct / (correct + misses)) * 100 < 21) tmp = 0.25;
+    if ((correct / (correct + misses)) * 100 < 61 && (correct / (correct + misses)) * 100 > 20) tmp = 0.5;
+    if ((correct / (correct + misses)) * 100 < 91 && (correct / (correct + misses)) * 100 > 60) tmp = 0.8;
+    if ((correct / (correct + misses)) * 100 > 90) tmp = 1;
+
     const data = {
       email: session?.user?.email,
       testNumber: "test6",
       percent: (correct / (correct + misses)) * 100 + "%",
       speed: avg + "ms",
+      coefficient: tmp,
     };
     axios
       .post("http://localhost:3000/api/auth/updateResult", data)
@@ -64,6 +71,7 @@ const memory = () => {
         // Xử lý lỗi trong quá trình gửi request
         console.error(error);
       });
+    tmp = 0;
   }
 
   class Result {

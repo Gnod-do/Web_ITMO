@@ -17,13 +17,14 @@ const attention = () => {
   const { data: session }: any = useSession();
   let email: any;
   let result: any;
+  let tmp: number = 0;
 
   function showNotification() {
-    const message = "Your result saved!"; 
-    const notification = document.createElement("div"); 
-    notification.innerText = message; 
-    notification.classList.add("notification"); 
-    document.body.appendChild(notification); 
+    const message = "Your result saved!";
+    const notification = document.createElement("div");
+    notification.innerText = message;
+    notification.classList.add("notification");
+    document.body.appendChild(notification);
     setTimeout(() => {
       document.body.removeChild(notification);
     }, 3000);
@@ -186,12 +187,18 @@ const attention = () => {
         ) as HTMLInputElement;
         if (submitButton) submitButton.click();
         //sendForm
+        if (submitButton) submitButton.click();
+        if (correctAnswers * 10 < 21) tmp = 0.25;
+        if (correctAnswers * 10 < 61 && correctAnswers * 10 > 20) tmp = 0.5;
+        if (correctAnswers * 10 < 91 && correctAnswers * 10 > 60) tmp = 0.8;
+        if (correctAnswers * 10 > 90) tmp = 1;
 
         const data = {
           email: session?.user?.email,
           testNumber: "test4",
-          percent: correctAnswers*10 + "%",
+          percent: correctAnswers * 10 + "%",
           speed: avgReactionTimePercent.toString() + "ms",
+          coefficient: tmp,
         };
         console.log(email);
         console.log("1233");
@@ -206,6 +213,7 @@ const attention = () => {
             console.error(error);
           });
 
+        tmp = 0;
         disableButtons();
         return;
       }
