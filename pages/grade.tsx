@@ -243,7 +243,7 @@ const grade = (props: Props) => {
                 color: "black",
               }}
               onClick={() => {
-                location.href = "http://localhost:3000/lastResult";
+                location.href = "http://localhost:3000/table";
               }}
             >
               Let see your result!
