@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(name, test1, test2, test3, test4, test5, test6, test7, test8, test9, test10, test11, test12) {
+function createData(name: any, test1: any, test2: any, test3: any, test4: any, test5: any, test6: any, test7: any, test8: any, test9: any, test10: any, test11: any, test12: any) {
     return { name, test1, test2, test3, test4, test5, test6, test7, test8, test9, test10, test11, test12 };
 }
 
@@ -22,7 +22,7 @@ const rows = [
     createData('Реакция', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
 ];
 
-export default function BasicTable() {
+export default function TableData() {
     return (
         <TableContainer component={Paper} style={{ marginTop: 100, marginLeft: 50, width: '90%' }}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
