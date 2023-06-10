@@ -56,6 +56,8 @@ for (let i = 0; i < rows; i++) {
   }
 }
 
+let processedData: number[][] = [];
+
 export default function TableData() {
   const { data: session }: any = useSession() ?? { data: null };
   function dataProcess(arr: number[][]) {
@@ -131,9 +133,14 @@ export default function TableData() {
     arr[7][11] = Number(
       (session?.user?.result?.test12?.coefficient * (6 + 7)).toFixed(2)
     );
+    return arr;
   }
 
+  processedData = dataProcess(arr);
+
   dataProcess(arr);
+
+
 
   const rows = [
     createData(
@@ -324,3 +331,4 @@ export default function TableData() {
     </>
   );
 }
+
