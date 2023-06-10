@@ -56,8 +56,6 @@ for (let i = 0; i < rows; i++) {
   }
 }
 
-let processedData: number[][] = [];
-
 export default function TableData() {
   const { data: session }: any = useSession() ?? { data: null };
   function dataProcess(arr: number[][]) {
@@ -136,11 +134,7 @@ export default function TableData() {
     return arr;
   }
 
-  processedData = dataProcess(arr);
-
   dataProcess(arr);
-
-
 
   const rows = [
     createData(
@@ -323,7 +317,7 @@ export default function TableData() {
           color: "black",
         }}
         onClick={() => {
-          location.href = "http://localhost:3000/";
+          location.href = "http://localhost:3000/resultCard";
         }}
       >
         Click to see everything you need!
@@ -331,4 +325,3 @@ export default function TableData() {
     </>
   );
 }
-
